@@ -1,0 +1,25 @@
+{
+  "name": "oskars-claude-code-marketplace",
+  "source": {
+    "source": "github",
+    "repo": "oskar-dragon/claude-code"
+  },
+  "description": "A marketplace with my Claude Code plugins",
+  "repository": "https://github.com/oskar-dragon/claude-code",
+  "owner": {
+    "name": "Oskar Dragon",
+    "email": "oskar.dragon@example.com"
+  },
+  "plugins": [
+    {
+      "name": "pm",
+      "source": "./plugins/pm",
+      "description": "Claude Code Project Management Workflow",
+      "version": "1.0.0",
+      "author": {
+        "name": "Oskar Dragon"
+      }
+    }
+  ],
+  "strict": false
+}
