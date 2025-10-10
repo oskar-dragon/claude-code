@@ -12,8 +12,8 @@
   },
   "plugins": [
     {
-      "name": "pm",
-      "source": "./plugins/pm",
+      "name": "project-management",
+      "source": "./plugins/project-management",
       "description": "Claude Code Project Management Workflow",
       "version": "1.0.0",
       "author": {
