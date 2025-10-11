@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/init.sh)
+allowed-tools: Bash(occ init)
 ---
 
 Output:
-!bash ./scripts/pm/init.sh
+!bash occ init

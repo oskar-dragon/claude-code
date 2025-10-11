@@ -1,0 +1,31 @@
+{
+  "name": "@oskar-dragon/occ",
+  "version": "0.1.0",
+  "description": "CLI tool for Claude Code Project Management",
+  "module": "src/index.ts",
+  "type": "module",
+  "bin": {
+    "occ": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target bun --format esm",
+    "dev": "bun run src/index.ts",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": [
+    "claude-code",
+    "project-management",
+    "cli"
+  ],
+  "author": "Oskar Dragon",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
