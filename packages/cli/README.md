@@ -1,19 +1,19 @@
-# @oskar-dragon/claude-code
+# @oskar-dragon/ccf
 
-CLI tool for Claude Code Project Management
+CLI tool for Claude Code Flow
 
 ## Installation
 
 ```bash
-bun add -g @oskar-dragon/claude-code
+bun add -g @oskar-dragon/ccf
 ```
 
 ## Usage
 
 ```bash
-occ init
+ccf init
 ```
 
 ## Commands
 
-- `init` - Initialize Claude Code PM System
+- `init` - Initialize Claude Code Flow System

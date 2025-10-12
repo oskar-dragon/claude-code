@@ -1,14 +1,18 @@
 {
-  "name": "@oskar-dragon/occ",
+  "name": "@oskar-dragon/ccf",
   "version": "0.1.0",
-  "description": "CLI tool for Claude Code Project Management",
+  "description": "CLI tool for Claude Code Flow",
   "module": "src/index.ts",
   "type": "module",
   "bin": {
-    "occ": "./dist/index.js"
+    "ccf": "./dist/index.js"
   },
   "scripts": {
     "build": "bun build src/index.ts --outdir dist --target bun --format esm",
+    "build:macos-arm64": "bun build --compile --minify --target=bun-darwin-arm64 src/index.ts --outfile bin/ccf-macos-arm64",
+    "build:macos-x64": "bun build --compile --minify --target=bun-darwin-x64 src/index.ts --outfile bin/ccf-macos-x64",
+    "build:linux-x64": "bun build --compile --minify --target=bun-linux-x64 src/index.ts --outfile bin/ccf-linux-x64",
+    "build:all": "bun run build:macos-arm64 && bun run build:macos-x64 && bun run build:linux-x64",
     "dev": "bun run src/index.ts",
     "prepublishOnly": "bun run build"
   },
@@ -27,5 +31,8 @@
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@stricli/core": "^1.2.0"
   }
 }

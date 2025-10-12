@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        working-directory: packages/cli
+        run: bun install
+
+      - name: Build binaries
+        working-directory: packages/cli
+        run: bun run build:all
+
+      - name: Calculate checksums
+        working-directory: packages/cli/bin
+        run: |
+          sha256sum occ-macos-arm64 > occ-macos-arm64.sha256
+          sha256sum occ-macos-x64 > occ-macos-x64.sha256
+          sha256sum occ-linux-x64 > occ-linux-x64.sha256
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            packages/cli/bin/occ-macos-arm64
+            packages/cli/bin/occ-macos-arm64.sha256
+            packages/cli/bin/occ-macos-x64
+            packages/cli/bin/occ-macos-x64.sha256
+            packages/cli/bin/occ-linux-x64
+            packages/cli/bin/occ-linux-x64.sha256
+          draft: false
+          prerelease: false
