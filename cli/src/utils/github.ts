@@ -1,29 +1,34 @@
 import { $ } from "bun";
 
 export async function hasGhCli(): Promise<boolean> {
-  return await $`command -v gh`.quiet().nothrow();
+  const result = await $`command -v gh`.quiet().nothrow();
+  return result.exitCode === 0;
 }
 
 export async function installGhCli(): Promise<boolean> {
   const hasBrew = await $`command -v brew`.quiet().nothrow();
-  if (hasBrew) {
-    return await $`brew install gh`.nothrow();
+  if (hasBrew.exitCode === 0) {
+    const result = await $`brew install gh`.nothrow();
+    return result.exitCode === 0;
   }
 
   const hasApt = await $`command -v apt-get`.quiet().nothrow();
-  if (hasApt) {
-    return await $`sudo apt-get update && sudo apt-get install gh`.nothrow();
+  if (hasApt.exitCode === 0) {
+    const result = await $`sudo apt-get update && sudo apt-get install gh`.nothrow();
+    return result.exitCode === 0;
   }
 
   return false;
 }
 
 export async function isGhAuthenticated(): Promise<boolean> {
-  return await $`gh auth status`.quiet().nothrow();
+  const result = await $`gh auth status`.quiet().nothrow();
+  return result.exitCode === 0;
 }
 
 export async function authenticateGh(): Promise<boolean> {
-  return await $`gh auth login`.nothrow();
+  const result = await $`gh auth login`.nothrow();
+  return result.exitCode === 0;
 }
 
 export async function hasGhSubIssueExtension(): Promise<boolean> {
@@ -32,11 +37,13 @@ export async function hasGhSubIssueExtension(): Promise<boolean> {
 }
 
 export async function installGhSubIssueExtension(): Promise<boolean> {
-  return await $`gh extension install yahsan2/gh-sub-issue`.nothrow();
+  const result = await $`gh extension install yahsan2/gh-sub-issue`.nothrow();
+  return result.exitCode === 0;
 }
 
 export async function isGhRepo(): Promise<boolean> {
-  return await $`gh repo view`.quiet().nothrow();
+  const result = await $`gh repo view`.quiet().nothrow();
+  return result.exitCode === 0;
 }
 
 export type LabelCreationResult = {
@@ -53,7 +60,7 @@ export async function createGhLabels(): Promise<LabelCreationResult> {
     .quiet()
     .nothrow();
 
-  if (epicResult) {
+  if (epicResult.exitCode === 0) {
     epicCreated = true;
   } else {
     // Check if it already exists
@@ -66,7 +73,7 @@ export async function createGhLabels(): Promise<LabelCreationResult> {
     .quiet()
     .nothrow();
 
-  if (taskResult) {
+  if (taskResult.exitCode === 0) {
     taskCreated = true;
   } else {
     // Check if it already exists
@@ -79,7 +86,7 @@ export async function createGhLabels(): Promise<LabelCreationResult> {
 
 export async function getGhVersion(): Promise<string> {
   const result = await $`gh --version`.text();
-  return result.split("\n")[0].trim();
+  return result.split("\n")[0]?.trim() ?? "unknown";
 }
 
 export async function getGhExtensionCount(): Promise<number> {
