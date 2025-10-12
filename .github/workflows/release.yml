@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   build-and-release:
@@ -27,7 +27,7 @@ jobs:
         run: bun run build:all
 
       - name: Calculate checksums
-        working-directory: packages/cli/bin
+        working-directory: cli/bin
         run: |
           sha256sum occ-macos-arm64 > occ-macos-arm64.sha256
           sha256sum occ-macos-x64 > occ-macos-x64.sha256
@@ -37,11 +37,11 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            packages/cli/bin/occ-macos-arm64
-            packages/cli/bin/occ-macos-arm64.sha256
-            packages/cli/bin/occ-macos-x64
-            packages/cli/bin/occ-macos-x64.sha256
-            packages/cli/bin/occ-linux-x64
-            packages/cli/bin/occ-linux-x64.sha256
+            cli/bin/occ-macos-arm64
+            cli/bin/occ-macos-arm64.sha256
+            cli/bin/occ-macos-x64
+            cli/bin/occ-macos-x64.sha256
+            cli/bin/occ-linux-x64
+            cli/bin/occ-linux-x64.sha256
           draft: false
           prerelease: false
