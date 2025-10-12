@@ -1,5 +1,4 @@
 import { access, mkdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
 
 const CLAUDE_MD_TEMPLATE = `# CLAUDE.md
 

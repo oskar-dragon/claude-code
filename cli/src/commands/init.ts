@@ -25,100 +25,89 @@ import {
 	printWarning,
 } from "../utils/output.ts";
 
-async function initCommand(): Promise<void> {
-	console.log("Initializing...");
-	printBanner();
-
-	printHeader("🚀 Initializing Claude Code Flow System");
-
-	// Check dependencies
+async function checkAndInstallGhCli(): Promise<void> {
 	printSection("🔍", "Checking dependencies...");
-
 	const hasGh = await hasGhCli();
 	if (hasGh) {
 		printSuccess("GitHub CLI (gh) installed");
-	} else {
-		printError("GitHub CLI (gh) not found");
-		console.log("");
-		printStep("Installing gh...");
-		const installed = await installGhCli();
-		if (!installed) {
-			printStep("Please install GitHub CLI manually: https://cli.github.com/");
-			process.exit(1);
-		}
+		return;
 	}
+	printError("GitHub CLI (gh) not found");
+	console.log("");
+	printStep("Installing gh...");
+	const installed = await installGhCli();
+	if (!installed) {
+		printStep("Please install GitHub CLI manually: https://cli.github.com/");
+		process.exit(1);
+	}
+}
 
-	// Check GitHub authentication
+async function checkAndAuthenticateGh(): Promise<void> {
 	printSection("🔐", "Checking GitHub authentication...");
 	const isAuthenticated = await isGhAuthenticated();
 	if (isAuthenticated) {
 		printSuccess("GitHub authenticated");
-	} else {
-		printWarning("GitHub not authenticated");
-		printStep("Running: gh auth login");
-		await authenticateGh();
+		return;
 	}
+	printWarning("GitHub not authenticated");
+	printStep("Running: gh auth login");
+	await authenticateGh();
+}
 
-	// Check gh extensions
+async function checkAndInstallGhExtensions(): Promise<void> {
 	printSection("📦", "Checking gh extensions...");
 	const hasExtension = await hasGhSubIssueExtension();
 	if (hasExtension) {
 		printSuccess("gh-sub-issue extension installed");
-	} else {
-		printStep("📥 Installing gh-sub-issue extension...");
-		await installGhSubIssueExtension();
+		return;
 	}
+	printStep("📥 Installing gh-sub-issue extension...");
+	await installGhSubIssueExtension();
+}
 
-	// Create directory structure
-	printSection("📁", "Creating directory structure...");
-	await createDirectoryStructure();
-	printSuccess("Directories created");
+async function handleGitHubLabels(): Promise<void> {
+	const isGitHub = await isGhRepo();
+	if (!isGitHub) {
+		printInfo("Not a GitHub repository - skipping label creation");
+		return;
+	}
+	printSection("🏷️", "Creating GitHub labels...");
+	const labelResult = await createGhLabels();
 
-	// Check Git configuration
+	if (labelResult.epic && labelResult.task) {
+		printSuccess("GitHub labels created (epic, task)");
+	} else if (labelResult.epic || labelResult.task) {
+		printWarning(
+			`Some GitHub labels created (epic: ${labelResult.epic}, task: ${labelResult.task})`
+		);
+	} else {
+		printError("Could not create GitHub labels (check repository permissions)");
+	}
+}
+
+async function setupGitAndLabels(): Promise<void> {
 	printSection("🔗", "Checking Git configuration...");
 	const gitStatus = await checkGitStatus();
 
-	if (gitStatus.isRepository) {
-		printSuccess("Git repository detected");
-
-		if (gitStatus.hasRemote && gitStatus.remoteUrl) {
-			printSuccess(`Remote configured: ${gitStatus.remoteUrl}`);
-
-			// Create GitHub labels if this is a GitHub repository
-			const isGitHub = await isGhRepo();
-			if (isGitHub) {
-				printSection("🏷️", "Creating GitHub labels...");
-				const labelResult = await createGhLabels();
-
-				if (labelResult.epic && labelResult.task) {
-					printSuccess("GitHub labels created (epic, task)");
-				} else if (labelResult.epic || labelResult.task) {
-					printWarning(
-						`Some GitHub labels created (epic: ${labelResult.epic}, task: ${labelResult.task})`
-					);
-				} else {
-					printError("Could not create GitHub labels (check repository permissions)");
-				}
-			} else {
-				printInfo("Not a GitHub repository - skipping label creation");
-			}
-		} else {
-			printWarning("No remote configured");
-			printStep("Add with: git remote add origin <url>");
-		}
-	} else {
+	if (!gitStatus.isRepository) {
 		printWarning("Not a git repository");
 		printStep("Initialize with: git init");
+		return;
 	}
 
-	// Create CLAUDE.md
-	const claudeMdCreated = await createClaudeMd();
-	if (claudeMdCreated) {
-		printSection("📄", "Creating CLAUDE.md...");
-		printSuccess("CLAUDE.md created");
+	printSuccess("Git repository detected");
+
+	if (!(gitStatus.hasRemote && gitStatus.remoteUrl)) {
+		printWarning("No remote configured");
+		printStep("Add with: git remote add origin <url>");
+		return;
 	}
 
-	// Print summary
+	printSuccess(`Remote configured: ${gitStatus.remoteUrl}`);
+	await handleGitHubLabels();
+}
+
+async function printSystemSummary(): Promise<void> {
 	console.log("");
 	printHeader("✅ Initialization Complete!");
 	console.log("");
@@ -137,6 +126,30 @@ async function initCommand(): Promise<void> {
 	console.log("");
 	console.log("📚 Documentation: README.md");
 	console.log("");
+}
+
+async function initCommand(): Promise<void> {
+	console.log("Initializing...");
+	printBanner();
+	printHeader("🚀 Initializing Claude Code Flow System");
+
+	await checkAndInstallGhCli();
+	await checkAndAuthenticateGh();
+	await checkAndInstallGhExtensions();
+
+	printSection("📁", "Creating directory structure...");
+	await createDirectoryStructure();
+	printSuccess("Directories created");
+
+	await setupGitAndLabels();
+
+	const claudeMdCreated = await createClaudeMd();
+	if (claudeMdCreated) {
+		printSection("📄", "Creating CLAUDE.md...");
+		printSuccess("CLAUDE.md created");
+	}
+
+	await printSystemSummary();
 }
 
 export const command = buildCommand({

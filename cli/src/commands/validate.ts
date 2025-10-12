@@ -7,73 +7,70 @@ import {
 	printSuccess,
 	printWarning,
 } from "../utils/output.ts";
+import type { ValidationResult } from "../utils/validation.ts";
 import { validatePmSystem } from "../utils/validation.ts";
 
-async function validateCommand(): Promise<void> {
-	console.log("Validating PM System...");
-	console.log("");
-	console.log("");
+type ValidationMessage = {
+	type: "error" | "warning" | "info" | "success";
+	message: string;
+};
 
-	printHeader("🔍 Validating PM System");
-	console.log("");
+type GroupedMessages = {
+	directory: ValidationMessage[];
+	integrity: ValidationMessage[];
+	references: ValidationMessage[];
+	frontmatter: ValidationMessage[];
+};
 
-	const result = await validatePmSystem();
-
-	// Group messages by section
-	const directoryMessages = result.messages.filter((m) => m.message.includes("directory"));
-	const integrityMessages = result.messages.filter(
-		(m) => m.message.includes("epic.md") || m.message.includes("orphaned")
-	);
-	const referenceMessages = result.messages.filter(
-		(m) => m.message.includes("references") || m.message.includes("All references")
-	);
-	const frontmatterMessages = result.messages.filter(
-		(m) => m.message.includes("frontmatter") || m.message.includes("All files have")
-	);
-
-	// Print directory structure
-	printSection("📁", "Directory Structure:");
-	for (const msg of directoryMessages) {
-		if (msg.type === "success") printSuccess(msg.message);
-		else if (msg.type === "error") printError(msg.message);
-		else if (msg.type === "warning") printWarning(msg.message);
-		else printInfo(msg.message);
+function printMessage(msg: ValidationMessage): void {
+	switch (msg.type) {
+		case "success":
+			printSuccess(msg.message);
+			break;
+		case "error":
+			printError(msg.message);
+			break;
+		case "warning":
+			printWarning(msg.message);
+			break;
+		default:
+			printInfo(msg.message);
 	}
-	console.log("");
+}
 
-	// Print data integrity
-	if (integrityMessages.length > 0) {
-		printSection("🗂️", "Data Integrity:");
-		for (const msg of integrityMessages) {
-			if (msg.type === "warning") printWarning(msg.message);
-		}
-		console.log("");
-	}
+function groupValidationMessages(messages: ValidationMessage[]): GroupedMessages {
+	return {
+		directory: messages.filter((m) => m.message.includes("directory")),
+		integrity: messages.filter(
+			(m) => m.message.includes("epic.md") || m.message.includes("orphaned")
+		),
+		references: messages.filter(
+			(m) => m.message.includes("references") || m.message.includes("All references")
+		),
+		frontmatter: messages.filter(
+			(m) => m.message.includes("frontmatter") || m.message.includes("All files have")
+		),
+	};
+}
 
-	// Print reference check
-	printSection("🔗", "Reference Check:");
-	if (referenceMessages.length === 0) {
-		printSuccess("All references valid");
+function printMessagesSection(
+	icon: string,
+	title: string,
+	messages: ValidationMessage[],
+	defaultMessage?: string
+): void {
+	printSection(icon, title);
+	if (messages.length === 0 && defaultMessage) {
+		printSuccess(defaultMessage);
 	} else {
-		for (const msg of referenceMessages) {
-			if (msg.type === "success") printSuccess(msg.message);
-			else if (msg.type === "warning") printWarning(msg.message);
+		for (const msg of messages) {
+			printMessage(msg);
 		}
 	}
 	console.log("");
+}
 
-	// Print frontmatter validation
-	printSection("📝", "Frontmatter Validation:");
-	if (frontmatterMessages.length === 0) {
-		printSuccess("All files have frontmatter");
-	} else {
-		for (const msg of frontmatterMessages) {
-			if (msg.type === "success") printSuccess(msg.message);
-			else if (msg.type === "warning") printWarning(msg.message);
-		}
-	}
-
-	// Print summary
+function printValidationSummary(result: ValidationResult): void {
 	console.log("");
 	printHeader("📊 Validation Summary:");
 	console.log(`  Errors: ${result.errors}`);
@@ -87,6 +84,31 @@ async function validateCommand(): Promise<void> {
 		console.log("");
 		console.log("💡 Run /pm:clean to fix some issues automatically");
 	}
+}
+
+async function validateCommand(): Promise<void> {
+	console.log("Validating PM System...");
+	console.log("");
+	console.log("");
+	printHeader("🔍 Validating PM System");
+	console.log("");
+
+	const result = await validatePmSystem();
+	const grouped = groupValidationMessages(result.messages);
+
+	printMessagesSection("📁", "Directory Structure:", grouped.directory);
+	if (grouped.integrity.length > 0) {
+		printMessagesSection("🗂️", "Data Integrity:", grouped.integrity);
+	}
+	printMessagesSection("🔗", "Reference Check:", grouped.references, "All references valid");
+	printMessagesSection(
+		"📝",
+		"Frontmatter Validation:",
+		grouped.frontmatter,
+		"All files have frontmatter"
+	);
+
+	printValidationSummary(result);
 }
 
 export const command = buildCommand({

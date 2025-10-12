@@ -11,11 +11,6 @@ export type ValidationResult = {
 	}>;
 };
 
-type DirectoryCheckResult = {
-	exists: boolean;
-	required: boolean;
-};
-
 export async function checkDirectoryStructure(): Promise<ValidationResult> {
 	const result: ValidationResult = {
 		errors: 0,
@@ -24,7 +19,7 @@ export async function checkDirectoryStructure(): Promise<ValidationResult> {
 		messages: [],
 	};
 
-	const directories: Array<[string, boolean]> = [
+	const directories: [string, boolean][] = [
 		[".claude", true],
 		[".claude/prds", false],
 		[".claude/epics", false],

@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, expect, test } from "bun:test";
 import { access, mkdir, readFile, rm } from "node:fs/promises";
-import { join } from "node:path";
 import { createClaudeMd, createDirectoryStructure, fileExists } from "./filesystem.ts";
 
 const TEST_DIR = ".test-fs";
