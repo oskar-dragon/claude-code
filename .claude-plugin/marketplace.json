@@ -2,10 +2,10 @@
   "name": "oskars-claude-code-marketplace",
   "source": {
     "source": "github",
-    "repo": "oskar-dragon/claude-code"
+    "repo": "oskar-dragon/claude-code-flow"
   },
   "description": "A marketplace with my Claude Code plugins",
-  "repository": "https://github.com/oskar-dragon/claude-code",
+  "repository": "https://github.com/oskar-dragon/claude-code-flow",
   "owner": {
     "name": "Oskar Dragon",
     "email": "oskar.dragon@example.com"
@@ -14,7 +14,7 @@
     {
       "name": "project-management",
       "source": "./plugins/project-management",
-      "description": "Claude Code Project Management Workflow",
+      "description": "Claude Code Flow Workflow",
       "version": "1.0.0",
       "author": {
         "name": "Oskar Dragon"
