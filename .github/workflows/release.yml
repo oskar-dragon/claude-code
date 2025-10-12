@@ -19,29 +19,27 @@ jobs:
           bun-version: latest
 
       - name: Install dependencies
-        working-directory: packages/cli
         run: bun install
 
       - name: Build binaries
-        working-directory: packages/cli
         run: bun run build:all
 
       - name: Calculate checksums
         working-directory: cli/bin
         run: |
-          sha256sum occ-macos-arm64 > occ-macos-arm64.sha256
-          sha256sum occ-macos-x64 > occ-macos-x64.sha256
-          sha256sum occ-linux-x64 > occ-linux-x64.sha256
+          sha256sum ccf-macos-arm64 > ccf-macos-arm64.sha256
+          sha256sum ccf-macos-x64 > ccf-macos-x64.sha256
+          sha256sum ccf-linux-x64 > ccf-linux-x64.sha256
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            cli/bin/occ-macos-arm64
-            cli/bin/occ-macos-arm64.sha256
-            cli/bin/occ-macos-x64
-            cli/bin/occ-macos-x64.sha256
-            cli/bin/occ-linux-x64
-            cli/bin/occ-linux-x64.sha256
+            cli/bin/ccf-macos-arm64
+            cli/bin/ccf-macos-arm64.sha256
+            cli/bin/ccf-macos-x64
+            cli/bin/ccf-macos-x64.sha256
+            cli/bin/ccf-linux-x64
+            cli/bin/ccf-linux-x64.sha256
           draft: false
           prerelease: false

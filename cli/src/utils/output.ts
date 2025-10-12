@@ -9,9 +9,8 @@ export function printBanner(): void {
   console.log(" ╚═════╝ ╚═════╝╚═╝     ");
   console.log("┌─────────────────────────────────┐");
   console.log("│  Claude Code Flow System        │");
-  console.log("│  by https://x.com/aroussi        │");
   console.log("└─────────────────────────────────┘");
-  console.log("https://github.com/automazeio/ccpm");
+  console.log("https://github.com/claude-code-flow");
   console.log("");
   console.log("");
 }
