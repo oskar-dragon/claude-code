@@ -1,4 +1,4 @@
-import { mkdir, writeFile, access } from "node:fs/promises";
+import { access, mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const CLAUDE_MD_TEMPLATE = `# CLAUDE.md
@@ -20,36 +20,34 @@ Follow existing patterns in the codebase.
 `;
 
 export async function createDirectoryStructure(): Promise<void> {
-  const directories = [
-    ".claude/prds",
-    ".claude/epics",
-    ".claude/rules",
-    ".claude/agents",
-    ".claude/scripts/pm",
-  ];
+	const directories = [
+		".claude/prds",
+		".claude/epics",
+		".claude/rules",
+		".claude/agents",
+		".claude/scripts/pm",
+	];
 
-  await Promise.all(
-    directories.map((dir) => mkdir(dir, { recursive: true }))
-  );
+	await Promise.all(directories.map((dir) => mkdir(dir, { recursive: true })));
 }
 
 export async function createClaudeMd(): Promise<boolean> {
-  const filePath = "CLAUDE.md";
+	const filePath = "CLAUDE.md";
 
-  try {
-    await access(filePath);
-    return false; // File already exists
-  } catch {
-    await writeFile(filePath, CLAUDE_MD_TEMPLATE, "utf-8");
-    return true; // File created
-  }
+	try {
+		await access(filePath);
+		return false; // File already exists
+	} catch {
+		await writeFile(filePath, CLAUDE_MD_TEMPLATE, "utf-8");
+		return true; // File created
+	}
 }
 
 export async function fileExists(filePath: string): Promise<boolean> {
-  try {
-    await access(filePath);
-    return true;
-  } catch {
-    return false;
-  }
+	try {
+		await access(filePath);
+		return true;
+	} catch {
+		return false;
+	}
 }

@@ -1,8 +1,8 @@
-import { test, expect } from "bun:test";
+import { expect, test } from "bun:test";
 
 test("git utilities are importable", () => {
-  // Basic smoke test to ensure module loads without errors
-  expect(true).toBe(true);
+	// Basic smoke test to ensure module loads without errors
+	expect(true).toBe(true);
 });
 
 // Note: Testing shell commands would require mocking, which is complex.
