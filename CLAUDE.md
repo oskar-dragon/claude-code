@@ -4,127 +4,128 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Claude Code Flow (ccf) - CLI tool built with Bun and @stricli/core for structured development workflows.
+**ccf** (Claude Code Flow) - A CLI tool that implements a workflow system for spec-driven development using GitHub Issues, Git worktrees, and parallel AI agents. Transforms PRDs into epics, epics into GitHub issues, and issues into production code with full traceability.
 
-**Key architecture:**
+## Commands
 
-- `cli/` - Main CLI application (TypeScript, Bun runtime)
-- `plugins/project-management/` - PM workflow system (see `to-migrate/README.md` for full documentation)
-- `to-migrate/` - Legacy CCPM system being migrated into this repository
+### Development
+- `bun run dev` - Run CLI in development mode
+- `bun test` - Run all tests
+- `bun run typecheck` - Type check without emitting files
 
-## Development Commands
+### Build
+- `bun run build` - Build for current platform
+- `bun run build:macos-arm64` - Build standalone binary for macOS ARM64
+- `bun run build:macos-x64` - Build standalone binary for macOS x64
+- `bun run build:linux-x64` - Build standalone binary for Linux x64
+- `bun run build:all` - Build all platform binaries
 
-### Build & Run
+### Code Quality
+- `bun run biome:check` - Check code quality
+- `bun run biome:format` - Format code
+- `bun run biome:lint` - Lint code
+- `bun run biome:fix` - Auto-fix issues (format + lint)
+- `bun run biome:ci` - CI mode (no writes)
+- `bun run check:all` - Run typecheck, biome:ci, and tests
 
-```bash
-
-cd cli
-bun run dev              # Run CLI in development mode
-bun run build            # Build for distribution
-bun run build:all        # Build for all platforms (macOS arm64/x64, Linux x64)
-```
-
-### Testing
-
-```bash
-cd cli
-bun test                 # Run all tests
-bun test src/app.test.ts # Run specific test file
-```
-
-**Testing patterns:**
-
-- Uses `bun:test` (built-in test runner)
-- Follow AAA pattern (Arrange, Act, Assert)
-- See `cli/src/app.test.ts` for examples
-
-### CLI Usage
-
-```bash
-ccf init                 # Initialize Claude Code Flow System
-```
+### Git Hooks
+- Pre-commit hook automatically runs `bunx biome check --write --staged` on staged files
 
 ## Architecture
 
-### CLI Structure (@stricli/core)
+### CLI Framework
+Built with **Stricli** (`@stricli/core`) for command routing and application structure. Entry point is `cli/src/index.ts`, app definition in `cli/src/app.ts`.
 
-- `cli/src/index.ts` - Entry point using @stricli/core runner
-- `cli/src/app.ts` - Application definition with route map
-- `cli/src/commands/*.ts` - Command implementations using `buildCommand()`
+### Commands
+- **init** (`cli/src/commands/init.ts`) - Initialize Claude Code Flow System
+  - Checks/installs GitHub CLI
+  - Authenticates GitHub
+  - Installs gh-sub-issue extension
+  - Creates directory structure (`.claude/prds`, `.claude/epics`, `.claude/rules`, `.claude/agents`, `.claude/scripts/pm`)
+  - Creates GitHub labels (epic, task)
+  - Generates CLAUDE.md template
 
-**Adding new commands:**
+- **validate** (`cli/src/commands/validate.ts`) - Validate PM System integrity
+  - Checks directory structure
+  - Validates data integrity (epic.md files, orphaned tasks)
+  - Verifies task references and dependencies
+  - Validates frontmatter in markdown files
 
-1. Create `cli/src/commands/your-command.ts` using `buildCommand()`
-2. Import and add to route map in `cli/src/app.ts`
-3. Command automatically available via `ccf your-command`
+### Utility Modules
+- **filesystem** (`cli/src/utils/filesystem.ts`) - Directory/file operations, CLAUDE.md template
+- **git** (`cli/src/utils/git.ts`) - Git repository checks using `Bun.$`
+- **github** (`cli/src/utils/github.ts`) - GitHub CLI operations (install, auth, extensions, labels)
+- **validation** (`cli/src/utils/validation.ts`) - System integrity checks
+- **output** (`cli/src/utils/output.ts`) - Formatted console output helpers
+- **plugin** (`cli/src/utils/plugin.ts`) - Plugin system utilities
 
-### Project Management System
+### Plugin System
+The **Flow plugin** (`plugins/flow/`) contains the full project management system:
+- **commands/** - Slash commands for PM workflow (`/pm:*`, `/context:*`, `/testing:*`)
+- **agents/** - Specialized agents (file-analyzer, code-analyzer, test-runner, parallel-worker)
+- **rules/** - Operational rules (github-operations, worktree-operations, path-standards, etc.)
+- **scripts/** - Shell scripts for PM operations
 
-The `to-migrate/` directory contains a complete PM workflow system (formerly CCPM) that uses:
+## Code Quality Standards
 
-- PRD → Epic → Task → GitHub Issues flow
-- Parallel execution with Git worktrees
-- Claude Code slash commands in `.claude/commands/pm/`
+### Biome Configuration
+- **Formatter**: Tabs, 100-char line width, double quotes, semicolons, ES5 trailing commas
+- **Linter**: Recommended rules + custom overrides
+  - Error: unused variables/imports, hook violations
+  - Warn: cognitive complexity, negation else, parameter assign
+  - Off: console, forEach
+- **Array type syntax**: Shorthand (`string[]` not `Array<string>`)
+- **Organize imports**: Enabled
 
-**Core workflow:**
+### Git Workflow
+- Pre-commit hook runs Biome checks and auto-fixes staged files
+- Commit fails if Biome finds unfixable errors
+- Fixed files are automatically re-staged
 
-1. `/pm:prd-new` - Create Product Requirements Document
-2. `/pm:prd-parse` - Transform PRD into technical epic
-3. `/pm:epic-oneshot` - Decompose and sync to GitHub Issues
-4. `/pm:issue-start` - Launch specialized agents in parallel
+## Testing
 
-See `to-migrate/README.md` for complete documentation.
+- **Framework**: Bun's built-in test runner (`bun:test`)
+- **Pattern**: Co-located test files (e.g., `git.ts` → `git.test.ts`)
+- **Location**: Test files in same directory as source files
+- **Run specific test**: `bun test <file-path>`
 
-## Technology Stack
+## TypeScript Configuration
 
-**Runtime:** Bun (not Node.js)
+- **Target/Module**: ESNext with module preservation
+- **Module Resolution**: Bundler mode
+- **Strict mode**: Enabled with `noUncheckedIndexedAccess` and `noImplicitOverride`
+- **No emit**: TypeScript used only for type checking (Bun handles execution)
 
-- Use `bun <file>` instead of `node <file>`
-- Use `bun test` instead of Jest/Vitest
-- Bun automatically loads .env files
-
-**CLI Framework:** @stricli/core
-
-- Type-safe command definitions
-- Automatic help generation
-- Built-in parameter parsing
-
-**TypeScript config:**
-
-- Target: ESNext with bundler module resolution
-- Strict mode enabled
-- Allows importing .ts extensions (Bun handles this)
-
-## File Structure Conventions
+## Project Structure
 
 ```
 cli/
 ├── src/
-│   ├── index.ts           # CLI entry point
-│   ├── app.ts             # Application & route definition
-│   ├── commands/          # Command implementations
-│   └── *.test.ts          # Tests alongside source
-├── dist/                  # Build output
-├── bin/                   # Compiled binaries
-├── package.json
-└── tsconfig.json
+│   ├── index.ts           # Entry point
+│   ├── app.ts             # Stricli app definition
+│   ├── commands/          # CLI commands (init, validate)
+│   └── utils/             # Utility modules
+└── dist/                  # Build output
 
 plugins/
-└── project-management/    # PM workflow commands/agents
+└── flow/                  # Flow plugin (PM system)
+    ├── commands/          # Slash commands
+    ├── agents/            # AI agents
+    ├── rules/             # Operational rules
+    └── scripts/           # Shell scripts
 
-to-migrate/               # Legacy CCPM system (being integrated)
-├── .claude/              # Complete PM system
-│   ├── commands/pm/      # Slash commands
-│   ├── agents/           # Specialized agents
-│   ├── prds/             # Product Requirements Docs
-│   └── epics/            # Implementation plans
-└── README.md             # Full PM system documentation
+.claude/                   # Created by init command
+├── prds/                  # Product requirements
+├── epics/                 # Epic implementations
+├── rules/                 # Custom rules
+├── agents/                # Custom agents
+└── scripts/pm/            # PM scripts
 ```
 
-## Migration Context
+## Key Design Decisions
 
-This repository is consolidating the CCPM project management system:
-
-- Original system in `to-migrate/`
-- New CLI tool in `cli/`
-- Goal: Unified ccf CLI with integrated PM workflows
+- **Bun-first**: Uses Bun's native APIs (`Bun.$`, `Bun.file`) over Node.js equivalents
+- **Local-first**: All operations work on local files first, sync to GitHub explicitly
+- **No Projects API**: Uses GitHub Issues directly with labels and parent-child relationships
+- **Worktrees for isolation**: Parallel work in separate worktrees prevents conflicts
+- **Context preservation**: Agents shield main conversation from verbose output

@@ -1,9 +1,11 @@
 import { buildApplication, buildRouteMap } from "@stricli/core";
+import { command as blocked } from "./commands/blocked";
 import { command as init } from "./commands/init";
 import { command as validate } from "./commands/validate";
 
 const root = buildRouteMap({
 	routes: {
+		blocked,
 		init,
 		validate,
 	},
