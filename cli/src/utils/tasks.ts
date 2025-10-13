@@ -14,6 +14,10 @@ export type BlockedTask = Task & {
 	openDependencies: string[];
 };
 
+export type AvailableTask = Task & {
+	parallel: boolean;
+};
+
 async function readFileContent(filePath: string): Promise<string | null> {
 	try {
 		const file = Bun.file(filePath);
@@ -172,4 +176,94 @@ export async function getBlockedTasks(): Promise<BlockedTask[]> {
 	}
 
 	return blockedTasks;
+}
+
+async function getTaskParallel(taskFilePath: string): Promise<boolean> {
+	const content = await readFileContent(taskFilePath);
+	if (!content) {
+		return false;
+	}
+
+	const parallel = extractFrontmatterField(content, "parallel");
+	return parallel === "true";
+}
+
+async function processAvailableTask(
+	file: string,
+	epicDir: string,
+	epicName: string
+): Promise<AvailableTask | null> {
+	if (!/^\d+\.md$/.test(file)) {
+		return null;
+	}
+
+	const taskFilePath = join(epicDir, file);
+	const status = await getTaskStatus(taskFilePath);
+
+	// Only check open tasks
+	if (status !== "open" && status !== "") {
+		return null;
+	}
+
+	const dependencies = await getTaskDependencies(taskFilePath);
+
+	// Only include tasks without dependencies or with empty dependencies
+	if (dependencies.length > 0) {
+		return null;
+	}
+
+	const name = await getTaskName(taskFilePath);
+	const taskId = file.replace(".md", "");
+	const parallel = await getTaskParallel(taskFilePath);
+
+	return {
+		id: taskId,
+		name,
+		epicName,
+		status,
+		dependencies,
+		parallel,
+		filePath: taskFilePath,
+	};
+}
+
+async function processEpicForAvailableTasks(epicName: string): Promise<AvailableTask[]> {
+	const availableTasks: AvailableTask[] = [];
+	const epicDir = join(".claude/epics", epicName);
+
+	try {
+		const epicFiles = await readdir(epicDir);
+
+		for (const file of epicFiles) {
+			const task = await processAvailableTask(file, epicDir, epicName);
+			if (task) {
+				availableTasks.push(task);
+			}
+		}
+	} catch {
+		// Epic directory can't be read
+	}
+
+	return availableTasks;
+}
+
+export async function getAvailableTasks(): Promise<AvailableTask[]> {
+	const availableTasks: AvailableTask[] = [];
+
+	try {
+		const epicDirs = await readdir(".claude/epics", { withFileTypes: true });
+
+		for (const epicEntry of epicDirs) {
+			if (!epicEntry.isDirectory()) {
+				continue;
+			}
+
+			const tasks = await processEpicForAvailableTasks(epicEntry.name);
+			availableTasks.push(...tasks);
+		}
+	} catch {
+		// .claude/epics doesn't exist or can't be read
+	}
+
+	return availableTasks;
 }
