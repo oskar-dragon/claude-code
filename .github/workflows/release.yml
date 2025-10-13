@@ -25,7 +25,7 @@ jobs:
         run: bun run build:all
 
       - name: Calculate checksums
-        working-directory: cli/bin
+        working-directory: bin
         run: |
           sha256sum ccf-macos-arm64 > ccf-macos-arm64.sha256
           sha256sum ccf-macos-x64 > ccf-macos-x64.sha256
@@ -35,11 +35,38 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            cli/bin/ccf-macos-arm64
-            cli/bin/ccf-macos-arm64.sha256
-            cli/bin/ccf-macos-x64
-            cli/bin/ccf-macos-x64.sha256
-            cli/bin/ccf-linux-x64
-            cli/bin/ccf-linux-x64.sha256
+            bin/ccf-macos-arm64
+            bin/ccf-macos-arm64.sha256
+            bin/ccf-macos-x64
+            bin/ccf-macos-x64.sha256
+            bin/ccf-linux-x64
+            bin/ccf-linux-x64.sha256
           draft: false
           prerelease: false
+
+      - name: Update Homebrew Formula
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+
+          # Get SHA256 checksums
+          ARM64_SHA=$(cat bin/ccf-macos-arm64.sha256 | awk '{print $1}')
+          X64_SHA=$(cat bin/ccf-macos-x64.sha256 | awk '{print $1}')
+          LINUX_SHA=$(cat bin/ccf-linux-x64.sha256 | awk '{print $1}')
+
+          # Clone tap repository
+          git clone https://x-access-token:${{ secrets.TAP_GITHUB_TOKEN }}@github.com/oskar-dragon/homebrew-tools.git tap-repo
+          cd tap-repo
+
+          # Update formula
+          sed -i "s/version \".*\"/version \"$VERSION\"/" Formula/claude-code-flow.rb
+          sed -i "s|releases/download/v[^/]*/|releases/download/v$VERSION/|g" Formula/claude-code-flow.rb
+          sed -i "s/REPLACE_WITH_ARM64_SHA256/$ARM64_SHA/" Formula/claude-code-flow.rb
+          sed -i "s/REPLACE_WITH_X64_SHA256/$X64_SHA/" Formula/claude-code-flow.rb
+          sed -i "s/REPLACE_WITH_LINUX_SHA256/$LINUX_SHA/" Formula/claude-code-flow.rb
+
+          # Commit and push
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Formula/claude-code-flow.rb
+          git commit -m "chore: update claude-code-flow to v$VERSION"
+          git push
