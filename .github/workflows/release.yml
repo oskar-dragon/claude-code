@@ -1,9 +1,8 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "v*"
+  release:
+    types: [published]
 
 jobs:
   build-and-release:
@@ -31,7 +30,7 @@ jobs:
           sha256sum ccf-macos-x64 > ccf-macos-x64.sha256
           sha256sum ccf-linux-x64 > ccf-linux-x64.sha256
 
-      - name: Create Release
+      - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
           files: |
@@ -41,12 +40,11 @@ jobs:
             bin/ccf-macos-x64.sha256
             bin/ccf-linux-x64
             bin/ccf-linux-x64.sha256
-          draft: false
-          prerelease: false
 
       - name: Update Homebrew Formula
         run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
+          VERSION=${{ github.event.release.tag_name }}
+          VERSION=${VERSION#v}
 
           # Get SHA256 checksums
           ARM64_SHA=$(cat bin/ccf-macos-arm64.sha256 | awk '{print $1}')
