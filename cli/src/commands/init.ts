@@ -107,7 +107,6 @@ async function setupGitAndLabels(): Promise<void> {
 	await handleGitHubLabels();
 }
 
-
 async function printSystemSummary(): Promise<void> {
 	console.log("");
 	printHeader("✅ Initialization Complete!");
@@ -121,8 +120,8 @@ async function printSystemSummary(): Promise<void> {
 	console.log(`  Auth: ${authStatus}`);
 	console.log("");
 	console.log("🔌 Plugin Setup:");
-	console.log("  1. Add marketplace: /plugin marketplace add your-org/claude-plugins");
-	console.log("  2. Install plugin: /plugin install project-management@your-marketplace-name");
+	console.log("  1. Add marketplace: /plugin marketplace add oskar-dragon/claude-code-flow");
+	console.log("  2. Install plugin: /plugin install flow@claude-code-flow");
 	console.log("  3. Quit and re-enter Claude Code to activate the plugin");
 	console.log("");
 	console.log("🎯 Next Steps:");
