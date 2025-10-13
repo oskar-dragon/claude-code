@@ -3,7 +3,7 @@
 ## Usage
 
 ```bash
-ccf init
+claude-code-flow init
 ```
 
 ## Commands

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**ccf** (Claude Code Flow) - A CLI tool that implements a workflow system for spec-driven development using GitHub Issues, Git worktrees, and parallel AI agents. Transforms PRDs into epics, epics into GitHub issues, and issues into production code with full traceability.
+**Claude Code Flow** - A CLI tool that implements a workflow system for spec-driven development using GitHub Issues, Git worktrees, and parallel AI agents. Transforms PRDs into epics, epics into GitHub issues, and issues into production code with full traceability.
 
 ## Commands
 

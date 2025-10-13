@@ -49,7 +49,7 @@ brew tap oskar-dragon/tools
 brew install claude-code-flow
 
 # Verify
-ccf --version
+claude-code-flow --version
 ```
 
 ## Installation for Users
