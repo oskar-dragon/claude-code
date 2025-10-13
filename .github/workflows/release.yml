@@ -43,6 +43,8 @@ jobs:
 
       - name: Update Homebrew Formula
         run: |
+          set -e  # Exit on error
+
           VERSION=${{ github.event.release.tag_name }}
           VERSION=${VERSION#v}
 
@@ -51,9 +53,29 @@ jobs:
           X64_SHA=$(cat bin/claude-code-flow-macos-x64.sha256 | awk '{print $1}')
           LINUX_SHA=$(cat bin/claude-code-flow-linux-x64.sha256 | awk '{print $1}')
 
+          # Debug output
+          echo "📦 Release version: $VERSION"
+          echo "🔐 SHA256 checksums:"
+          echo "  ARM64:  $ARM64_SHA"
+          echo "  x64:    $X64_SHA"
+          echo "  Linux:  $LINUX_SHA"
+
+          # Validate checksums
+          if [ -z "$ARM64_SHA" ] || [ -z "$X64_SHA" ] || [ -z "$LINUX_SHA" ]; then
+            echo "❌ Error: One or more SHA256 checksums are empty"
+            exit 1
+          fi
+
           # Clone tap repository
           git clone https://x-access-token:${{ secrets.TAP_GITHUB_TOKEN }}@github.com/oskar-dragon/homebrew-tools.git tap-repo
           cd tap-repo
+
+          # Verify template exists
+          if [ ! -f "Formula/claude-code-flow.rb.template" ]; then
+            echo "❌ Error: Template file not found"
+            exit 1
+          fi
+          echo "✅ Template file found"
 
           # Generate formula from template
           cp Formula/claude-code-flow.rb.template Formula/claude-code-flow.rb
@@ -62,9 +84,23 @@ jobs:
           sed -i "s/X64_SHA_PLACEHOLDER/$X64_SHA/" Formula/claude-code-flow.rb
           sed -i "s/LINUX_SHA_PLACEHOLDER/$LINUX_SHA/" Formula/claude-code-flow.rb
 
+          # Verify all placeholders were replaced
+          if grep -q "PLACEHOLDER" Formula/claude-code-flow.rb; then
+            echo "❌ Error: Some placeholders were not replaced"
+            grep "PLACEHOLDER" Formula/claude-code-flow.rb
+            exit 1
+          fi
+          echo "✅ All placeholders replaced successfully"
+
+          # Show diff for verification
+          echo "📝 Changes to formula:"
+          git diff Formula/claude-code-flow.rb
+
           # Commit and push
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add Formula/claude-code-flow.rb
           git commit -m "chore: update claude-code-flow to v$VERSION"
           git push
+
+          echo "✅ Successfully updated Homebrew formula to v$VERSION"
