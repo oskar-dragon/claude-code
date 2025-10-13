@@ -55,12 +55,12 @@ jobs:
           git clone https://x-access-token:${{ secrets.TAP_GITHUB_TOKEN }}@github.com/oskar-dragon/homebrew-tools.git tap-repo
           cd tap-repo
 
-          # Update formula
-          sed -i "s/version \".*\"/version \"$VERSION\"/" Formula/claude-code-flow.rb
-          sed -i "s|releases/download/v[^/]*/|releases/download/v$VERSION/|g" Formula/claude-code-flow.rb
-          sed -i "s/REPLACE_WITH_ARM64_SHA256/$ARM64_SHA/" Formula/claude-code-flow.rb
-          sed -i "s/REPLACE_WITH_X64_SHA256/$X64_SHA/" Formula/claude-code-flow.rb
-          sed -i "s/REPLACE_WITH_LINUX_SHA256/$LINUX_SHA/" Formula/claude-code-flow.rb
+          # Generate formula from template
+          cp Formula/claude-code-flow.rb.template Formula/claude-code-flow.rb
+          sed -i "s/VERSION_PLACEHOLDER/$VERSION/g" Formula/claude-code-flow.rb
+          sed -i "s/ARM64_SHA_PLACEHOLDER/$ARM64_SHA/" Formula/claude-code-flow.rb
+          sed -i "s/X64_SHA_PLACEHOLDER/$X64_SHA/" Formula/claude-code-flow.rb
+          sed -i "s/LINUX_SHA_PLACEHOLDER/$LINUX_SHA/" Formula/claude-code-flow.rb
 
           # Commit and push
           git config user.name "github-actions[bot]"

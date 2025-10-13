@@ -30,10 +30,19 @@ When you push a tag (e.g., `v0.1.1`), the release workflow:
 2. **Calculates** SHA256 checksums for each binary
 3. **Creates** GitHub release with binaries and checksums
 4. **Updates** Homebrew formula in `oskar-dragon/homebrew-tools`:
-   - Updates version number
-   - Updates download URLs
-   - Replaces placeholder SHA256s with actual checksums
-   - Commits and pushes to tap repository
+   - Generates formula from template (`Formula/claude-code-flow.rb.template`)
+   - Replaces placeholders with version and actual SHA256 checksums
+   - Commits and pushes generated formula to tap repository
+
+### Template-Based Approach
+
+The tap repository contains a template file (`Formula/claude-code-flow.rb.template`) with placeholders:
+- `VERSION_PLACEHOLDER` - Replaced with release version
+- `ARM64_SHA_PLACEHOLDER` - Replaced with macOS ARM64 SHA256
+- `X64_SHA_PLACEHOLDER` - Replaced with macOS x64 SHA256
+- `LINUX_SHA_PLACEHOLDER` - Replaced with Linux x64 SHA256
+
+This ensures SHA values are always updated correctly on each release.
 
 ## Testing the Deployment
 
