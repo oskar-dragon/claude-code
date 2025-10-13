@@ -1,25 +1,25 @@
 {
-	"name": "oskar-dragon",
-	"source": {
-		"source": "github",
-		"repo": "oskar-dragon/claude-code-flow"
-	},
-	"description": "A marketplace with my Claude Code plugins",
-	"repository": "https://github.com/oskar-dragon/claude-code-flow",
-	"owner": {
-		"name": "Oskar Dragon",
-		"email": "oskar.dragon@example.com"
-	},
-	"plugins": [
-		{
-			"name": "project-management",
-			"source": "./plugins/project-management",
-			"description": "Claude Code Flow Workflow",
-			"version": "1.0.0",
-			"author": {
-				"name": "Oskar Dragon"
-			}
-		}
-	],
-	"strict": false
+  "name": "claude-code-flow",
+  "source": {
+    "source": "github",
+    "repo": "oskar-dragon/claude-code-flow"
+  },
+  "description": "A marketplace with my Claude Code plugins",
+  "repository": "https://github.com/oskar-dragon/claude-code-flow",
+  "owner": {
+    "name": "Oskar Dragon",
+    "email": "oskar.dragon@example.com"
+  },
+  "plugins": [
+    {
+      "name": "project-management",
+      "source": "./plugins/flow",
+      "description": "Claude Code Flow Workflow",
+      "version": "1.0.0",
+      "author": {
+        "name": "Oskar Dragon"
+      }
+    }
+  ],
+  "strict": false
 }

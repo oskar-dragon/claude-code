@@ -107,21 +107,6 @@ async function setupGitAndLabels(): Promise<void> {
 	await handleGitHubLabels();
 }
 
-async function installClaudePlugin(): Promise<void> {
-	printSection("🔌", "Plugin Setup Instructions");
-	console.log("");
-	printInfo("To use the project-management plugin:");
-	console.log("");
-	printStep("1. Add the marketplace:");
-	console.log("   /plugin marketplace add your-org/claude-plugins");
-	console.log("");
-	printStep("2. Install the plugin:");
-	console.log("   /plugin install project-management@your-marketplace-name");
-	console.log("");
-	printStep("3. Restart Claude Code:");
-	console.log("   /restart");
-	console.log("");
-}
 
 async function printSystemSummary(): Promise<void> {
 	console.log("");
@@ -134,6 +119,11 @@ async function printSystemSummary(): Promise<void> {
 	console.log(`  Extensions: ${extensionCount} installed`);
 	const authStatus = await getGhAuthStatus();
 	console.log(`  Auth: ${authStatus}`);
+	console.log("");
+	console.log("🔌 Plugin Setup:");
+	console.log("  1. Add marketplace: /plugin marketplace add your-org/claude-plugins");
+	console.log("  2. Install plugin: /plugin install project-management@your-marketplace-name");
+	console.log("  3. Quit and re-enter Claude Code to activate the plugin");
 	console.log("");
 	console.log("🎯 Next Steps:");
 	console.log("  1. Create your first PRD: /pm:prd-new <feature-name>");
@@ -164,8 +154,6 @@ async function initCommand(): Promise<void> {
 		printSection("📄", "Creating CLAUDE.md...");
 		printSuccess("CLAUDE.md created");
 	}
-
-	await installClaudePlugin();
 
 	await printSystemSummary();
 }
