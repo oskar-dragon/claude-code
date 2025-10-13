@@ -1,74 +1,57 @@
 # Claude Code Flow
 
-CLI tool for spec-driven development using GitHub Issues, Git worktrees, and parallel AI agents. Transforms PRDs into epics, epics into GitHub issues, and issues into production code with full traceability.
+CLI tool and plugin for spec-driven development with Claude Code using GitHub issues, Git worktrees, and parallel AI agents.
 
 ## Installation
 
-### Homebrew (Recommended)
+Install via Homebrew:
 
 ```bash
-brew tap oskardragon/tools
+brew tap oskar-dragon/tools
 brew install claude-code-flow
 ```
 
-### Direct Download
+## Setup
 
-Download binaries from [GitHub Releases](https://github.com/oskar-dragon/claude-code/releases)
+### 1. Add Marketplace
 
-### Build from Source
+In Claude Code, add the plugin marketplace:
 
-```bash
-bun install
-bun run build:all
+```
+/plugin marketplace add https://github.com/oskar-dragon/claude-code.git
+```
+
+### 2. Install Plugin
+
+Install the flow plugin:
+
+```
+/plugin install flow@claude-code
+```
+
+### 3. Activate Plugin
+
+Quit and re-enter Claude Code to activate the plugin.
+
+### 4. Initialize Project
+
+Run the initialization slash command:
+
+```
+/flow:pm:init
 ```
 
 ## Quick Start
 
-1. **Initialize the system:**
-   ```bash
-   claude-code-flow init
-   ```
-   This installs GitHub CLI, authenticates, and creates required directories.
+```bash
+# Create your first feature
+/pm:prd-new your-feature-name
 
-2. **Add the Flow plugin to Claude Code:**
-   ```
-   /plugin marketplace add oskar-dragon/claude-code
-   /plugin install flow@claude-code
-   ```
-
-3. **Restart Claude Code** to activate the plugin
-
-4. **Start your first feature:**
-   ```
-   /pm:prd-new feature-name
-   ```
-
-## Available Commands
-
-### CLI Commands
-- `claude-code-flow init` - Initialize system
-- `claude-code-flow validate` - Validate system integrity
-- `claude-code-flow help` - Show help
-- `claude-code-flow status` - Show project status
-
-### Plugin Commands (after plugin installation)
-- `/pm:*` - Project management commands (create PRDs, manage epics, track issues)
-- `/context:*` - Context management (create, update, prime)
-- `/testing:*` - Test execution
-
-Type `/pm:help` for full command reference.
+# View available commands
+/pm:help
+```
 
 ## Documentation
 
-- **Full workflow guide:** [plugins/flow/README.md](plugins/flow/README.md)
-- **Command reference:** Run `/pm:help` in Claude Code
-- **Architecture details:** [CLAUDE.md](CLAUDE.md)
-
-## Development
-
-```bash
-bun run dev          # Run in development mode
-bun run check:all    # Run typecheck, lint, and tests
-bun test             # Run tests
-bun run biome:fix    # Format and lint code
-```
+- Plugin README: `plugins/flow/README.md`
+- Homebrew Deployment: `docs/HOMEBREW_DEPLOYMENT.md`
