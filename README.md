@@ -13,7 +13,7 @@ brew install claude-code-flow
 
 ### Direct Download
 
-Download binaries from [GitHub Releases](https://github.com/oskar-dragon/claude-code-flow/releases)
+Download binaries from [GitHub Releases](https://github.com/oskar-dragon/claude-code/releases)
 
 ### Build from Source
 
@@ -32,8 +32,8 @@ bun run build:all
 
 2. **Add the Flow plugin to Claude Code:**
    ```
-   /plugin marketplace add oskar-dragon/claude-code-flow
-   /plugin install flow@claude-code-flow
+   /plugin marketplace add oskar-dragon/claude-code
+   /plugin install flow@claude-code
    ```
 
 3. **Restart Claude Code** to activate the plugin

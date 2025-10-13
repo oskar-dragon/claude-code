@@ -1,11 +1,11 @@
 {
-	"name": "claude-code-flow",
+	"name": "claude-code",
 	"source": {
 		"source": "github",
-		"repo": "oskar-dragon/claude-code-flow"
+		"repo": "oskar-dragon/claude-code"
 	},
 	"description": "A marketplace with my Claude Code plugins",
-	"repository": "https://github.com/oskar-dragon/claude-code-flow",
+	"repository": "https://github.com/oskar-dragon/claude-code",
 	"owner": {
 		"name": "Oskar Dragon",
 		"email": "oskar.dragon@example.com"

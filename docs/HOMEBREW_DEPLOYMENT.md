@@ -15,7 +15,7 @@ This document explains how the automated Homebrew deployment works.
 
 ### 2. Add Token to Repository Secret
 
-1. Go to `oskar-dragon/claude-code-flow` repository
+1. Go to `oskar-dragon/claude-code` repository
 2. Settings → Secrets and variables → Actions
 3. Click "New repository secret"
 4. Name: `TAP_GITHUB_TOKEN`

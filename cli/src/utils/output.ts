@@ -10,7 +10,7 @@ export function printBanner(): void {
 	console.log("┌─────────────────────────────────┐");
 	console.log("│  Claude Code Flow System        │");
 	console.log("└─────────────────────────────────┘");
-	console.log("https://github.com/claude-code-flow");
+	console.log("https://github.com/oskar-dragon/claude-code");
 	console.log("");
 	console.log("");
 }
