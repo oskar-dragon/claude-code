@@ -45,7 +45,7 @@ git push origin v0.1.1
 # Wait for GitHub Actions to complete (~5 minutes)
 
 # Test installation
-brew tap oskardragon/tools
+brew tap oskar-dragon/tools
 brew install claude-code-flow
 
 # Verify
@@ -55,7 +55,7 @@ ccf --version
 ## Installation for Users
 
 ```bash
-brew tap oskardragon/tools
+brew tap oskar-dragon/tools
 brew install claude-code-flow
 ```
 
