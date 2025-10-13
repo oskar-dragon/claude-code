@@ -33,7 +33,7 @@ const root = buildRouteMap({
 });
 
 export const app = buildApplication(root, {
-	name: "ccf",
+	name: "claude-code-flow",
 	versionInfo: {
 		currentVersion: "0.1.0",
 	},
