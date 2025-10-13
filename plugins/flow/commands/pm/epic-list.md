@@ -1,7 +1,7 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/epic-list.sh)
+allowed-tools: Bash(claude-code-flow epic-list:*)
 ---
 
 Output:
-!bash ccpm/scripts/pm/epic-list.sh
+!claude-code-flow epic-list
 

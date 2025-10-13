@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/search.sh $ARGUMENTS)
+allowed-tools: Bash(claude-code-flow search:*)
 ---
 
 Output:
-!bash ccpm/scripts/pm/search.sh $ARGUMENTS
+!claude-code-flow search $ARGUMENTS

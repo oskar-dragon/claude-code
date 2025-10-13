@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/blocked.sh)
+allowed-tools: Bash(claude-code-flow blocked:*)
 ---
 
 Output:
-!bash ccpm/scripts/pm/blocked.sh
+!claude-code-flow blocked

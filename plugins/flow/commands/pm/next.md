@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/next.sh)
+allowed-tools: Bash(claude-code-flow next:*)
 ---
 
 Output:
-!bash ccpm/scripts/pm/next.sh
+!claude-code-flow next

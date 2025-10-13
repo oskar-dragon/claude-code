@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/help.sh)
+allowed-tools: Bash(claude-code-flow help:*)
 ---
 
 Output:
-!bash ccpm/scripts/pm/help.sh
+!claude-code-flow help

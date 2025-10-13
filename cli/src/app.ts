@@ -1,6 +1,8 @@
 import { buildApplication, buildRouteMap } from "@stricli/core";
 import { command as blocked } from "./commands/blocked";
 import { command as epicList } from "./commands/epic-list";
+import { command as epicShow } from "./commands/epic-show";
+import { command as epicStatus } from "./commands/epic-status";
 import { command as helpCmd } from "./commands/help-cmd";
 import { command as inProgress } from "./commands/in-progress";
 import { command as init } from "./commands/init";
@@ -16,6 +18,8 @@ const root = buildRouteMap({
 	routes: {
 		blocked,
 		"epic-list": epicList,
+		"epic-show": epicShow,
+		"epic-status": epicStatus,
 		help: helpCmd,
 		"in-progress": inProgress,
 		init,

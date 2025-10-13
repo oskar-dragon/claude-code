@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/standup.sh)
+allowed-tools: Bash(claude-code-flow standup:*)
 ---
 
 Output:
-!bash ccpm/scripts/pm/standup.sh
+!claude-code-flow standup

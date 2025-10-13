@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/in-progress.sh)
+allowed-tools: Bash(claude-code-flow in-progress:*)
 ---
 
 Output:
-!bash ccpm/scripts/pm/in-progress.sh
+!claude-code-flow in-progress

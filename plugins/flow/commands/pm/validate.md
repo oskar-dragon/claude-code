@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/validate.sh)
+allowed-tools: Bash(claude-code-flow validate:*)
 ---
 
 Output:
-!bash ccpm/scripts/pm/validate.sh
+!claude-code-flow validate

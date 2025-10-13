@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(bash ccpm/scripts/pm/status.sh)
+allowed-tools: Bash(claude-code-flow status:*)
 ---
 
 Output:
-!bash ccpm/scripts/pm/status.sh
+!claude-code-flow status
