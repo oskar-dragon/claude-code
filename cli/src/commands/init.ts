@@ -107,6 +107,22 @@ async function setupGitAndLabels(): Promise<void> {
 	await handleGitHubLabels();
 }
 
+async function installClaudePlugin(): Promise<void> {
+	printSection("🔌", "Plugin Setup Instructions");
+	console.log("");
+	printInfo("To use the project-management plugin:");
+	console.log("");
+	printStep("1. Add the marketplace:");
+	console.log("   /plugin marketplace add your-org/claude-plugins");
+	console.log("");
+	printStep("2. Install the plugin:");
+	console.log("   /plugin install project-management@your-marketplace-name");
+	console.log("");
+	printStep("3. Restart Claude Code:");
+	console.log("   /restart");
+	console.log("");
+}
+
 async function printSystemSummary(): Promise<void> {
 	console.log("");
 	printHeader("✅ Initialization Complete!");
@@ -148,6 +164,8 @@ async function initCommand(): Promise<void> {
 		printSection("📄", "Creating CLAUDE.md...");
 		printSuccess("CLAUDE.md created");
 	}
+
+	await installClaudePlugin();
 
 	await printSystemSummary();
 }
