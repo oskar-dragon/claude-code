@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(occ init)
+allowed-tools: Bash(claude-code-flow init)
 ---
 
 Output:
