@@ -3,4 +3,4 @@ allowed-tools: Bash(claude-code-flow standup:*)
 ---
 
 Output:
-!claude-code-flow standup
+!`claude-code-flow standup`

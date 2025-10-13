@@ -15,7 +15,7 @@
 			"name": "flow",
 			"source": "./plugins/flow",
 			"description": "Claude Code Flow Workflow",
-			"version": "1.0.0",
+			"version": "1.0.1",
 			"author": {
 				"name": "Oskar Dragon"
 			}
