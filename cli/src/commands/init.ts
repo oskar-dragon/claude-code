@@ -1,5 +1,9 @@
 import { buildCommand } from "@stricli/core";
-import { createClaudeMd, createDirectoryStructure } from "../utils/filesystem.ts";
+import {
+	copyRulesFromGithub,
+	createClaudeMd,
+	createDirectoryStructure,
+} from "../utils/filesystem.ts";
 import { checkGitStatus } from "../utils/git.ts";
 import {
 	authenticateGh,
@@ -147,6 +151,23 @@ async function initCommand(): Promise<void> {
 	printSection("📁", "Creating directory structure...");
 	await createDirectoryStructure();
 	printSuccess("Directories created");
+
+	printSection("📥", "Copying rules from GitHub...");
+	const rulesResult = await copyRulesFromGithub();
+	if (rulesResult.success) {
+		printSuccess(
+			`Rules copied (${rulesResult.count}/${rulesResult.count + rulesResult.errors.length})`
+		);
+		if (rulesResult.errors.length > 0) {
+			printWarning(`Failed to copy ${rulesResult.errors.length} rules:`);
+			for (const error of rulesResult.errors) {
+				console.log(`  ${error}`);
+			}
+		}
+	} else {
+		printError("Failed to copy rules from GitHub");
+		printStep("Check your internet connection and try again");
+	}
 
 	await setupGitAndLabels();
 
