@@ -12,7 +12,7 @@
 	},
 	"plugins": [
 		{
-			"name": "project-management",
+			"name": "claude-code-flow",
 			"source": "./plugins/flow",
 			"description": "Claude Code Flow Workflow",
 			"version": "1.0.0",
