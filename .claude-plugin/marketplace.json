@@ -16,6 +16,17 @@
 			"source": "./plugins/flow",
 			"description": "Claude Code Flow Workflow",
 			"version": "1.0.1",
+			"category": "productivity",
+			"author": {
+				"name": "Oskar Dragon"
+			}
+		},
+		{
+			"name": "code-quality",
+			"source": "./plugins/code-quality",
+			"description": "Hooks that improve code quality",
+			"version": "1.0.1",
+			"category": "development",
 			"author": {
 				"name": "Oskar Dragon"
 			}

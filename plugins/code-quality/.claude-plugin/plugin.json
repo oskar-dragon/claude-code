@@ -1,0 +1,8 @@
+{
+	"name": "code-quality",
+	"description": "A Claude Code Plugin with LSPs, Code formatters, and Code linters",
+	"version": "1.0.0",
+	"author": {
+		"name": "Oskar Dragon"
+	}
+}
