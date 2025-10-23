@@ -1,8 +1,8 @@
 {
-  "name": "pr-review",
-  "version": "1.0.0",
-  "description": "A PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification",
-  "author": {
-    "name": "Oskar Dragon"
-  }
+	"name": "pr-review",
+	"version": "1.0.0",
+	"description": "A PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification",
+	"author": {
+		"name": "Oskar Dragon"
+	}
 }

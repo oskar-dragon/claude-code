@@ -1,46 +1,46 @@
 {
-  "name": "claude-code",
-  "source": {
-    "source": "github",
-    "repo": "oskar-dragon/claude-code"
-  },
-  "description": "A marketplace with my Claude Code plugins",
-  "repository": "https://github.com/oskar-dragon/claude-code",
-  "owner": {
-    "name": "Oskar Dragon",
-    "email": "oskar.dragon@example.com"
-  },
-  "plugins": [
-    {
-      "name": "dev",
-      "source": "./plugins/dev",
-      "description": "Feature development workflow with specialized agents for codebase exploration, architecture design, and quality review",
-      "version": "1.0.0",
-      "category": "development",
-      "author": {
-        "name": "Oskar Dragon"
-      }
-    },
-    {
-      "name": "git",
-      "source": "./plugins/git",
-      "description": "A toolkit for git operations",
-      "version": "1.0.0",
-      "category": "productivity",
-      "author": {
-        "name": "Oskar Dragon"
-      }
-    },
-    {
-      "name": "pr-review",
-      "source": "./plugins/pr-review",
-      "description": "A PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification",
-      "version": "1.0.0",
-      "category": "productivity",
-      "author": {
-        "name": "Oskar Dragon"
-      }
-    }
-  ],
-  "strict": false
+	"name": "claude-code",
+	"source": {
+		"source": "github",
+		"repo": "oskar-dragon/claude-code"
+	},
+	"description": "A marketplace with my Claude Code plugins",
+	"repository": "https://github.com/oskar-dragon/claude-code",
+	"owner": {
+		"name": "Oskar Dragon",
+		"email": "oskar.dragon@example.com"
+	},
+	"plugins": [
+		{
+			"name": "dev",
+			"source": "./plugins/dev",
+			"description": "Feature development workflow with specialized agents for codebase exploration, architecture design, and quality review",
+			"version": "1.0.0",
+			"category": "development",
+			"author": {
+				"name": "Oskar Dragon"
+			}
+		},
+		{
+			"name": "git",
+			"source": "./plugins/git",
+			"description": "A toolkit for git operations",
+			"version": "1.0.0",
+			"category": "productivity",
+			"author": {
+				"name": "Oskar Dragon"
+			}
+		},
+		{
+			"name": "pr-review",
+			"source": "./plugins/pr-review",
+			"description": "A PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification",
+			"version": "1.0.0",
+			"category": "productivity",
+			"author": {
+				"name": "Oskar Dragon"
+			}
+		}
+	],
+	"strict": false
 }
