@@ -1,0 +1,8 @@
+{
+	"name": "git",
+	"version": "1.0.0",
+	"description": "A toolkit for git operations",
+	"author": {
+		"name": "Oskar Dragon"
+	}
+}

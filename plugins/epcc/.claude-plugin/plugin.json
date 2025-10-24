@@ -1,0 +1,8 @@
+{
+	"name": "epcc",
+	"version": "1.0.0",
+	"description": "EPCC (Explore-Plan-Code-Commit) development workflow with 12 specialized agents for exploration, planning, coding, and commit phases",
+	"author": {
+		"name": "Oskar Dragon"
+	}
+}
