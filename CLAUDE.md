@@ -1,402 +1,213 @@
-# Claude Code Flow - Architecture Guide
+# CLAUDE.md
 
-This document describes the high-level architecture of Claude Code Flow, a spec-driven development system built for Claude Code with GitHub Issues, Git worktrees, and parallel AI agents.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Overview
+## Project Overview
 
-Claude Code Flow is a dual-layer system:
+This is a Claude Code plugin marketplace repository containing reusable plugins for systematic development workflows, documentation, git operations, and PR review.
 
-1. **CLI Tool** (`cli/`) - Standalone command-line utility that manages PRDs, epics, tasks, and GitHub synchronization
-2. **Claude Code Plugins** (`plugins/`) - Extensions that integrate the workflow into Claude Code via slash commands and hooks
+**Architecture**: Plugin-based system with:
 
-## System Architecture
+- Command files (`.md` in `plugins/*/commands/`)
+- Agent definitions (`.md` in `plugins/*/agents/`)
+- Marketplace configuration (`.claude-plugin/marketplace.json`)
 
-```
-claude-code/
-├── cli/                          # Standalone CLI tool (compiled to macOS/Linux binaries)
-│   └── src/
-│       ├── index.ts             # Bun entrypoint
-│       ├── app.ts               # StriCLI application definition
-│       ├── commands/            # Command implementations
-│       │   ├── init.ts
-│       │   ├── prd-list.ts, prd-status.ts
-│       │   ├── epic-list.ts, epic-show.ts, epic-status.ts
-│       │   ├── status.ts, standup.ts, next.ts
-│       │   ├── blocked.ts, in-progress.ts
-│       │   ├── validate.ts, search-cmd.ts, help-cmd.ts
-│       │   └── ... (more commands)
-│       └── utils/               # Shared utilities
-│           ├── filesystem.ts    # File I/O operations
-│           ├── git.ts           # Git commands
-│           ├── github.ts        # GitHub CLI integration
-│           ├── prds.ts          # PRD file management
-│           ├── epics.ts         # Epic file management
-│           ├── tasks.ts         # Task file management & transcript parsing
-│           ├── validation.ts    # Input validation
-│           ├── search.ts        # Search functionality
-│           ├── plugin.ts        # Plugin registration/installation
-│           └── output.ts        # Terminal formatting
-│
-├── plugins/                      # Claude Code plugin system
-│   ├── flow/                    # Main project management plugin
-│   │   ├── .claude-plugin/      # Plugin metadata
-│   │   │   └── plugin.json
-│   │   ├── commands/            # Slash command definitions
-│   │   │   ├── pm/             # Project management commands (prd-new, epic-sync, etc.)
-│   │   │   ├── context/        # Context management commands
-│   │   │   └── testing/        # Testing-related commands
-│   │   ├── agents/             # Task-oriented agent templates
-│   │   ├── rules/              # Claude Code rule files
-│   │   ├── hooks/              # Pre-tool-use hooks (e.g., bash-worktree-fix.sh)
-│   │   ├── README.md           # Full workflow documentation
-│   │   ├── AGENTS.md           # Parallel execution patterns
-│   │   ├── COMMANDS.md         # Command reference
-│   │   ├── CONTEXT_ACCURACY.md # Context preservation strategies
-│   │   └── LOCAL_MODE.md       # Local-first operation
-│   │
-│   └── code-quality/           # Code quality hooks plugin
-│       ├── .claude-plugin/     # Plugin metadata
-│       ├── hooks/              # Hook implementations
-│       │   └── formatting.ts   # Post-tool-use hook example
-│       ├── templates/          # Hook templates for projects
-│       │   └── hooks/
-│       │       ├── lib.ts      # Shared hook utilities
-│       │       ├── index.ts    # Entry point
-│       │       └── session.ts  # Session data management
-│       ├── utils.ts            # Utility functions
-│       └── session.ts          # Session tracking
-│
-├── .claude-plugin/             # Root marketplace definition
-│   └── marketplace.json        # Plugin registry
-│
-├── package.json                # Bun project manifest
-├── biome.json                  # Code formatting/linting
-└── .husky/                     # Git hooks
+## Common Commands
 
+### Development
 
-## Core Concepts
-
-### 1. The Workflow Phases
-
-**Phase 1: PRD Creation** → `.claude/prds/feature-name.md`
-- Brainstorm product requirements
-- Define user stories, success criteria, constraints
-
-**Phase 2: Implementation Planning** → `.claude/epics/feature-name/epic.md`
-- Transform PRD into technical architecture
-- Create implementation plan with technical decisions
-
-**Phase 3: Task Decomposition** → `.claude/epics/feature-name/[task].md`
-- Break epic into concrete, parallel-safe tasks
-- Add dependencies, effort estimates, acceptance criteria
-
-**Phase 4: GitHub Synchronization**
-- Push epic and tasks as GitHub Issues
-- Maintain 1:1 mapping between local files and GitHub issues
-
-**Phase 5: Parallel Execution**
-- Specialized agents work on independent tasks
-- Use Git worktrees for clean isolation
-- Agents coordinate through Git commits
-
-### 2. Dual-Mode Architecture
-
-**CLI Mode** (Standalone tool via Homebrew)
 ```bash
-claude-code-flow init              # Initialize project
-claude-code-flow prd-list          # List PRDs
-claude-code-flow epic-list         # List epics
-claude-code-flow status            # Overall dashboard
+# Run tests
+bun test
+
+# Type checking
+bun run typecheck
+
+# Format and lint
+bun run biome:format    # Format code
+bun run biome:lint      # Lint code
+bun run biome:fix       # Auto-fix issues
+bun run biome:check     # Check without fixing
+
+# Run all checks (CI pipeline)
+bun run check:all       # typecheck + biome:ci + test
 ```
 
-**Plugin Mode** (Within Claude Code interface)
-```
-/pm:init                           # Initialize project
-/pm:prd-new feature-name          # Create new PRD
-/pm:prd-parse feature-name        # Parse PRD to epic
-/pm:epic-sync feature-name        # Sync to GitHub
-/pm:issue-start 1234              # Begin work on issue
-/pm:next                          # Get next priority task
-```
+### Git Workflow
 
-### 3. File Organization
+Pre-commit hooks automatically run Biome checks on staged files. All commits must pass linting and formatting.
 
-**Local Workspace** (`.claude/` directory)
+## Plugin Structure
+
+### Plugin Organization
+
+Each plugin follows this structure:
+
 ```
-.claude/
-├── prds/                         # Product Requirements Documents
-│   ├── feature-a.md
-│   └── feature-b.md
-│
-├── epics/                        # Implementation plans (git-ignored)
-│   ├── feature-a/
-│   │   ├── epic.md              # Overview and architecture
-│   │   ├── 001.md               # Task before GitHub sync
-│   │   ├── {issue-id}.md        # Task after GitHub sync
-│   │   └── updates/             # Work-in-progress tracking
-│   └── feature-b/
-│
-├── commands/
-│   ├── pm/                       # Project management slash commands
-│   │   ├── prd-new.md
-│   │   ├── prd-parse.md
-│   │   ├── epic-sync.md
-│   │   ├── issue-start.md
-│   │   └── ...
-│   ├── context/                  # Context creation/management
-│   └── testing/                  # Testing/validation commands
-│
-├── agents/                       # Task-specific agent templates
-│   ├── backend-api.md           # For backend tasks
-│   ├── frontend-ui.md           # For UI tasks
-│   └── testing-qa.md            # For testing tasks
-│
-├── hooks/                        # Claude Code hooks
-│   ├── bash-worktree-fix.sh     # Auto-cd to worktree
-│   └── formatting.ts            # Post-tool hooks
-│
-└── settings.json                # Plugin configuration
+plugins/[plugin-name]/
+├── README.md           # Plugin documentation
+├── commands/           # Slash command definitions (.md files)
+│   └── [command].md   # Command with YAML frontmatter + instructions
+└── agents/             # Agent definitions (.md files)
+    └── [agent].md     # Agent with specialized instructions
 ```
 
-**GitHub Issues** (Remote source of truth)
-- Epic issue tracks sub-issues
-- Labels: `epic:feature`, `task:feature`, `status:in-progress`
-- Comments maintain progress/decision trail
-- Uses gh-sub-issue extension for parent-child relationships
+### Command File Format
 
-### 4. The Plugin System
+Commands use YAML frontmatter:
 
-**Two Plugin Types:**
-
-**a) Flow Plugin** - Project management
-- Provides `/pm:*` slash commands
-- Manages PRDs, epics, and GitHub sync
-- Maintains agent templates and rules
-- Reads/writes local file structure
-
-**b) Code-Quality Plugin** - Hook system
-- Implements Claude Code hooks (PreToolUse, PostToolUse, etc.)
-- Can validate, transform, or intercept tool execution
-- Example: `bash-worktree-fix.sh` automatically prefixes commands with `cd /path/to/worktree &&`
-
-**Plugin Registration Flow:**
-```
-marketplace.json (root registry)
-  ↓
-  contains plugins[].source (path)
-  ↓
-plugins/{name}/.claude-plugin/plugin.json
-  ↓
-Claude Code loads plugin from .claude-plugin/
-```
-
-### 5. GitHub Integration
-
-**Why GitHub as Database:**
-- Single source of truth for all work
-- Enables human-AI collaboration
-- Provides complete audit trail
-- Works with existing CI/CD tools
-- No dependency on separate project management tools
-
-**Issue Relationships:**
-- Epic issue #1234 (parent)
-  - Task issue #1235 (child)
-  - Task issue #1236 (child)
-  - Task issue #1237 (child)
-
-**Sync Strategy:**
-- Local files: Fast, no network
-- GitHub sync: Explicit, controlled
-- Bidirectional: Can import existing issues
-- Conflict resolution: Local files are source of truth
-
-### 6. Parallel Execution System
-
-**Key Insight:** One issue ≠ One task
-
-A single "Implement authentication" issue becomes:
-- Agent 1: Database schema & migrations
-- Agent 2: Service layer & business logic
-- Agent 3: API endpoints & middleware
-- Agent 4: UI components & forms
-- Agent 5: Tests & documentation
-
-**All working simultaneously using:**
-- Git worktrees for clean isolation
-- Different agents per worktree
-- Local coordination via Git commits
-- Transparent to GitHub (clean PR at the end)
-
-**Context Optimization:**
-- Main thread stays strategic (oversight)
-- Each agent has isolated context (implementation details)
-- No context pollution or window limits
-- Main thread becomes the conductor
-
-### 7. Data Structures
-
-**PRD Format:**
 ```markdown
 ---
-name: Feature Name
-description: Short description
-status: backlog|in-progress|implemented
+name: command-name
+description: Brief description
+version: 1.0.0
+argument-hint: "[optional-args]"
 ---
 
-## User Stories
-...
+# Command Implementation
 
-## Success Criteria
-...
+[Markdown instructions for Claude]
 ```
 
-**Epic Format:**
-```markdown
----
-name: Epic Name
-description: Overview
-status: backlog|in-progress|completed
----
+### Marketplace Configuration
 
-## Technical Architecture
-...
+`.claude-plugin/marketplace.json` defines:
 
-## Task Breakdown
-...
-```
+- Marketplace metadata (name, source, description)
+- Plugin registry with name, version, source path, description, category
+- GitHub source configuration
 
-**Task Format:**
-```markdown
----
-name: Task Name
-epic_name: parent-feature
-status: backlog|in-progress|completed
-depends_on: [task-1, task-2]
-parallel: true|false
-estimated_hours: 4
----
+## Available Plugins
 
-## Requirements
-...
+### 1. EPCC Workflow (`plugins/epcc/`)
 
-## Acceptance Criteria
-...
-```
+Four-phase development workflow: Explore → Plan → Code → Commit
 
-## Key Technologies
+**Commands**:
 
-- **Runtime:** Bun (fast TypeScript executor)
-- **CLI Framework:** StriCLI (command routing)
-- **Git Integration:** Git CLI + Node.js APIs
-- **GitHub Integration:** gh CLI + extensions
-- **Testing:** Bun test
-- **Code Quality:** Biome (formatter + linter)
-- **Hooks Framework:** Custom TypeScript-based system
+- `/epcc-explore [area]` - Understand codebase before acting
+- `/epcc-plan [feature]` - Create implementation strategy
+- `/epcc-code [feature]` - Implement with TDD
+- `/epcc-commit [message]` - Finalize with documentation
+- `/epcc-prd [feature]` - Requirements gathering
 
-## Deployment Model
+**Key Agents**: code-archaeologist, system-designer, business-analyst, test-generator, documentation-agent, security-reviewer, optimization-engineer, ux-optimizer, qa-engineer, deployment-agent, project-manager, tech-evaluator
 
-**Two Distribution Channels:**
+**Usage Pattern**: Always run phases sequentially. Exploration phase is READ-ONLY (no code changes).
 
-1. **Homebrew (Binary Distribution)**
-   - Precompiled binaries for macOS/Linux
-   - Available via: `brew install claude-code-flow`
-   - Single executable for CLI operations
+### 2. Documentation (`plugins/documentation/`)
 
-2. **Claude Code Plugins (Source Distribution)**
-   - Git-based marketplace
-   - Installed via `/plugin install flow@claude-code`
-   - Commands, agents, rules all in source form
+Diataxis framework for structured technical documentation
 
-## Critical Patterns
+**Commands**:
 
-### 1. Task Dependencies
-- Tasks explicitly declare dependencies
-- System prevents parallel execution of dependent tasks
-- Ensures safe concurrent development
+- `/doc:tutorial [topic]` - Learning-oriented tutorials
+- `/doc:howto [task]` - Task-oriented guides
+- `/doc:explain [concept]` - Understanding-oriented explanations
+- `/doc:reference [api]` - Information-oriented reference
 
-### 2. Context Preservation
-- `.claude/context/` directory for shared context
-- Agents read context before work
-- Progress updates stored locally before GitHub sync
-- Transcript analysis for decision recovery
+**Key Agents**: docs-tutorial-agent, docs-howto-agent, docs-explanation-agent, docs-reference-agent, architecture-documenter
 
-### 3. Worktree Isolation
-- Each epic gets its own Git worktree: `../epic-{name}/`
-- Bash hook automatically injects `cd` prefix
-- Agents work naturally without worktree awareness
-- Clean merge when work is complete
+### 3. Git Operations (`plugins/git/`)
 
-### 4. No Vibe Coding
-- Every line of code traces to specification
-- 5-phase discipline: Brainstorm → Document → Plan → Execute → Track
-- Transparent audit trail in GitHub
-- Clear decision rationale in issue comments
+Streamlined git workflow commands
 
-## Development Workflow
+**Commands**:
 
-### For CLI Changes:
-```bash
-bun run dev                    # Test locally
-bun run typecheck             # Check types
-bun run test                  # Run tests
-bun run biome:check           # Check formatting
-bun run build:all             # Build for all platforms
-```
+- `/commit` - Auto-generate commit message and commit
+- `/commit-push-pr` - Commit, push, and create PR
+- `/clean-gone` - Remove local branches deleted from remote
 
-### For Plugin Changes:
-1. Edit files in `plugins/{name}/`
-2. Test in Claude Code by installing locally
-3. Verify hooks execute correctly
-4. Commit changes
+### 4. PR Review (`plugins/pr-review/`)
 
-### Testing Principles:
-- Unit tests for utilities (prds.ts, tasks.ts, etc.)
-- Integration tests for commands
-- Always test with real GitHub repo when possible
-- Use AAA pattern (Arrange, Act, Assert)
+Specialized review agents for comprehensive PR analysis
 
-## Important Conventions
+**Agents**:
 
-**File Naming:**
-- Commands: kebab-case (e.g., `prd-new.md`, `epic-sync.md`)
-- Variables: camelCase
-- Classes/Types: PascalCase
-- Directories: kebab-case
+- `comment-analyzer` - Comment accuracy and maintainability
+- `pr-test-analyzer` - Test coverage quality
+- `silent-failure-hunter` - Error handling review
+- `type-design-analyzer` - Type design quality (1-10 ratings)
+- `code-reviewer` - General code quality
+- `code-simplifier` - Code simplification suggestions
 
-**Command Structure:**
-- Commands defined in `plugins/flow/commands/pm/*.md`
-- Slash command: `/pm:{command-name}`
-- Arguments passed via `$ARGUMENTS` in markdown
+## Code Style
 
-**Hook System:**
-- Handlers export hook types from lib.ts
-- Payload types match Claude Code specifications
-- Each hook is a separate executable script
-- Session data persisted to temp directory
+### Formatting (Biome)
 
-## Security & Isolation
+- **Indent**: Tabs (configured in biome.json:13)
+- **Line width**: 100 characters
+- **Quotes**: Double quotes
+- **Semicolons**: Always
+- **Trailing commas**: ES5 style
 
-- Plugins have explicit permissions via rules
-- Tools restricted to whitelisted functions
-- GitHub authentication via `gh` CLI (secure)
-- No credentials stored in plugin code
-- Worktrees provide git-level isolation
+### File Naming
 
-## Performance Considerations
+- Commands: `kebab-case.md`
+- Agents: `kebab-case.md`
+- Directories: `kebab-case/`
 
-- CLI tool compiled with Bun (very fast startup)
-- File operations cached where possible
-- GitHub API calls batch when possible
-- Local file operations never network
-- Parallel agents share worktree resources efficiently
+## Testing
 
-## Future Extensibility
+- **Test runner**: Bun (`bun test`)
+- No test files exist yet in the repository
+- Tests should be added for any TypeScript utilities when implemented
 
-The architecture supports:
-- Additional plugins via marketplace
-- Custom hook implementations
-- Extended command frameworks
-- GitHub Projects visualization layer
-- Custom agent specialization
+## Important Constraints
 
+### Plugin Development
+
+1. **Command files** must have valid YAML frontmatter with `name`, `description`, `version`
+2. **Agent files** should focus on single responsibility
+3. **README files** for each plugin should follow the existing detailed format
+4. **Marketplace registration** requires updating `.claude-plugin/marketplace.json`
+
+### Git Pre-commit Hook
+
+- Runs `bunx biome check --write --staged --no-errors-on-unmatched`
+- Auto-fixes formatting issues
+- Fails commit if manual fixes required
+- Re-stages fixed files automatically
+
+### EPCC Workflow Rules
+
+- **Explore phase**: READ-ONLY, no code modifications, only documentation in `EPCC_EXPLORE.md`
+- **Plan phase**: Creates `EPCC_PLAN.md` with task breakdown
+- **Code phase**: Implements based on `EPCC_EXPLORE.md` and `EPCC_PLAN.md`, creates `EPCC_CODE.md`
+- **Commit phase**: Reviews all EPCC files, generates commit message and PR description
+
+## Dependencies
+
+### Production
+
+- `@stricli/core` v1.2.0 - CLI framework
+
+### Development
+
+- `@biomejs/biome` v2.2.5 - Formatter and linter
+- `@types/bun` - TypeScript types for Bun
+- `husky` v9.1.7 - Git hooks
+
+### Runtime
+
+- **Bun**: Required for running tests and scripts
+- **TypeScript**: v5+ (peer dependency)
+
+## Architecture Notes
+
+### Marketplace System
+
+- Plugins are self-contained in `plugins/` directory
+- Each plugin can be installed independently
+- Marketplace JSON serves as central registry
+- Source points to local plugin directories
+
+## Publishing Plugins
+
+This repository serves as a personal marketplace. To add new plugins:
+
+1. Create plugin directory under `plugins/[name]/`
+2. Add README.md, commands/, and agents/ as needed
+3. Register in `.claude-plugin/marketplace.json`
+4. Commit and push to GitHub
+5. Users install via the marketplace source configuration
