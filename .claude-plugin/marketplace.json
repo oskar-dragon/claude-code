@@ -12,14 +12,18 @@
 	},
 	"plugins": [
 		{
-			"name": "dev",
-			"source": "./plugins/dev",
-			"description": "Feature development workflow with specialized agents for codebase exploration, architecture design, and quality review",
+			"name": "epcc-workflow",
 			"version": "1.0.0",
-			"category": "development",
-			"author": {
-				"name": "Oskar Dragon"
-			}
+			"source": "./plugins/epcc",
+			"description": "EPCC (Explore-Plan-Code-Commit) systematic development workflow with 12 agents for exploration, planning, coding, and commit phases",
+			"category": "workflow"
+		},
+		{
+			"name": "documentation",
+			"version": "1.0.0",
+			"source": "./plugins/documentation",
+			"description": "Diataxis documentation framework with 12 agents for tutorials, how-tos, references, explanations, and analysis",
+			"category": "documentation"
 		},
 		{
 			"name": "git",
