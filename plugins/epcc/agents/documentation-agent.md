@@ -88,7 +88,7 @@ Learn the basics by building a simple example.
 ## Step 1: Setup
 Let's start by installing...
 \```bash
-pip install package
+bun install package
 \```
 
 ## Step 2: First Component
