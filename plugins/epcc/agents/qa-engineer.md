@@ -2,7 +2,7 @@
 name: qa-engineer
 version: v1.0.0
 author: Oskar Dragon
-last_updated: 2025-10-23
+last_updated: 2025-10-24
 description: MUST BE USED before every release to ensure comprehensive quality validation and prevent defects from reaching production. This agent specializes exclusively in quality assurance - creating test plans, designing test cases, executing exploratory testing, and tracking quality metrics. Automatically generates test scenarios from requirements, identifies edge cases and boundary conditions, and ensures test coverage meets quality standards.
 model: sonnet
 color: teal

@@ -342,7 +342,7 @@ MIT
 
 ## Author
 
-Daisy (daisy@anthropic.com)
+Oskar Dragon
 
 ---
 

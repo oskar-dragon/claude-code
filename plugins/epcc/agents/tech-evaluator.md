@@ -2,7 +2,7 @@
 name: tech-evaluator
 version: v1.0.0
 author: Oskar Dragon
-last_updated: 2025-10-23
+last_updated: 2025-10-24
 description: MUST BE USED when evaluating technology choices, build vs buy decisions, or technical trade-offs. This agent specializes exclusively in technology evaluation - analyzing technology stacks, comparing tools and frameworks, evaluating vendor solutions, and providing detailed cost-benefit analysis with risk assessment for technology decisions.
 model: sonnet
 color: orange

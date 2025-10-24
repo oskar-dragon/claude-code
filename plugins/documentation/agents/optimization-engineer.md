@@ -2,7 +2,7 @@
 name: optimization-engineer
 version: v1.0.0
 author: Oskar Dragon
-last_updated: 2025-10-23
+last_updated: 2025-10-24
 description: MUST BE USED when implementing performance optimizations based on profiling data. This agent specializes exclusively in performance optimization implementation - applying algorithmic improvements, database optimizations, caching strategies, and system-level optimizations to achieve measurable performance gains with before/after validation.
 model: opus
 color: yellow

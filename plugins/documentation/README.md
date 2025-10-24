@@ -278,8 +278,6 @@ curl -X POST /auth/login \
   -d '{"email":"user@example.com","password":"secret"}'
 ```
 
-````
-
 ## Agents
 
 ### `tutorial-writer`
@@ -287,6 +285,7 @@ curl -X POST /auth/login \
 **Purpose:** Creates beginner-friendly, step-by-step tutorials
 
 **Focus areas:**
+
 - Clear learning objectives
 - Safe, reproducible steps
 - Expected results at each stage
@@ -294,10 +293,12 @@ curl -X POST /auth/login \
 - Encouraging tone for beginners
 
 **When triggered:**
+
 - Automatically when using `/doc:tutorial`
 - Can be invoked manually for tutorial creation
 
 **Output:**
+
 - Complete tutorial with prerequisites
 - Step-by-step instructions with verification
 - Troubleshooting common beginner issues
@@ -309,6 +310,7 @@ curl -X POST /auth/login \
 **Purpose:** Creates clear, task-focused how-to guides
 
 **Focus areas:**
+
 - Goal-oriented instructions
 - Efficient, direct steps
 - Practical examples
@@ -316,10 +318,12 @@ curl -X POST /auth/login \
 - Success verification
 
 **When triggered:**
+
 - Automatically when using `/doc:howto`
 - Can be invoked manually for procedural docs
 
 **Output:**
+
 - Clear goal statement
 - Prerequisites listed
 - Step-by-step instructions
@@ -331,6 +335,7 @@ curl -X POST /auth/login \
 **Purpose:** Creates deep conceptual explanations
 
 **Focus areas:**
+
 - Background and context
 - Design rationale
 - Trade-off analysis
@@ -338,10 +343,12 @@ curl -X POST /auth/login \
 - Connections to broader concepts
 
 **When triggered:**
+
 - Automatically when using `/doc:explain`
 - Can be invoked manually for explanatory docs
 
 **Output:**
+
 - Conceptual overview
 - Key ideas explained
 - Design decisions documented
@@ -353,6 +360,7 @@ curl -X POST /auth/login \
 **Purpose:** Generates comprehensive technical reference documentation
 
 **Focus areas:**
+
 - Complete API coverage
 - Accurate parameter descriptions
 - Return values and types
@@ -360,10 +368,12 @@ curl -X POST /auth/login \
 - Code examples
 
 **When triggered:**
+
 - Automatically when using `/doc:reference`
 - Can be invoked manually for API docs
 
 **Output:**
+
 - Structured API documentation
 - Complete parameter listings
 - Response schemas
@@ -375,6 +385,7 @@ curl -X POST /auth/login \
 **Purpose:** Reviews documentation for clarity, accuracy, and completeness
 
 **Focus areas:**
+
 - Diataxis framework compliance
 - Technical accuracy
 - Clarity and readability
@@ -382,10 +393,12 @@ curl -X POST /auth/login \
 - Completeness
 
 **When triggered:**
+
 - After documentation generation
 - Can be invoked manually for quality checks
 
 **Output:**
+
 - Framework compliance report
 - Clarity issues identified
 - Missing information flagged
@@ -411,7 +424,7 @@ curl -X POST /auth/login \
 # Provide technical reference
 /doc:reference API endpoints
 /doc:reference Configuration options
-````
+```
 
 ### Update existing documentation
 
@@ -485,14 +498,12 @@ curl -X POST /auth/login \
 
 - Quick inline code comments (use regular commenting)
 - One-off notes or reminders
-- Internal team discussions (use issues/discussions)
 - Temporary documentation
 
 ## Requirements
 
 - Claude Code installed
 - Project with code to document
-- Basic understanding of your target audience
 - Existing code or features to document
 
 ## Troubleshooting
@@ -581,11 +592,3 @@ curl -X POST /auth/login \
 - **Test with real users** to verify effectiveness
 - **Link liberally** between related documentation
 - **Keep it current** by regenerating docs from code when possible
-
-## Author
-
-Sid Bidasaria (sbidasaria@anthropic.com)
-
-## Version
-
-1.0.0
