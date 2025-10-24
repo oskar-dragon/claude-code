@@ -1,8 +1,0 @@
-{
-	"name": "flow",
-	"description": "A Claude Code Plugin for managing projects",
-	"version": "1.0.1",
-	"author": {
-		"name": "Oskar Dragon"
-	}
-}
