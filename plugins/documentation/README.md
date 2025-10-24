@@ -1,6 +1,6 @@
 # Documentation Plugin
 
-A structured documentation workflow based on the Diataxis framework for creating learning-oriented tutorials, task-oriented how-to guides, understanding-oriented explanations, and information-oriented reference documentation.
+A structured documentation workflow based on the [Diataxis framework](https://diataxis.fr/) for creating learning-oriented tutorials, task-oriented how-to guides, understanding-oriented explanations, and information-oriented reference documentation.
 
 ## Overview
 

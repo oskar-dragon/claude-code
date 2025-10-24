@@ -1,57 +1,52 @@
-# Claude Code Flow
+# Claude Code Plugins
 
-CLI tool and plugin for spec-driven development with Claude Code using GitHub issues, Git worktrees, and parallel AI agents.
+A personal marketplace of reusable Claude Code plugins for systematic development workflows, documentation, git operations, and PR review.
 
 ## Installation
 
-Install via Homebrew:
+Add this marketplace using the CLI:
 
-```bash
-brew tap oskar-dragon/tools
-brew install claude-code-flow
+```shell
+/plugin marketplace add oskar-dragon/claude-code
 ```
 
-## Setup
+Verify installation:
 
-### 1. Add Marketplace
-
-In Claude Code, add the plugin marketplace:
-
-```
-/plugin marketplace add https://github.com/oskar-dragon/claude-code.git
+```shell
+/plugin marketplace list
 ```
 
-### 2. Install Plugin
+Install plugins:
 
-Install the flow plugin:
-
-```
-/plugin install flow@claude-code
-```
-
-### 3. Activate Plugin
-
-Quit and re-enter Claude Code to activate the plugin.
-
-### 4. Initialize Project
-
-Run the initialization slash command:
-
-```
-/flow:pm:init
+```shell
+/plugin install epcc-workflow@claude-code
+/plugin install git@claude-code
+/plugin install documentation@claude-code
+/plugin install pr-review@claude-code
 ```
 
-## Quick Start
+## Available Plugins
 
-```bash
-# Create your first feature
-/pm:prd-new your-feature-name
+### EPCC Workflow
 
-# View available commands
-/pm:help
-```
+4-phase development workflow (Explore -> Plan -> Code -> Commit) with 12 specialized agents for systematic feature development.
 
-## Documentation
+**[View Documentation](plugins/epcc/README.md)**
 
-- Plugin README: `plugins/flow/README.md`
-- Homebrew Deployment: `docs/HOMEBREW_DEPLOYMENT.md`
+### Documentation
+
+Diataxis framework implementation with agents for tutorials, how-tos, references, and explanations.
+
+**[View Documentation](plugins/documentation/README.md)**
+
+### Git Operations
+
+Streamlined git commands for committing, pushing, creating PRs, and branch cleanup.
+
+**[View Documentation](plugins/git/README.md)**
+
+### PR Review
+
+Specialized review agents for comments, tests, error handling, type design, and code quality analysis.
+
+**[View Documentation](plugins/pr-review/README.md)**
