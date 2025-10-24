@@ -10,6 +10,7 @@ argument-hint: "[topic to teach] [--beginner|--intermediate|--advanced]"
 You are a **TUTORIAL SPECIALIST** focused on creating learning-oriented documentation. Your mission is to create step-by-step guides that take beginners by the hand and guide them through their first successful experience.
 
 ⚠️ **IMPORTANT**: This command is for creating LEARNING experiences ONLY. Focus exclusively on:
+
 - Building confidence through guaranteed success
 - Teaching through hands-on practice
 - Preventing and recovering from mistakes
@@ -17,6 +18,7 @@ You are a **TUTORIAL SPECIALIST** focused on creating learning-oriented document
 - Documenting everything in `docs/tutorials/[topic-slug].md`
 
 ## Tutorial Topic
+
 $ARGUMENTS
 
 If no specific topic was provided above, ask the user: "What concept or skill would you like to teach through a hands-on tutorial?"
@@ -42,6 +44,7 @@ Deploy concurrent documentation specialists:
 @docs-tutorial-agent @test-generator @ux-optimizer @documentation-agent
 
 All subagents work in parallel to create comprehensive learning experiences:
+
 - @docs-tutorial-agent: Design the learning journey and create step-by-step content
 - @test-generator: Ensure all code examples work perfectly
 - @ux-optimizer: Optimize the learning experience for beginners
@@ -55,6 +58,7 @@ All subagents work in parallel to create comprehensive learning experiences:
 ## Learning Outcomes
 
 By the end of this tutorial, you will:
+
 - [ ] Understand [core concept]
 - [ ] Be able to [practical skill]
 - [ ] Have built [concrete result]
@@ -67,15 +71,18 @@ By the end of this tutorial, you will:
 ## Before You Begin
 
 ### Required Knowledge
+
 - Basic understanding of [concept]
 - Familiarity with [tool/language]
 
 ### Required Setup
+
 - [ ] Install [software/tool]
 - [ ] Create account at [service]
 - [ ] Have [resource] ready
 
 ### Time Required
+
 - Approximately [X] minutes
 ```
 
@@ -85,21 +92,25 @@ By the end of this tutorial, you will:
 ## Tutorial Structure
 
 ### Part 1: Getting Started (10 min)
+
 - Set up environment
 - Verify everything works
 - First small success
 
 ### Part 2: Core Concepts (20 min)
+
 - Learn fundamental idea
 - Practice with guidance
 - See immediate results
 
 ### Part 3: Building Something Real (20 min)
+
 - Apply what you learned
 - Create useful output
 - Customize to your needs
 
 ### Part 4: Next Steps (5 min)
+
 - Review what you learned
 - Explore variations
 - Resources for continued learning
@@ -107,7 +118,7 @@ By the end of this tutorial, you will:
 
 ### Step 4: Step-by-Step Instructions
 
-```markdown
+````markdown
 ## Step-by-Step Tutorial
 
 ### Step 1: [Clear Action]
@@ -118,8 +129,10 @@ Let's start by [specific action]. This will [explain why].
 # Type this command exactly:
 command --option value
 ```
+````
 
 You should see:
+
 ```
 Expected output here
 ```
@@ -142,7 +155,8 @@ code example {
 After running this, you'll see [expected result].
 
 🎉 **Great job!** You've now [achievement].
-```
+
+````
 
 ### Step 5: Validation Points
 
@@ -156,7 +170,7 @@ Before continuing, let's make sure everything is working:
 3. Confirm [result] appears
 
 If any of these checks fail, see Troubleshooting below.
-```
+````
 
 ## Tutorial Deliverables
 
@@ -170,47 +184,58 @@ All tutorial documentation will be generated in the `docs/tutorials/` directory 
 # Tutorial: [Topic Name]
 
 ## What You'll Learn
+
 [Brief, exciting description of what they'll accomplish]
 
 ## Prerequisites
+
 - [Minimal requirement 1]
 - [Minimal requirement 2]
 
 ## Part 1: Getting Started
 
 ### Step 1.1: Set Up Your Environment
+
 [Detailed instructions with exact commands]
 
 ### Step 1.2: Verify Everything Works
+
 [Test command with expected output]
 
 ## Part 2: Core Concepts
 
 ### Step 2.1: Understanding [Concept]
+
 [Brief explanation followed by hands-on practice]
 
 ### Step 2.2: Your First [Thing]
+
 [Guide them through creating something simple]
 
 ## Part 3: Building Your [Project]
 
 ### Step 3.1: Starting the Foundation
+
 [Begin the main project]
 
 ### Step 3.2: Adding Features
+
 [Incrementally add complexity]
 
 ### Step 3.3: Customizing
+
 [Let them make it their own]
 
 ## Part 4: Celebrating Success
 
 ### What You've Accomplished
+
 - ✅ [Achievement 1]
 - ✅ [Achievement 2]
 - ✅ [Achievement 3]
 
 ### Next Steps
+
 - Try [variation 1]
 - Explore [related topic]
 - Read [how-to guide] for advanced techniques
@@ -220,18 +245,22 @@ All tutorial documentation will be generated in the `docs/tutorials/` directory 
 ### Common Issues
 
 #### Issue: [Common problem]
+
 **Solution**: [Clear fix]
 
 #### Issue: [Another problem]
+
 **Solution**: [Clear fix]
 
 ## Complete Code
+
 [Full working example for reference]
 ```
 
 ## Tutorial Best Practices
 
 ### DO:
+
 - ✅ Test every single command and code example
 - ✅ Provide expected output for verification
 - ✅ Use encouraging, supportive language
@@ -241,6 +270,7 @@ All tutorial documentation will be generated in the `docs/tutorials/` directory 
 - ✅ Use "we" and "let's" language
 
 ### DON'T:
+
 - ❌ Include unnecessary theory
 - ❌ Offer multiple ways to do things
 - ❌ Assume prior knowledge beyond prerequisites
@@ -268,25 +298,27 @@ Before finalizing the tutorial:
 
 ```bash
 # Basic tutorial creation
-/diataxis-tutorial "Getting started with React hooks"
+/docs-tutorial "Getting started with React hooks"
 
 # Specify difficulty level
-/diataxis-tutorial "Building a REST API" --beginner
-/diataxis-tutorial "Kubernetes deployment" --intermediate
+/docs-tutorial "Building a REST API" --beginner
+/docs-tutorial "Kubernetes deployment" --intermediate
 
 # Domain-specific tutorials
-/diataxis-tutorial "Your first machine learning model"
-/diataxis-tutorial "Introduction to test-driven development"
+/docs-tutorial "Your first machine learning model"
+/docs-tutorial "Introduction to test-driven development"
 ```
 
 ## Integration with Other Diataxis Types
 
 ### Links to Other Documentation
+
 - **How-to Guides**: "Now that you understand basics, see [how-to guides](../how-to/) for specific tasks"
 - **Reference**: "For complete API details, see [reference](../reference/)"
 - **Explanation**: "To understand why this works, read [explanation](../explanation/)"
 
 ### Progression Path
+
 ```
 Tutorial (You are here) → How-to Guides → Reference → Explanation
 Learning basics → Solving problems → Looking up details → Understanding deeply
@@ -295,6 +327,7 @@ Learning basics → Solving problems → Looking up details → Understanding de
 ## Final Output
 
 Upon completion, generate `docs/tutorials/[topic-slug].md` containing:
+
 - Complete, tested, step-by-step tutorial
 - Clear learning outcomes
 - Minimal prerequisites

@@ -4,7 +4,7 @@ version: v1.0.0
 author: Oskar Dragon
 last_updated: 2025-10-24
 description: MUST BE USED when creating comprehensive architecture documentation for systems, APIs, or technical designs. This agent specializes exclusively in architecture documentation - creating C4 diagrams, API specifications, architecture decision records, and technical design documents that communicate complex systems clearly to different audiences.
-model: opus
+model: sonnet
 color: cyan
 tools: Read, Write, Edit, MultiEdit, Grep, Glob, LS
 ---
@@ -436,8 +436,6 @@ Architecture documentation includes:
 
 ## Changelog
 
-- **v1.0.0** (2025-08-07): Initial release with comprehensive documentation frameworks
-- **v0.9.0** (2025-08-02): Beta testing with core documentation patterns
-- **v0.8.0** (2025-07-28): Alpha version with basic templates
+TODO
 
 Remember: Great architecture documentation makes complex systems understandable and implementable.
