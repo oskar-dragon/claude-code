@@ -10,6 +10,7 @@ argument-hint: "[commit-message] [--amend|--squash]"
 You are in the **COMMIT** phase of the Explore-Plan-Code-Commit workflow. Finalize your work with a professional commit.
 
 ## Commit Context
+
 $ARGUMENTS
 
 If no commit message was provided above, I'll generate one based on the work documented in EPCC files.
@@ -38,6 +39,7 @@ Note: Original requirements can be found in EPCC_PLAN.md if it exists.
 ## Pre-Commit Checklist
 
 ### Code Quality
+
 ```bash
 # Run all tests
 npm test  # or pytest
@@ -56,6 +58,7 @@ grep -r "console.log\|debugger\|TODO\|FIXME" src/
 ```
 
 ### Documentation Check
+
 ```bash
 # Ensure documentation is updated
 ls -la EPCC_*.md
@@ -75,32 +78,39 @@ Generate `EPCC_COMMIT.md` to document the complete change:
 # Commit Summary
 
 ## Feature: [Feature Name]
+
 ## Date: [Current Date]
+
 ## Author: [Your Name]
 
 ## Changes Overview
 
 ### What Changed
+
 - Brief description of changes
 - Key files modified
 - New functionality added
 
 ### Why It Changed
+
 - Business requirement addressed
 - Problem solved
 - Value delivered
 
 ### How It Changed
+
 - Technical approach taken
 - Patterns applied
 - Technologies used
 
 ## Files Changed
 ```
+
 Modified: src/feature.js
 Added: src/feature.test.js
 Updated: README.md
 Created: docs/feature.md
+
 ```
 
 ## Testing Summary
@@ -131,6 +141,7 @@ Created: docs/feature.md
 ## Commit Message
 
 ```
+
 feat: Add [feature name] with [key capability]
 
 - Implement [specific functionality]
@@ -141,9 +152,11 @@ feat: Add [feature name] with [key capability]
 Closes #[issue-number]
 
 Based on:
+
 - Exploration: EPCC_EXPLORE.md
 - Plan: EPCC_PLAN.md
 - Implementation: EPCC_CODE.md
+
 ```
 
 ## Pull Request Description
@@ -179,6 +192,7 @@ Based on:
 ## Commit Best Practices
 
 ### Commit Message Format
+
 ```
 <type>(<scope>): <subject>
 
@@ -188,6 +202,7 @@ Based on:
 ```
 
 ### Types
+
 - **feat**: New feature
 - **fix**: Bug fix
 - **docs**: Documentation only
@@ -198,6 +213,7 @@ Based on:
 - **chore**: Maintenance
 
 ### Good Commit Messages
+
 ```bash
 # Good
 git commit -m "feat: Add user authentication with JWT tokens
@@ -218,6 +234,7 @@ git commit -m "Update code"
 ## Git Commands
 
 ### Stage Changes
+
 ```bash
 # Review changes
 git status
@@ -234,6 +251,7 @@ git reset HEAD file.js
 ```
 
 ### Create Commit
+
 ```bash
 # Commit with message
 git commit -m "feat: Implement feature X"
@@ -249,6 +267,7 @@ git rebase -i HEAD~3
 ```
 
 ### Push Changes
+
 ```bash
 # Push to feature branch
 git push origin feature/branch-name
@@ -260,22 +279,27 @@ git push --force-with-lease origin feature/branch-name
 ## Creating the Pull Request
 
 ### PR Template
+
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## How Has This Been Tested?
+
 - [ ] Unit tests
 - [ ] Integration tests
 - [ ] Manual testing
 
 ## Checklist
+
 - [ ] My code follows the style guidelines
 - [ ] I have performed a self-review
 - [ ] I have commented my code where needed
@@ -286,6 +310,7 @@ Brief description of changes
 - [ ] Any dependent changes have been merged
 
 ## EPCC Documentation
+
 - Exploration: [EPCC_EXPLORE.md](./EPCC_EXPLORE.md)
 - Plan: [EPCC_PLAN.md](./EPCC_PLAN.md)
 - Code: [EPCC_CODE.md](./EPCC_CODE.md)
@@ -295,6 +320,7 @@ Brief description of changes
 ## Post-Commit Actions
 
 ### After Committing
+
 1. Create/Update Pull Request
 2. Request code review
 3. Address review feedback
@@ -303,37 +329,18 @@ Brief description of changes
 6. Update project board
 
 ### Clean Up EPCC Files
+
 ```bash
 # Archive EPCC documents
 mkdir -p .epcc-archive/[feature-name]
 mv EPCC_*.md .epcc-archive/[feature-name]/
 
-# Or keep for reference
-git add EPCC_*.md
-git commit -m "docs: Add EPCC documentation for [feature]"
-```
-
-## Integration with CI/CD
-
-### Automated Checks
-```yaml
-# .github/workflows/ci.yml
-- name: Run Tests
-  run: npm test
-  
-- name: Check Coverage
-  run: npm run coverage
-  
-- name: Lint Code
-  run: npm run lint
-  
-- name: Security Scan
-  run: npm audit
 ```
 
 ## Final Output
 
 Upon completion, ensure `EPCC_COMMIT.md` contains:
+
 - Complete change summary
 - All test results
 - Performance metrics

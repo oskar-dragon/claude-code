@@ -65,7 +65,7 @@ Or use test-driven development:
 
 ## Command: `/epcc-commit`
 
-Launches the commit phase to finalize work with professional documentation.
+Launches the commit phase to finalize work.
 
 **Usage:**
 
@@ -73,7 +73,7 @@ Launches the commit phase to finalize work with professional documentation.
 /epcc-commit "Add user authentication feature"
 ```
 
-Generates commit messages, PR descriptions, and complete documentation.
+Generates commit messages, PR descriptions, and documentation.
 
 ## Command: `/epcc-prd` (Optional)
 
@@ -102,7 +102,7 @@ Guides you through creating a comprehensive Product Requirements Document.
   - @test-generator assesses test coverage
   - @documentation-agent reviews existing documentation
 - Each agent explores different aspects of your codebase
-- Creates comprehensive `EPCC_EXPLORE.md` with findings
+- Creates `EPCC_EXPLORE.md` with findings
 - Documents patterns, constraints, and dependencies
 
 **Example output in EPCC_EXPLORE.md:**
@@ -136,14 +136,14 @@ Patterns & Conventions:
 **What happens:**
 
 - Reads `EPCC_EXPLORE.md` findings
-- Launches 6 specialized agents in parallel:
+- Launches 6 agents in parallel:
   - @system-designer designs architecture
   - @tech-evaluator evaluates technology choices
   - @business-analyst breaks down requirements
   - @security-reviewer assesses security risks
   - @qa-engineer plans testing strategy
   - @project-manager estimates timeline
-- Creates detailed `EPCC_PLAN.md` with implementation roadmap
+- Creates `EPCC_PLAN.md` with implementation roadmap
 - Defines tasks, risks, and success criteria
 
 **Example output in EPCC_PLAN.md:**
@@ -159,12 +159,12 @@ Technical Approach:
 - Implement token refresh mechanism
 
 Task Breakdown:
-1. [ ] Set up database schema (2h)
-2. [ ] Implement OAuthProvider interface (3h)
-3. [ ] Create Google OAuth integration (2h)
-4. [ ] Create GitHub OAuth integration (2h)
-5. [ ] Add OAuth middleware (2h)
-6. [ ] Write comprehensive tests (4h)
+1. [ ] Set up database schema
+2. [ ] Implement OAuthProvider interface
+3. [ ] Create Google OAuth integration
+4. [ ] Create GitHub OAuth integration
+5. [ ] Add OAuth middleware
+6. [ ] Write comprehensive tests
 
 Risk Assessment:
 - OAuth state management: Medium risk - Mitigate with Redis caching
@@ -226,7 +226,7 @@ Key Decisions:
 
 ### Phase 4: Commit
 
-**Goal**: Finalize with professional documentation
+**Goal**: Finalize with documentation
 
 **What happens:**
 
@@ -236,7 +236,7 @@ Key Decisions:
   - @documentation-agent ensures docs are complete
   - @deployment-agent validates deployment readiness
   - @project-manager reviews completion against requirements
-- Generates professional commit message
+- Generates commit message
 - Creates complete PR description
 - Documents everything in `EPCC_COMMIT.md`
 

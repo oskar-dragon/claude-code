@@ -10,6 +10,7 @@ argument-hint: "[concept to explain] [--architecture|--design|--theory|--compari
 You are in the **EXPLANATION** phase of the Diataxis documentation workflow. Your mission is to create understanding-oriented documentation that provides context, background, and deeper insights into concepts, designs, and decisions.
 
 ⚠️ **IMPORTANT**: This command is for creating EXPLANATORY documentation ONLY. Focus exclusively on:
+
 - Providing conceptual understanding and context
 - Explaining the "why" behind decisions
 - Discussing alternatives and trade-offs
@@ -17,6 +18,7 @@ You are in the **EXPLANATION** phase of the Diataxis documentation workflow. You
 - Documenting everything in `docs/explanation/[topic-slug].md`
 
 ## Concept to Explain
+
 $ARGUMENTS
 
 If no specific concept was provided above, ask the user: "What concept, architecture, or design decision would you like explained in depth?"
@@ -42,6 +44,7 @@ Deploy concurrent documentation specialists:
 @docs-explanation-agent @architecture-documenter @system-designer @business-analyst
 
 All subagents work in parallel to create comprehensive explanations:
+
 - @docs-explanation-agent: Create conceptual, understanding-oriented content
 - @architecture-documenter: Document design decisions and rationale
 - @system-designer: Explain system architecture and patterns
@@ -55,20 +58,25 @@ All subagents work in parallel to create comprehensive explanations:
 ## About [Topic]
 
 ### Overview
+
 [High-level introduction to the concept]
 
 ### Why This Matters
+
 - [Business impact]
 - [Technical significance]
 - [User benefits]
 
 ### Scope of This Explanation
+
 This document explains:
+
 - [Aspect 1]
 - [Aspect 2]
 - [Aspect 3]
 
 This document does not cover:
+
 - [Out of scope 1]
 - [Out of scope 2]
 ```
@@ -79,15 +87,19 @@ This document does not cover:
 ## Background and Context
 
 ### Historical Perspective
+
 [How we got here - evolution of the concept]
 
 ### Current State
+
 [Where we are now - current implementation/understanding]
 
 ### Industry Context
+
 [How others approach this - standards and practices]
 
 ### Our Approach
+
 [Why we chose this path - specific context]
 ```
 
@@ -97,13 +109,16 @@ This document does not cover:
 ## Understanding [Core Concept]
 
 ### The Fundamental Idea
+
 [Explain the core concept in simple terms]
 
 ### Analogy
-Think of [concept] like [familiar analogy]. Just as [analogy explanation], 
+
+Think of [concept] like [familiar analogy]. Just as [analogy explanation],
 [concept] works by [parallel explanation].
 
 ### Key Principles
+
 1. **Principle 1**: [Explanation]
    - Why it matters
    - How it works
@@ -116,11 +131,14 @@ Think of [concept] like [familiar analogy]. Just as [analogy explanation],
 
 ### Mental Model
 ```
+
 [Visual or conceptual model]
 Component A → Process → Component B
-     ↓                        ↓
-  Storage                  Output
+↓ ↓
+Storage Output
+
 ```
+
 ```
 
 ### Step 4: Design Decisions
@@ -131,6 +149,7 @@ Component A → Process → Component B
 ### Decision: [Specific Choice Made]
 
 #### Options Considered
+
 1. **Option A** (Chosen)
    - Pros: [Benefits]
    - Cons: [Drawbacks]
@@ -147,11 +166,13 @@ Component A → Process → Component B
    - Why not: [Reasoning]
 
 #### Trade-offs Accepted
+
 - We prioritized [quality] over [quality]
 - We accepted [limitation] to gain [benefit]
 - We chose [approach] knowing [consequence]
 
 #### Future Considerations
+
 - This decision allows for [future possibility]
 - We may revisit if [condition changes]
 - Migration path exists to [alternative]
@@ -163,17 +184,21 @@ Component A → Process → Component B
 ## How This Relates to Other Concepts
 
 ### Relationship to [Related Concept 1]
+
 [Explain connection and interaction]
 
 ### Relationship to [Related Concept 2]
+
 [Explain connection and interaction]
 
 ### Part of Larger System
 ```
+
 [Broader Context]
-    ├── [This Concept]
-    ├── [Related System]
-    └── [Connected Component]
+├── [This Concept]
+├── [Related System]
+└── [Connected Component]
+
 ```
 
 ### Dependencies
@@ -194,78 +219,99 @@ All explanation documentation will be generated in the `docs/explanation/` direc
 # Understanding [Topic]
 
 ## Introduction
+
 [Accessible introduction that draws readers in]
 
 ## The Big Picture
+
 [Context and significance in the broader landscape]
 
 ## Core Concepts
 
 ### What Is [Concept]?
+
 [Clear, accessible explanation]
 
 ### Why [Concept] Exists
+
 [Problem it solves, need it addresses]
 
 ### How [Concept] Works
+
 [Conceptual overview, not implementation details]
 
 ## Design Philosophy
 
 ### Guiding Principles
+
 [What drives the design]
 
 ### Architectural Decisions
+
 [Key choices and their rationale]
 
 ### Trade-offs
+
 [What we optimized for vs. what we sacrificed]
 
 ## Alternatives and Comparisons
 
 ### Alternative Approaches
+
 [Other ways to solve the same problem]
 
 ### When to Use Which
+
 [Decision framework for choosing approaches]
 
 ### Evolution and History
+
 [How approaches have evolved]
 
 ## Practical Implications
 
 ### Impact on Development
+
 [How this affects day-to-day work]
 
 ### Impact on Users
+
 [How this affects end users]
 
 ### Impact on Operations
+
 [How this affects deployment and maintenance]
 
 ## Common Misconceptions
 
 ### Misconception 1: [Statement]
+
 **Reality**: [Correction and explanation]
 
 ### Misconception 2: [Statement]
+
 **Reality**: [Correction and explanation]
 
 ## Future Directions
 
 ### Current Limitations
+
 [Honest assessment of current state]
 
 ### Planned Improvements
+
 [Roadmap and vision]
 
 ### Industry Trends
+
 [Where the field is heading]
 
 ## Summary
+
 [Key takeaways and main points]
 
 ## Further Reading
+
 - [Related explanation documents]
 - [External resources]
 - [Academic papers or industry articles]
@@ -274,6 +320,7 @@ All explanation documentation will be generated in the `docs/explanation/` direc
 ## Explanation Best Practices
 
 ### DO:
+
 - ✅ Provide rich context and background
 - ✅ Explain the "why" behind decisions
 - ✅ Discuss alternatives thoughtfully
@@ -284,6 +331,7 @@ All explanation documentation will be generated in the `docs/explanation/` direc
 - ✅ Include historical context
 
 ### DON'T:
+
 - ❌ Include step-by-step instructions
 - ❌ Focus on implementation details
 - ❌ Provide technical specifications
@@ -311,27 +359,29 @@ Before finalizing explanation documentation:
 
 ```bash
 # Basic explanation creation
-/diataxis-explanation "microservices architecture"
+/docs-explanation "microservices architecture"
 
 # Specify explanation type
-/diataxis-explanation "database design" --architecture
-/diataxis-explanation "algorithm choice" --design
-/diataxis-explanation "CAP theorem" --theory
-/diataxis-explanation "REST vs GraphQL" --comparison
+/docs-explanation "database design" --architecture
+/docs-explanation "algorithm choice" --design
+/docs-explanation "CAP theorem" --theory
+/docs-explanation "REST vs GraphQL" --comparison
 
 # Specific concepts
-/diataxis-explanation "event-driven architecture"
-/diataxis-explanation "zero-trust security model"
+/docs-explanation "event-driven architecture"
+/docs-explanation "zero-trust security model"
 ```
 
 ## Integration with Other Diataxis Types
 
 ### Relationship to Other Documentation
+
 - **From Tutorial**: "To understand why we do this, see [explanation](../explanation/)"
 - **From How-to**: "For background on this approach, read [explanation](../explanation/)"
 - **From Reference**: "For conceptual understanding, see [explanation](../explanation/)"
 
 ### Documentation Journey
+
 ```
 Tutorial → How-to → Reference → Explanation (You are here)
 Doing → Achieving → Looking up → Understanding deeply
@@ -340,76 +390,97 @@ Doing → Achieving → Looking up → Understanding deeply
 ## Common Explanation Patterns
 
 ### Architecture Explanation
+
 ```markdown
 ## Understanding Our Architecture
 
 ### Why This Architecture?
+
 [Problems it solves]
 
 ### Core Design Principles
+
 [What guides decisions]
 
 ### Component Relationships
+
 [How parts work together]
 
 ### Evolution Story
+
 [How we got here]
 ```
 
 ### Design Pattern Explanation
+
 ```markdown
 ## The [Pattern Name] Pattern
 
 ### Problem It Solves
+
 [Context and challenge]
 
 ### How It Works
+
 [Conceptual mechanism]
 
 ### When to Use It
+
 [Appropriate contexts]
 
 ### Trade-offs
+
 [Benefits vs. costs]
 ```
 
 ### Technology Choice Explanation
+
 ```markdown
 ## Why We Chose [Technology]
 
 ### Requirements That Led Here
+
 [What we needed]
 
 ### Alternatives Considered
+
 [What else we looked at]
 
 ### Decision Factors
+
 [What tipped the scales]
 
 ### Living with the Choice
+
 [Experience and lessons]
 ```
 
 ### Conceptual Model Explanation
+
 ```markdown
 ## Understanding [Model]
 
 ### Mental Model
+
 [How to think about it]
 
 ### Real-World Analogy
+
 [Familiar comparison]
 
 ### Key Insights
+
 [Aha moments]
 
 ### Common Pitfalls
+
 [Misconceptions to avoid]
 ```
 
 ## Final Output
 
 Upon completion, generate `docs/explanation/[topic-slug].md` containing:
+
 - Rich contextual background
 - Clear conceptual explanations
 - Design decisions and rationale

@@ -10,6 +10,7 @@ argument-hint: "[area-to-explore] [--deep|--quick]"
 You are in the **EXPLORE** phase of the Explore-Plan-Code-Commit workflow. Your mission is to understand thoroughly before taking any action.
 
 ⚠️ **IMPORTANT**: This phase is for EXPLORATION ONLY. Do NOT write any implementation code. Focus exclusively on:
+
 - Reading and understanding existing code
 - Analyzing patterns and architecture
 - Identifying constraints and dependencies
@@ -23,16 +24,17 @@ IMPORTANT: Use the following subagents in parallel for this explore phase:
 @code-archaeologist @system-designer @business-analyst @test-generator @documentation-agent
 
 **Agent Instructions**: Each agent must ONLY explore and document findings. Save all implementation ideas for the CODE phase:
+
 - @code-archaeologist: Analyze legacy code structure and uncover hidden patterns (NO CODING - only analysis)
-- @system-designer: Identify design patterns and architectural conventions (NO IMPLEMENTATION - only observation)  
+- @system-designer: Identify design patterns and architectural conventions (NO IMPLEMENTATION - only observation)
 - @business-analyst: Map dependencies and process flows (NO CHANGES - only documentation)
 - @test-generator: Explore existing tests and coverage gaps (NO TEST WRITING - only assessment)
 - @documentation-agent: Review and analyze all documentation (NO NEW DOCS - only review)
 
 Note: This is the first phase - findings will be documented in EPCC_EXPLORE.md for use in subsequent phases. Always check for CLAUDE.md files first as they contain critical project-specific instructions.
 
-
 ## Exploration Focus
+
 $ARGUMENTS
 
 If no specific area was provided above, perform a general exploration of the entire codebase. If an area was specified, focus your exploration on that specific component, feature, or file.
@@ -53,10 +55,10 @@ If no specific area was provided above, perform a general exploration of the ent
 - **Complex systems**: Think hard about interdependencies and side effects
 - **Legacy code**: Ultrathink about historical context and migration paths
 
-
 ## Exploration Methodology
 
 ### Step 1: Review Project Instructions (CLAUDE.md)
+
 ```bash
 # Check for CLAUDE.md files with project-specific instructions
 # These files contain critical project conventions and requirements
@@ -81,6 +83,7 @@ fi
 ```
 
 ### Step 2: Project Structure Analysis
+
 ```bash
 # Get high-level overview
 tree -L 3 -I 'node_modules|__pycache__|.git|dist|build'
@@ -94,6 +97,7 @@ grep -r "export default" . --include="*.js" --include="*.ts"
 ```
 
 ### Step 3: Technology Stack Discovery
+
 ```bash
 # Identify frameworks and libraries (READ ONLY - do not modify any files)
 # Check for package files
@@ -108,18 +112,20 @@ if [ -f "go.mod" ]; then echo "Found Go project"; fi
 ```
 
 ### Step 4: Pattern Recognition
+
 ```bash
 # Identify coding patterns (OBSERVATION ONLY - do not implement any patterns)
 # Look for architectural patterns
-grep -r "Controller" --include="*.py" --include="*.js" | head -10
-grep -r "Service" --include="*.py" --include="*.js" | head -10
-grep -r "Repository" --include="*.py" --include="*.js" | head -10
+grep -r "Controller" --include="*.py" --include="*.ts" | head -10
+grep -r "Service" --include="*.py" --include="*.ts" | head -10
+grep -r "Repository" --include="*.py" --include="*.ts" | head -10
 
 # Document patterns found in EPCC_EXPLORE.md
 # DO NOT create new pattern implementations
 ```
 
 ### Step 5: Constraint Identification
+
 - Performance requirements (latency, throughput)
 - Security requirements (authentication, encryption)
 - Compatibility requirements (browsers, platforms)
@@ -127,10 +133,11 @@ grep -r "Repository" --include="*.py" --include="*.js" | head -10
 - Technical debt and limitations
 
 ### Step 6: Similar Implementation Search
+
 ```bash
 # Find similar features or patterns
-grep -r "authentication" --include="*.py" --include="*.js"
-grep -r "similar_feature_name" --include="*.py" --include="*.js"
+grep -r "authentication" --include="*.py" --include="*.ts"
+grep -r "similar_feature_name" --include="*.py" --include="*.ts"
 
 # Look for existing solutions
 find . -name "*auth*" -o -name "*login*" -o -name "*session*"
@@ -143,10 +150,12 @@ find . -name "*auth*" -o -name "*login*" -o -name "*session*"
 All exploration findings will be documented in `EPCC_EXPLORE.md` in the project root.
 
 ### 1. Exploration Report Structure
+
 ```markdown
 # Exploration Report: [Feature/Area]
 
 ## Executive Summary
+
 - Project type: [Web app/API/Library/etc.]
 - Primary language: [Python/JavaScript/etc.]
 - Architecture: [Monolith/Microservices/etc.]
@@ -154,11 +163,13 @@ All exploration findings will be documented in `EPCC_EXPLORE.md` in the project 
 
 ## Project Structure
 ```
+
 project/
-├── src/           # Main application code
-├── tests/         # Test suites
-├── docs/          # Documentation
-└── config/        # Configuration files
+├── src/ # Main application code
+├── tests/ # Test suites
+├── docs/ # Documentation
+└── config/ # Configuration files
+
 ```
 
 ## Project Instructions (from CLAUDE.md)
@@ -201,6 +212,7 @@ project/
 ```
 
 ### 2. Codebase Map (included in EPCC_EXPLORE.md)
+
 ```json
 {
   "structure": {
@@ -259,18 +271,21 @@ Before proceeding to PLAN phase, ensure all findings are documented in `EPCC_EXP
 ## Common Exploration Patterns
 
 ### For New Features
+
 1. Find similar existing features
 2. Understand the current architecture
 3. Identify integration points
 4. Review relevant tests
 
 ### For Bug Fixes
+
 1. Locate the problematic code
 2. Understand the surrounding context
 3. Find related code that might be affected
 4. Review existing tests for the area
 
 ### For Refactoring
+
 1. Map current implementation
 2. Identify all dependencies
 3. Find all usages
@@ -299,6 +314,7 @@ Before proceeding to PLAN phase, ensure all findings are documented in `EPCC_EXP
 ## Integration with Next Phases
 
 The exploration phase outputs in `EPCC_EXPLORE.md` feed directly into:
+
 - **PLAN**: Use findings from EPCC_EXPLORE.md to create realistic plans
 - **CODE**: Reference patterns and conventions documented in EPCC_EXPLORE.md
 - **COMMIT**: Ensure consistency with project standards identified in EPCC_EXPLORE.md
@@ -306,6 +322,7 @@ The exploration phase outputs in `EPCC_EXPLORE.md` feed directly into:
 ## Final Output
 
 Upon completion, generate `EPCC_EXPLORE.md` containing:
+
 - Executive summary
 - Project structure analysis
 - Key components and patterns
