@@ -2,7 +2,7 @@
 name: system-designer
 version: v1.0.0
 author: Oskar Dragon
-last_updated: 2025-10-23
+last_updated: 2025-10-24
 description: MUST BE USED when designing high-level system architecture for new projects or major system changes. This agent specializes exclusively in system design - creating component diagrams, defining service boundaries, designing data flows, and establishing integration patterns. Automatically creates system blueprints with clear component relationships and interaction patterns.
 model: sonnet
 color: purple

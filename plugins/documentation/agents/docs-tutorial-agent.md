@@ -1,7 +1,7 @@
 ---
 name: docs-tutorial-agent
 author: Oskar Dragon
-last_updated: 2025-10-23
+last_updated: 2025-10-24
 description: MUST BE USED when creating learning-oriented documentation for beginners. This agent specializes exclusively in creating step-by-step tutorials that take new users by the hand through guided learning experiences. Creates safe, tested learning paths that build confidence and familiarity with systems through hands-on practice.
 model: sonnet
 color: green

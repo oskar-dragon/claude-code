@@ -2,7 +2,7 @@
 name: security-reviewer
 version: v1.0.0
 author: Oskar Dragon
-last_updated: 2025-10-23
+last_updated: 2025-10-24
 description: MUST BE USED before every deployment and pull request. This agent focuses solely on security vulnerability detection and remediation - scanning for OWASP Top 10, analyzing authentication/authorization, checking dependencies for CVEs, and validating data protection. Automatically blocks insecure code, provides specific fixes for vulnerabilities, and enforces security best practices throughout the development lifecycle.
 model: sonnet
 color: red
