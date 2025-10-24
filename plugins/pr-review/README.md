@@ -202,18 +202,6 @@ Claude may proactively use these agents based on context:
 - **Before creating PR** → Multiple agents as appropriate
 - **After adding types** → type-design-analyzer
 
-## Installation
-
-Install from your personal marketplace:
-
-```bash
-/plugins
-# Find "pr-review-toolkit"
-# Install
-```
-
-Or add manually to settings if needed.
-
 ## Agent Details
 
 ### Confidence Scoring
@@ -336,14 +324,12 @@ Found issues or have suggestions? These agents are maintained in:
 - User agents: `~/.claude/agents/`
 - Project agents: `.claude/agents/` in claude-cli-internal
 
-## License
-
-MIT
-
 ## Author
 
 Oskar Dragon
 
 ---
 
-**Quick Start**: Just ask for review and the right agent will trigger automatically!
+## Version
+
+1.0.0
