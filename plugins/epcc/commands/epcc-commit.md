@@ -15,6 +15,33 @@ $ARGUMENTS
 
 If no commit message was provided above, I'll generate one based on the work documented in EPCC files.
 
+## Project Setup
+
+Before finalizing the commit, identify the project directory:
+
+1. **Extract project name** from the commit argument (or ask if not provided)
+2. **Convert to kebab-case**: Lowercase, replace spaces/underscores with hyphens
+   ```bash
+   PROJECT_NAME=$(echo "$INPUT" | tr '[:upper:] _' '[:lower:]-' | sed 's/--*/-/g')
+   ```
+3. **Check for existing projects**:
+   ```bash
+   ls -dt .claude/epcc/*/ 2>/dev/null | head -5
+   ```
+4. **If existing projects found**: Use AskUserQuestion tool to let user choose:
+   - Continue existing project (show name and last modified)
+   - Start new project with extracted name
+5. **Create directory structure** (if not exists):
+   ```bash
+   mkdir -p .claude/epcc/$PROJECT_NAME
+   ```
+6. **Set output path**: Commit summary goes to `.claude/epcc/$PROJECT_NAME/EPCC_COMMIT.md`
+7. **Reference all project files**: Review all EPCC documents from `.claude/epcc/$PROJECT_NAME/`:
+   - `.claude/epcc/<project-name>/EPCC_EXPLORE.md` (exploration findings)
+   - `.claude/epcc/<project-name>/EPCC_PLAN.md` (implementation plan)
+   - `.claude/epcc/<project-name>/EPCC_CODE.md` (implementation progress)
+   - `EPCC_PRD.md` (product requirements, if exists)
+
 ## 📝 Commit Objectives
 
 1. **Clear History**: Create meaningful commit messages
@@ -34,7 +61,7 @@ Deploy specialized finalization agents concurrently:
 - @deployment-agent: Validate deployment readiness and CI/CD configuration
 - @project-manager: Review completion against original requirements
 
-Note: Original requirements can be found in EPCC_PLAN.md if it exists.
+Note: Original requirements can be found in .claude/epcc/<project-name>/EPCC_PLAN.md if it exists.
 
 ## Pre-Commit Checklist
 
@@ -63,7 +90,7 @@ grep -r "console.log\|debugger\|TODO\|FIXME" src/
 
 ```bash
 # Ensure documentation is updated
-ls -la EPCC_*.md
+ls -la .claude/epcc/<project-name>/
 
 # Check if README needs updates
 grep -i "[feature-name]" README.md
@@ -72,9 +99,9 @@ grep -i "[feature-name]" README.md
 # Check inline comments
 ```
 
-## Output File: EPCC_COMMIT.md
+## Output File: .claude/epcc/<project-name>/EPCC_COMMIT.md
 
-Generate `EPCC_COMMIT.md` to document the complete change:
+Generate `.claude/epcc/<project-name>/EPCC_COMMIT.md` to document the complete change:
 
 ```markdown
 # Commit Summary
@@ -155,9 +182,9 @@ Closes #[issue-number]
 
 Based on:
 
-- Exploration: EPCC_EXPLORE.md
-- Plan: EPCC_PLAN.md
-- Implementation: EPCC_CODE.md
+- Exploration: .claude/epcc/<project-name>/EPCC_EXPLORE.md
+- Plan: .claude/epcc/<project-name>/EPCC_PLAN.md
+- Implementation: .claude/epcc/<project-name>/EPCC_CODE.md
 
 ```
 
@@ -313,10 +340,10 @@ Brief description of changes
 
 ## EPCC Documentation
 
-- Exploration: [EPCC_EXPLORE.md](./EPCC_EXPLORE.md)
-- Plan: [EPCC_PLAN.md](./EPCC_PLAN.md)
-- Code: [EPCC_CODE.md](./EPCC_CODE.md)
-- Commit: [EPCC_COMMIT.md](./EPCC_COMMIT.md)
+- Exploration: [.claude/epcc/<project-name>/EPCC_EXPLORE.md](./.claude/epcc/<project-name>/EPCC_EXPLORE.md)
+- Plan: [.claude/epcc/<project-name>/EPCC_PLAN.md](./.claude/epcc/<project-name>/EPCC_PLAN.md)
+- Code: [.claude/epcc/<project-name>/EPCC_CODE.md](./.claude/epcc/<project-name>/EPCC_CODE.md)
+- Commit: [.claude/epcc/<project-name>/EPCC_COMMIT.md](./.claude/epcc/<project-name>/EPCC_COMMIT.md)
 ```
 
 ## Post-Commit Actions
@@ -333,15 +360,17 @@ Brief description of changes
 ### Clean Up EPCC Files
 
 ```bash
-# Archive EPCC documents
-mkdir -p .epcc-archive/[feature-name]
-mv EPCC_*.md .epcc-archive/[feature-name]/
+# Archive EPCC documents (optional - already organized in .claude/epcc/<project-name>/)
+# The files are already organized by project, no need to move them
+# Optionally, you can archive completed projects:
+mkdir -p .claude/epcc-archive/
+mv .claude/epcc/<project-name>/ .claude/epcc-archive/
 
 ```
 
 ## Final Output
 
-Upon completion, ensure `EPCC_COMMIT.md` contains:
+Upon completion, ensure `.claude/epcc/<project-name>/EPCC_COMMIT.md` contains:
 
 - Complete change summary
 - All test results
