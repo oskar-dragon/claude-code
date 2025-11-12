@@ -13,7 +13,7 @@ You are in the **PLAN** phase of the Explore-Plan-Code-Commit workflow. Transfor
 - Creating detailed plans
 - Breaking down tasks
 - Assessing risks
-- Documenting everything in EPCC_PLAN.md
+- Documenting everything in .claude/epcc/<project-name>/EPCC_PLAN.md
 
 All implementation will happen in the CODE phase.
 
@@ -21,6 +21,29 @@ All implementation will happen in the CODE phase.
 $ARGUMENTS
 
 If no specific feature or task was provided above, ask the user: "What feature or task would you like to plan?"
+
+## Project Setup
+
+Before beginning planning, establish the project directory structure:
+
+1. **Extract project name** from the planning argument (or ask if not provided)
+2. **Convert to kebab-case**: Lowercase, replace spaces/underscores with hyphens
+   ```bash
+   PROJECT_NAME=$(echo "$INPUT" | tr '[:upper:] _' '[:lower:]-' | sed 's/--*/-/g')
+   ```
+3. **Check for existing projects**:
+   ```bash
+   ls -dt .claude/epcc/*/ 2>/dev/null | head -5
+   ```
+4. **If existing projects found**: Use AskUserQuestion tool to let user choose:
+   - Continue existing project (show name and last modified)
+   - Start new project with extracted name
+5. **Create directory structure**:
+   ```bash
+   mkdir -p .claude/epcc/$PROJECT_NAME
+   ```
+6. **Set output path**: All planning documentation goes to `.claude/epcc/$PROJECT_NAME/EPCC_PLAN.md`
+7. **Reference existing files**: Look for `.claude/epcc/$PROJECT_NAME/EPCC_EXPLORE.md` and `.claude/epcc/$PROJECT_NAME/EPCC_PRD.md` from the same project
 
 ## 📋 Planning Objectives
 
@@ -51,8 +74,8 @@ Deploy specialized planning agents you have access to:
 - @project-manager: Calculate realistic timelines and resource allocation (PLANNING ONLY)
 
 MOTE:
-- You can find details about the codebase in EPCC_EXPLORE.md if it exists.
-- You can find details about Product Requirements in EPCC_PRD.md if it exists.
+- You can find details about the codebase in .claude/epcc/<project-name>/EPCC_EXPLORE.md if it exists.
+- You can find details about Product Requirements in .claude/epcc/<project-name>/EPCC_PRD.md if it exists.
 
 ## Planning Framework
 
@@ -181,9 +204,9 @@ tasks = [
 
 ## Planning Deliverables
 
-### Output File: EPCC_PLAN.md
+### Output File: .claude/epcc/<project-name>/EPCC_PLAN.md
 
-All planning documentation will be generated in `EPCC_PLAN.md` in the project root.
+All planning documentation will be generated in `.claude/epcc/<project-name>/EPCC_PLAN.md`.
 
 ### 1. Implementation Plan Structure
 
@@ -226,9 +249,9 @@ All planning documentation will be generated in `EPCC_PLAN.md` in the project ro
 - Rollback procedure: [Description]
 ```
 
-### 2. Task List (included in EPCC_PLAN.md)
+### 2. Task List (included in .claude/epcc/<project-name>/EPCC_PLAN.md)
 
-Tasks will be documented in EPCC_PLAN.md and can also be tracked via TodoWrite:
+Tasks will be documented in .claude/epcc/<project-name>/EPCC_PLAN.md and can also be tracked via TodoWrite:
 
 ```bash
 # Create task list
@@ -242,7 +265,7 @@ TodoWrite.create([
 ])
 ```
 
-### 3. Technical Design Document (included in EPCC_PLAN.md)
+### 3. Technical Design Document (included in .claude/epcc/<project-name>/EPCC_PLAN.md)
 
 ```markdown
 # Technical Design: [Feature Name]
@@ -304,7 +327,7 @@ CREATE TABLE resources (
 
 ## Planning Checklist
 
-Before proceeding to CODE phase, ensure all plans are documented in `EPCC_PLAN.md`.
+Before proceeding to CODE phase, ensure all plans are documented in `.claude/epcc/<project-name>/EPCC_PLAN.md`.
 
 **REMINDER**: No code should be written during this phase. If you're tempted to implement something, document it as a task instead:
 
@@ -339,23 +362,23 @@ Before proceeding to CODE phase, ensure all plans are documented in `EPCC_PLAN.m
 ## Integration with Other Phases
 
 ### From EXPLORE:
-- Use exploration findings from `EPCC_EXPLORE.md`
+- Use exploration findings from `.claude/epcc/<project-name>/EPCC_EXPLORE.md`
 - Reference identified patterns from exploration
 - Consider discovered constraints
 
 ### To CODE:
-- Provide clear task list in `EPCC_PLAN.md`
+- Provide clear task list in `.claude/epcc/<project-name>/EPCC_PLAN.md`
 - Define acceptance criteria in plan document
 - Specify test requirements
 
 ### To COMMIT:
-- Reference `EPCC_PLAN.md` in commit message
+- Reference `.claude/epcc/<project-name>/EPCC_PLAN.md` in commit message
 - Update documentation
 - Include plan details in PR description
 
 ## Final Output
 
-Upon completion, generate `EPCC_PLAN.md` containing:
+Upon completion, generate `.claude/epcc/<project-name>/EPCC_PLAN.md` containing:
 - Implementation overview and objectives
 - Technical approach and architecture
 - Complete task breakdown with estimates
@@ -366,4 +389,4 @@ Upon completion, generate `EPCC_PLAN.md` containing:
 Remember: **A good plan is half the implementation!**
 
 🚫 **DO NOT**: Write code, create files, implement features, or fix bugs
-✅ **DO**: Plan, document, design, assess risks, break down tasks, and save everything to EPCC_PLAN.md
+✅ **DO**: Plan, document, design, assess risks, break down tasks, and save everything to .claude/epcc/<project-name>/EPCC_PLAN.md

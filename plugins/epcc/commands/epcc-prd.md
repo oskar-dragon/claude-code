@@ -19,13 +19,35 @@ You are in the **DISCOVER** phase - the first step before the Explore-Plan-Code-
 - Ask clarifying questions frequently
 - Offer options when multiple paths exist
 - Guide the user through thinking about their idea
-- Document everything in EPCC_PRD.md
+- Document everything in `.claude/epcc/<project-name>/EPCC_PRD.md`
 - Be conversational and collaborative
 
 ## Initial Input
 $ARGUMENTS
 
 If no initial idea was provided, start by asking: "What idea or project would you like to explore?"
+
+## Project Setup
+
+Before beginning discovery, establish the project directory structure:
+
+1. **Extract project name** from the initial input argument (or ask if not provided)
+2. **Convert to kebab-case**: Lowercase, replace spaces/underscores with hyphens
+   ```bash
+   PROJECT_NAME=$(echo "$INPUT" | tr '[:upper:] _' '[:lower:]-' | sed 's/--*/-/g')
+   ```
+3. **Check for existing projects**:
+   ```bash
+   ls -dt .claude/epcc/*/ 2>/dev/null | head -5
+   ```
+4. **If existing projects found**: Use AskUserQuestion tool to let user choose:
+   - Continue existing project (show name and last modified)
+   - Start new project with extracted name
+5. **Create directory structure**:
+   ```bash
+   mkdir -p .claude/epcc/$PROJECT_NAME
+   ```
+6. **Set output path**: All documentation goes to `.claude/epcc/$PROJECT_NAME/EPCC_PRD.md`
 
 ## 🎯 Discovery Objectives
 
@@ -287,9 +309,9 @@ Does this align with what you're comfortable with? Any concerns?"
 ### Before Finalizing:
 "I'm ready to generate the PRD. Before I do, is there anything else about this project we should capture? Any questions or concerns you have?"
 
-## Output: EPCC_PRD.md
+## Output: .claude/epcc/<project-name>/EPCC_PRD.md
 
-Once discovery conversation is complete, generate a comprehensive PRD:
+Once discovery conversation is complete, generate a comprehensive PRD in `.claude/epcc/<project-name>/EPCC_PRD.md`:
 
 ```markdown
 # Product Requirement Document: [Project Name]
