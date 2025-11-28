@@ -6,29 +6,6 @@ A systematic approach to software development that ensures you understand before
 
 The EPCC (Explore-Plan-Code-Commit) Plugin provides a structured 4-phase workflow for building features with confidence.
 
-## Directory Structure
-
-EPCC files are organized by project in `.claude/epcc/`:
-
-```
-.claude/
-└── epcc/
-    ├── add-user-auth/
-    │   ├── EPCC_EXPLORE.md
-    │   ├── EPCC_PLAN.md
-    │   ├── EPCC_CODE.md
-    │   └── EPCC_COMMIT.md
-    └── payment-flow/
-        ├── EPCC_PRD.md
-        ├── EPCC_EXPLORE.md
-        └── EPCC_PLAN.md
-```
-
-Each command automatically:
-- Extracts project name from your command argument (converted to kebab-case)
-- Detects existing projects and lets you continue or start new
-- Creates/updates files in `.claude/epcc/<project-name>/`
-
 ## Philosophy
 
 Building software requires more than just writing code. You need to:
@@ -125,10 +102,10 @@ Guides you through creating a comprehensive Product Requirements Document.
   - @test-generator assesses test coverage
   - @documentation-agent reviews existing documentation
 - Each agent explores different aspects of your codebase
-- Creates `.claude/epcc/<project-name>/EPCC_EXPLORE.md` with findings
+- Creates `EPCC_EXPLORE.md` with findings
 - Documents patterns, constraints, and dependencies
 
-**Example output in .claude/epcc/<project-name>/EPCC_EXPLORE.md:**
+**Example output in EPCC_EXPLORE.md:**
 
 ```
 Executive Summary:
@@ -158,7 +135,7 @@ Patterns & Conventions:
 
 **What happens:**
 
-- Reads `.claude/epcc/<project-name>/EPCC_EXPLORE.md` findings
+- Reads `EPCC_EXPLORE.md` findings
 - Launches 6 agents in parallel:
   - @system-designer designs architecture
   - @tech-evaluator evaluates technology choices
@@ -166,10 +143,10 @@ Patterns & Conventions:
   - @security-reviewer assesses security risks
   - @qa-engineer plans testing strategy
   - @project-manager estimates timeline
-- Creates `.claude/epcc/<project-name>/EPCC_PLAN.md` with implementation roadmap
+- Creates `EPCC_PLAN.md` with implementation roadmap
 - Defines tasks, risks, and success criteria
 
-**Example output in .claude/epcc/<project-name>/EPCC_PLAN.md:**
+**Example output in EPCC_PLAN.md:**
 
 ```
 Feature Objective:
@@ -206,8 +183,8 @@ Risk Assessment:
 
 **What happens:**
 
-- Reviews `.claude/epcc/<project-name>/EPCC_EXPLORE.md` for patterns to follow
-- Consults `.claude/epcc/<project-name>/EPCC_PLAN.md` for implementation strategy
+- Reviews `EPCC_EXPLORE.md` for patterns to follow
+- Consults `EPCC_PLAN.md` for implementation strategy
 - Launches 5 specialized agents in parallel:
   - @test-generator writes tests FIRST (TDD)
   - @optimization-engineer ensures performance
@@ -215,9 +192,9 @@ Risk Assessment:
   - @documentation-agent generates inline documentation
   - @ux-optimizer ensures user experience best practices
 - Implements code following project conventions
-- Creates `.claude/epcc/<project-name>/EPCC_CODE.md` documenting what was built
+- Creates `EPCC_CODE.md` documenting what was built
 
-**Example output in .claude/epcc/<project-name>/EPCC_CODE.md:**
+**Example output in EPCC_CODE.md:**
 
 ```
 Implemented Tasks:
@@ -261,9 +238,9 @@ Key Decisions:
   - @project-manager reviews completion against requirements
 - Generates commit message
 - Creates complete PR description
-- Documents everything in `.claude/epcc/<project-name>/EPCC_COMMIT.md`
+- Documents everything in `EPCC_COMMIT.md`
 
-**Example output in .claude/epcc/<project-name>/EPCC_COMMIT.md:**
+**Example output in EPCC_COMMIT.md:**
 
 ```
 Changes Overview:
@@ -297,9 +274,9 @@ feat: Add OAuth authentication with Google and GitHub
 Closes #123
 
 Based on:
-- Exploration: .claude/epcc/<project-name>/EPCC_EXPLORE.md
-- Plan: .claude/epcc/<project-name>/EPCC_PLAN.md
-- Implementation: .claude/epcc/<project-name>/EPCC_CODE.md
+- Exploration: EPCC_EXPLORE.md
+- Plan: EPCC_PLAN.md
+- Implementation: EPCC_CODE.md
 ```
 
 **Flags:**
@@ -652,13 +629,13 @@ Based on:
 
 2. **Don't skip planning** - 15 minutes of planning saves hours of refactoring and debugging
 
-3. **Read the EPCC files** - They contain valuable insights. Review `.claude/epcc/<project-name>/EPCC_EXPLORE.md` and `.claude/epcc/<project-name>/EPCC_PLAN.md` before coding
+3. **Read the EPCC files** - They contain valuable insights. Review `EPCC_EXPLORE.md` and `EPCC_PLAN.md` before coding
 
 4. **Use TDD when possible** - The `--tdd` flag enforces test-first development, catching bugs early
 
 5. **Keep EPCC files for reference** - They're excellent documentation for code reviews and future maintenance
 
-6. **Archive completed workflows** - Projects are already organized in `.claude/epcc/<project-name>/`. Optionally move completed projects to `.claude/epcc-archive/` to keep active projects visible
+6. **Archive completed workflows** - Move `EPCC_*.md` files to `.epcc-archive/feature-name/` to keep your workspace clean
 
 ## When to Use This Plugin
 
@@ -702,13 +679,13 @@ Based on:
 **Solution**:
 
 ```bash
-# Archive completed projects (optional - they're already organized)
-mkdir -p .claude/epcc-archive/
-mv .claude/epcc/<project-name>/ .claude/epcc-archive/
+# Archive completed workflows
+mkdir -p .epcc-archive/feature-name
+mv EPCC_*.md .epcc-archive/feature-name/
 
 # Or commit them with your feature
-git add .claude/epcc/<project-name>/
-git commit -m "docs: Add EPCC workflow documentation for <project-name>"
+git add EPCC_*.md
+git commit -m "docs: Add EPCC workflow documentation"
 ```
 
 ### Generated code doesn't match project style
@@ -742,9 +719,9 @@ EPCC will automatically read and follow these rules during exploration.
 
 **Solution**:
 
-- Review `.claude/epcc/<project-name>/EPCC_EXPLORE.md` first - the plan is based on exploration findings
+- Review `EPCC_EXPLORE.md` first - the plan is based on exploration findings
 - Re-run exploration with specific focus: `/epcc-explore "area you care about"`
-- Edit `.claude/epcc/<project-name>/EPCC_PLAN.md` directly before coding phase
+- Edit `EPCC_PLAN.md` directly before coding phase
 - Provide more context in your plan command
 
 ## Tips
