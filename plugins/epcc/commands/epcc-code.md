@@ -13,35 +13,12 @@ You are in the **CODE** phase of the Explore-Plan-Code-Commit workflow. Transfor
 
 $ARGUMENTS
 
-If no specific task was provided above, check `.claude/epcc/<project-name>/EPCC_PLAN.md` for the next task to implement.
-
-## Project Setup
-
-Before beginning implementation, establish the project directory structure:
-
-1. **Extract project name** from the implementation argument (or ask if not provided)
-2. **Convert to kebab-case**: Lowercase, replace spaces/underscores with hyphens
-   ```bash
-   PROJECT_NAME=$(echo "$INPUT" | tr '[:upper:] _' '[:lower:]-' | sed 's/--*/-/g')
-   ```
-3. **Check for existing projects**:
-   ```bash
-   ls -dt .claude/epcc/*/ 2>/dev/null | head -5
-   ```
-4. **If existing projects found**: Use AskUserQuestion tool to let user choose:
-   - Continue existing project (show name and last modified)
-   - Start new project with extracted name
-5. **Create directory structure**:
-   ```bash
-   mkdir -p .claude/epcc/$PROJECT_NAME
-   ```
-6. **Set output path**: Implementation progress goes to `.claude/epcc/$PROJECT_NAME/EPCC_CODE.md`
-7. **Reference existing files**: Look for `.claude/epcc/$PROJECT_NAME/EPCC_EXPLORE.md` and `.claude/epcc/$PROJECT_NAME/EPCC_PLAN.md` from the same project
+If no specific task was provided above, check `EPCC_PLAN.md` for the next task to implement.
 
 ## Coding Objectives
 
-1. **Follow the Plan**: Implement according to .claude/epcc/<project-name>/EPCC_PLAN.md
-2. **Apply Patterns**: Use patterns identified in .claude/epcc/<project-name>/EPCC_EXPLORE.md
+1. **Follow the Plan**: Implement according to EPCC_PLAN.md
+2. **Apply Patterns**: Use patterns identified in EPCC_EXPLORE.md
 3. **Write Clean Code**: Maintainable, tested, documented
 4. **Handle Edge Cases**: Consider what could go wrong
 5. **Ensure Quality**: Test as you code
@@ -64,7 +41,7 @@ Deploy specialized coding agents concurrently:
 - @documentation-agent: Generate inline documentation and API docs
 - @ux-optimizer: Ensure user experience best practices in implementation
 
-Note: Review patterns in .claude/epcc/<project-name>/EPCC_EXPLORE.md and follow the plan in .claude/epcc/<project-name>/EPCC_PLAN.md if they exist.
+Note: Review patterns in EPCC_EXPLORE.md and follow the plan in EPCC_PLAN.md if they exist.
 
 ## Implementation Approach
 
@@ -72,13 +49,13 @@ Note: Review patterns in .claude/epcc/<project-name>/EPCC_EXPLORE.md and follow 
 
 ```bash
 # Review exploration findings
-cat .claude/epcc/<project-name>/EPCC_EXPLORE.md
+cat EPCC_EXPLORE.md
 
 # Review implementation plan
-cat .claude/epcc/<project-name>/EPCC_PLAN.md
+cat EPCC_PLAN.md
 
 # Check current task status
-grep -A 5 "Task Breakdown" .claude/epcc/<project-name>/EPCC_PLAN.md
+grep -A 5 "Task Breakdown" EPCC_PLAN.md
 ```
 
 ### Step 2: Set Up Development Environment
@@ -118,7 +95,7 @@ TODO
 
 ### Before Writing Code
 
-- [ ] Understand requirements from .claude/epcc/<project-name>/EPCC_PLAN.md
+- [ ] Understand requirements from EPCC_PLAN.md
 - [ ] Review similar code patterns
 - [ ] Set up test environment
 - [ ] Plan error handling
@@ -139,9 +116,9 @@ TODO
 - [ ] Update documentation
 - [ ] Review for security issues
 
-## Output File: .claude/epcc/<project-name>/EPCC_CODE.md
+## Output File: EPCC_CODE.md
 
-Document your implementation progress in `.claude/epcc/<project-name>/EPCC_CODE.md`:
+Document your implementation progress in `EPCC_CODE.md`:
 
 ```markdown
 # Code Implementation Report
@@ -219,19 +196,19 @@ TODO
 
 ### From PLAN:
 
-- Follow task breakdown from .claude/epcc/<project-name>/EPCC_PLAN.md
+- Follow task breakdown from EPCC_PLAN.md
 - Implement according to technical design
 - Meet acceptance criteria
 
 ### To COMMIT:
 
-- Ensure .claude/epcc/<project-name>/EPCC_CODE.md is complete
+- Ensure EPCC_CODE.md is complete
 - All tests passing
 - Code review ready
 
 ## Final Steps
 
-1. Update `.claude/epcc/<project-name>/EPCC_CODE.md` with implementation details
+1. Update `EPCC_CODE.md` with implementation details
 2. Run final test suite
 3. Perform self-review
 4. Prepare for commit phase

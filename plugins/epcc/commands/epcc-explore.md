@@ -14,7 +14,7 @@ You are in the **EXPLORE** phase of the Explore-Plan-Code-Commit workflow. Your 
 - Reading and understanding existing code
 - Analyzing patterns and architecture
 - Identifying constraints and dependencies
-- Documenting everything in .claude/epcc/<project-name>/EPCC_EXPLORE.md
+- Documenting everything in EPCC_EXPLORE.md
 
 All implementation will happen in the CODE phase. Use the following subagents in parallel for this explore phase:
 
@@ -31,35 +31,13 @@ IMPORTANT: Use the following subagents in parallel for this explore phase:
 - @test-generator: Explore existing tests and coverage gaps (NO TEST WRITING - only assessment)
 - @documentation-agent: Review and analyze all documentation (NO NEW DOCS - only review)
 
-Note: This is the first phase - findings will be documented in .claude/epcc/<project-name>/EPCC_EXPLORE.md for use in subsequent phases. Always check for CLAUDE.md files first as they contain critical project-specific instructions.
+Note: This is the first phase - findings will be documented in EPCC_EXPLORE.md for use in subsequent phases. Always check for CLAUDE.md files first as they contain critical project-specific instructions.
 
 ## Exploration Focus
 
 $ARGUMENTS
 
 If no specific area was provided above, perform a general exploration of the entire codebase. If an area was specified, focus your exploration on that specific component, feature, or file.
-
-## Project Setup
-
-Before beginning exploration, establish the project directory structure:
-
-1. **Extract project name** from the exploration argument (or ask if not provided)
-2. **Convert to kebab-case**: Lowercase, replace spaces/underscores with hyphens
-   ```bash
-   PROJECT_NAME=$(echo "$INPUT" | tr '[:upper:] _' '[:lower:]-' | sed 's/--*/-/g')
-   ```
-3. **Check for existing projects**:
-   ```bash
-   ls -dt .claude/epcc/*/ 2>/dev/null | head -5
-   ```
-4. **If existing projects found**: Use AskUserQuestion tool to let user choose:
-   - Continue existing project (show name and last modified)
-   - Start new project with extracted name
-5. **Create directory structure**:
-   ```bash
-   mkdir -p .claude/epcc/$PROJECT_NAME
-   ```
-6. **Set output path**: All exploration findings go to `.claude/epcc/$PROJECT_NAME/EPCC_EXPLORE.md`
 
 ## 🔍 Exploration Objectives
 
@@ -130,7 +108,7 @@ if [ -f "pom.xml" ]; then echo "Found Java project"; fi
 if [ -f "Cargo.toml" ]; then echo "Found Rust project"; fi
 if [ -f "go.mod" ]; then echo "Found Go project"; fi
 
-# Document findings in .claude/epcc/<project-name>/EPCC_EXPLORE.md, do not create new files
+# Document findings in EPCC_EXPLORE.md, do not create new files
 ```
 
 ### Step 4: Pattern Recognition
@@ -142,7 +120,7 @@ grep -r "Controller" --include="*.py" --include="*.ts" | head -10
 grep -r "Service" --include="*.py" --include="*.ts" | head -10
 grep -r "Repository" --include="*.py" --include="*.ts" | head -10
 
-# Document patterns found in .claude/epcc/<project-name>/EPCC_EXPLORE.md
+# Document patterns found in EPCC_EXPLORE.md
 # DO NOT create new pattern implementations
 ```
 
@@ -167,9 +145,9 @@ find . -name "*auth*" -o -name "*login*" -o -name "*session*"
 
 ## Exploration Deliverables
 
-### Output File: .claude/epcc/<project-name>/EPCC_EXPLORE.md
+### Output File: EPCC_EXPLORE.md
 
-All exploration findings will be documented in `.claude/epcc/<project-name>/EPCC_EXPLORE.md`.
+All exploration findings will be documented in `EPCC_EXPLORE.md` in the project root.
 
 ### 1. Exploration Report Structure
 
@@ -233,7 +211,7 @@ project/
 - Potential improvements identified
 ```
 
-### 2. Codebase Map (included in .claude/epcc/<project-name>/EPCC_EXPLORE.md)
+### 2. Codebase Map (included in EPCC_EXPLORE.md)
 
 ```json
 {
@@ -262,9 +240,9 @@ project/
 
 ## Exploration Checklist
 
-Before proceeding to PLAN phase, ensure all findings are documented in `.claude/epcc/<project-name>/EPCC_EXPLORE.md`.
+Before proceeding to PLAN phase, ensure all findings are documented in `EPCC_EXPLORE.md`.
 
-**REMINDER**: No code should be written during this phase. If you discover issues or have implementation ideas, document them in .claude/epcc/<project-name>/EPCC_EXPLORE.md for later phases:
+**REMINDER**: No code should be written during this phase. If you discover issues or have implementation ideas, document them in EPCC_EXPLORE.md for later phases:
 
 - [ ] CLAUDE.md files reviewed and understood
 - [ ] Project structure fully mapped
@@ -335,15 +313,15 @@ Before proceeding to PLAN phase, ensure all findings are documented in `.claude/
 
 ## Integration with Next Phases
 
-The exploration phase outputs in `.claude/epcc/<project-name>/EPCC_EXPLORE.md` feed directly into:
+The exploration phase outputs in `EPCC_EXPLORE.md` feed directly into:
 
-- **PLAN**: Use findings from .claude/epcc/<project-name>/EPCC_EXPLORE.md to create realistic plans
-- **CODE**: Reference patterns and conventions documented in .claude/epcc/<project-name>/EPCC_EXPLORE.md
-- **COMMIT**: Ensure consistency with project standards identified in .claude/epcc/<project-name>/EPCC_EXPLORE.md
+- **PLAN**: Use findings from EPCC_EXPLORE.md to create realistic plans
+- **CODE**: Reference patterns and conventions documented in EPCC_EXPLORE.md
+- **COMMIT**: Ensure consistency with project standards identified in EPCC_EXPLORE.md
 
 ## Final Output
 
-Upon completion, generate `.claude/epcc/<project-name>/EPCC_EXPLORE.md` containing:
+Upon completion, generate `EPCC_EXPLORE.md` containing:
 
 - Executive summary
 - Project structure analysis
@@ -355,4 +333,4 @@ Upon completion, generate `.claude/epcc/<project-name>/EPCC_EXPLORE.md` containi
 Remember: **Time spent exploring saves time coding!**
 
 🚫 **DO NOT**: Write code, create files, implement features, fix bugs, or modify anything
-✅ **DO**: Read, analyze, understand, document findings, and save everything to .claude/epcc/<project-name>/EPCC_EXPLORE.md
+✅ **DO**: Read, analyze, understand, document findings, and save everything to EPCC_EXPLORE.md
