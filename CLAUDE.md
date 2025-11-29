@@ -4,210 +4,168 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Claude Code plugin marketplace repository containing reusable plugins for systematic development workflows, documentation, git operations, and PR review.
+This is a Claude Code plugin marketplace repository containing four plugins:
+- **EPCC Workflow**: 4-phase development workflow (Explore → Plan → Code → Commit) with 12 specialized agents
+- **Documentation**: Diataxis framework implementation with agents for tutorials, how-tos, references, and explanations
+- **Git Operations**: Streamlined git commands for commits, pushes, and PRs
+- **PR Review**: Specialized review agents for comprehensive code review
 
-**Architecture**: Plugin-based system with:
+## Development Commands
 
-- Command files (`.md` in `plugins/*/commands/`)
-- Agent definitions (`.md` in `plugins/*/agents/`)
-- Marketplace configuration (`.claude-plugin/marketplace.json`)
-
-## Common Commands
-
-### Development
-
+### Testing & Quality
 ```bash
-# Run tests
-bun test
-
-# Type checking
-bun run typecheck
-
-# Format and lint
-bun run biome:format    # Format code
-bun run biome:lint      # Lint code
-bun run biome:fix       # Auto-fix issues
-bun run biome:check     # Check without fixing
-
-# Run all checks (CI pipeline)
-bun run check:all       # typecheck + biome:ci + test
+bun test                 # Run tests
+bun run typecheck        # TypeScript type checking
+bun run biome:check      # Check formatting and linting
+bun run biome:fix        # Auto-fix formatting and linting issues
+bun run check:all        # Run all checks (typecheck + biome:ci + test)
 ```
 
-### Git Workflow
-
-Pre-commit hooks automatically run Biome checks on staged files. All commits must pass linting and formatting.
-
-## Plugin Structure
-
-### Plugin Organization
-
-Each plugin follows this structure:
-
-```
-plugins/[plugin-name]/
-├── README.md           # Plugin documentation
-├── commands/           # Slash command definitions (.md files)
-│   └── [command].md   # Command with YAML frontmatter + instructions
-└── agents/             # Agent definitions (.md files)
-    └── [agent].md     # Agent with specialized instructions
+### Formatting & Linting
+```bash
+bun run biome:format     # Format code
+bun run biome:lint       # Lint code
+bun run biome:ci         # CI mode (no writes, exit on errors)
 ```
 
-### Command File Format
+### Pre-commit
+Husky pre-commit hook automatically runs `biome check --write --staged` on staged files.
 
-Commands use YAML frontmatter:
+## Plugin Architecture
 
-```markdown
----
-name: command-name
-description: Brief description
-version: 1.0.0
-argument-hint: "[optional-args]"
----
-
-# Command Implementation
-
-[Markdown instructions for Claude]
+### Directory Structure
+```
+plugins/
+├── epcc/
+│   ├── .claude-plugin/plugin.json    # Plugin metadata
+│   ├── commands/                      # Slash commands (*.md)
+│   │   ├── epcc-explore.md
+│   │   ├── epcc-plan.md
+│   │   ├── epcc-code.md
+│   │   └── epcc-commit.md
+│   └── agents/                        # Agent definitions (*.md)
+│       ├── code-archaeologist.md
+│       └── ...
+├── documentation/
+├── git/
+└── pr-review/
 ```
 
-### Marketplace Configuration
-
-`.claude-plugin/marketplace.json` defines:
-
-- Marketplace metadata (name, source, description)
-- Plugin registry with name, version, source path, description, category
-- GitHub source configuration
-
-## Available Plugins
-
-### 1. EPCC Workflow (`plugins/epcc/`)
-
-Four-phase development workflow: Explore → Plan → Code → Commit
-
-**Commands**:
-
-- `/epcc-explore [area]` - Understand codebase before acting
-- `/epcc-plan [feature]` - Create implementation strategy
-- `/epcc-code [feature]` - Implement with TDD
-- `/epcc-commit [message]` - Finalize with documentation
-- `/epcc-prd [feature]` - Requirements gathering
-
-**Key Agents**: code-archaeologist, system-designer, business-analyst, test-generator, documentation-agent, security-reviewer, optimization-engineer, ux-optimizer, qa-engineer, deployment-agent, project-manager, tech-evaluator
-
-**Usage Pattern**: Always run phases sequentially. Exploration phase is READ-ONLY (no code changes).
-
-### 2. Documentation (`plugins/documentation/`)
-
-Diataxis framework for structured technical documentation
-
-**Commands**:
-
-- `/doc:tutorial [topic]` - Learning-oriented tutorials
-- `/doc:howto [task]` - Task-oriented guides
-- `/doc:explain [concept]` - Understanding-oriented explanations
-- `/doc:reference [api]` - Information-oriented reference
-
-**Key Agents**: docs-tutorial-agent, docs-howto-agent, docs-explanation-agent, docs-reference-agent, architecture-documenter
-
-### 3. Git Operations (`plugins/git/`)
-
-Streamlined git workflow commands
-
-**Commands**:
-
-- `/commit` - Auto-generate commit message and commit
-- `/commit-push-pr` - Commit, push, and create PR
-- `/clean-gone` - Remove local branches deleted from remote
-
-### 4. PR Review (`plugins/pr-review/`)
-
-Specialized review agents for comprehensive PR analysis
-
-**Agents**:
-
-- `comment-analyzer` - Comment accuracy and maintainability
-- `pr-test-analyzer` - Test coverage quality
-- `silent-failure-hunter` - Error handling review
-- `type-design-analyzer` - Type design quality (1-10 ratings)
-- `code-reviewer` - General code quality
-- `code-simplifier` - Code simplification suggestions
+### Key Files
+- `.claude-plugin/marketplace.json`: Marketplace definition with all plugins
+- `plugins/*/commands/*.md`: Slash command implementations
+- `plugins/*/agents/*.md`: Agent prompt definitions
+- `plugins/*/.claude-plugin/plugin.json`: Plugin metadata
 
 ## Code Style
 
-### Formatting (Biome)
-
-- **Indent**: Tabs (configured in biome.json:13)
+### Biome Configuration
+- **Indentation**: Tabs (not spaces)
 - **Line width**: 100 characters
-- **Quotes**: Double quotes
-- **Semicolons**: Always
+- **Quote style**: Double quotes
+- **Semicolons**: Always required
 - **Trailing commas**: ES5 style
 
-### File Naming
+### TypeScript
+- Strict mode enabled
+- Module resolution: bundler mode
+- Target: ESNext with Preserve module
+- Array types: Use shorthand syntax (`string[]` not `Array<string>`)
+- No unused variables/imports (error level)
 
-- Commands: `kebab-case.md`
-- Agents: `kebab-case.md`
-- Directories: `kebab-case/`
+### Important Rules
+- No `console` allowed except where explicitly needed
+- Unused variables and imports are errors
+- Prefer `for...of` over `.forEach()` where applicable
+- Use block statements for conditionals
+- Organize imports automatically
 
-## Testing
+## Plugin Development
 
-- **Test runner**: Bun (`bun test`)
-- No test files exist yet in the repository
-- Tests should be added for any TypeScript utilities when implemented
+### Creating a New Command
+1. Add `*.md` file to `plugins/<plugin-name>/commands/`
+2. Command name becomes `/plugin-name:command-name`
+3. Markdown content is the slash command prompt
 
-## Important Constraints
+### Creating a New Agent
+1. Add `*.md` file to `plugins/<plugin-name>/agents/`
+2. Agent name matches filename (e.g., `code-reviewer.md` → `@code-reviewer`)
+3. Markdown content defines agent behavior and instructions
 
-### Plugin Development
+### EPCC Workflow Pattern
+EPCC commands follow a 4-phase workflow that generates documentation files:
+- **Explore**: Creates `EPCC_EXPLORE.md` with codebase analysis
+- **Plan**: Creates `EPCC_PLAN.md` with implementation strategy
+- **Code**: Creates `EPCC_CODE.md` with implementation details
+- **Commit**: Creates `EPCC_COMMIT.md` with commit message and PR description
 
-1. **Command files** must have valid YAML frontmatter with `name`, `description`, `version`
-2. **Agent files** should focus on single responsibility
-3. **README files** for each plugin should follow the existing detailed format
-4. **Marketplace registration** requires updating `.claude-plugin/marketplace.json`
+Each phase reads previous phase outputs to maintain context.
 
-### Git Pre-commit Hook
+### Documentation Plugin Pattern
+Documentation commands follow the Diataxis framework:
+- **Tutorials**: Learning-oriented, step-by-step for beginners
+- **How-tos**: Task-oriented guides for specific problems
+- **Explanations**: Understanding-oriented conceptual content
+- **References**: Information-oriented technical specifications
 
-- Runs `bunx biome check --write --staged --no-errors-on-unmatched`
-- Auto-fixes formatting issues
-- Fails commit if manual fixes required
-- Re-stages fixed files automatically
+## Installation & Usage
 
-### EPCC Workflow Rules
+### Adding the Marketplace
+```bash
+/plugin marketplace add oskar-dragon/claude-code
+```
 
-- **Explore phase**: READ-ONLY, no code modifications, only documentation in `EPCC_EXPLORE.md`
-- **Plan phase**: Creates `EPCC_PLAN.md` with task breakdown
-- **Code phase**: Implements based on `EPCC_EXPLORE.md` and `EPCC_PLAN.md`, creates `EPCC_CODE.md`
-- **Commit phase**: Reviews all EPCC files, generates commit message and PR description
+### Installing Plugins
+```bash
+/plugin install epcc-workflow@claude-code
+/plugin install documentation@claude-code
+/plugin install git@claude-code
+/plugin install pr-review@claude-code
+```
 
-## Dependencies
+### Example Usage
+```bash
+# EPCC workflow
+/epcc:epcc-explore "authentication system"
+/epcc:epcc-plan "Add OAuth support"
+/epcc:epcc-code --tdd "OAuth implementation"
+/epcc:epcc-commit "Add OAuth authentication"
 
-### Production
+# Documentation
+/documentation:docs-tutorial "Getting started guide"
+/documentation:docs-howto "Configure authentication"
+/documentation:docs-reference "API endpoints"
+/documentation:docs-explanation "Architecture decisions"
+```
 
-- `@stricli/core` v1.2.0 - CLI framework
+## CI/CD
 
-### Development
+GitHub Actions workflow runs on push/PR:
+1. Install dependencies with Bun
+2. Run `bun run biome:ci` (formatting + linting)
+3. Run `bun run typecheck` (TypeScript validation)
+4. Run `bun test` (test suite)
 
-- `@biomejs/biome` v2.2.5 - Formatter and linter
-- `@types/bun` - TypeScript types for Bun
-- `husky` v9.1.7 - Git hooks
+All checks must pass for CI to succeed.
 
-### Runtime
+## Best Practices
 
-- **Bun**: Required for running tests and scripts
-- **TypeScript**: v5+ (peer dependency)
+### When Modifying Plugins
+- Test commands locally before committing
+- Keep command prompts focused and actionable
+- Document agent responsibilities clearly
+- Follow existing patterns in similar plugins
+- Update plugin README.md when adding features
 
-## Architecture Notes
+### Code Changes
+- Run `bun run check:all` before committing
+- Let pre-commit hook auto-fix Biome issues
+- Ensure TypeScript strict mode compliance
+- Add tests for new functionality
+- Keep dependencies minimal (currently only @stricli/core)
 
-### Marketplace System
-
-- Plugins are self-contained in `plugins/` directory
-- Each plugin can be installed independently
-- Marketplace JSON serves as central registry
-- Source points to local plugin directories
-
-## Publishing Plugins
-
-This repository serves as a personal marketplace. To add new plugins:
-
-1. Create plugin directory under `plugins/[name]/`
-2. Add README.md, commands/, and agents/ as needed
-3. Register in `.claude-plugin/marketplace.json`
-4. Commit and push to GitHub
-5. Users install via the marketplace source configuration
+### Documentation
+- Plugin READMEs should explain purpose, commands, agents, and usage patterns
+- Include troubleshooting sections for common issues
+- Provide examples for all commands and workflows
+- Document flags and options clearly
