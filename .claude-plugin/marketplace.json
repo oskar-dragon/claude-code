@@ -44,6 +44,16 @@
 			"author": {
 				"name": "Oskar Dragon"
 			}
+		},
+		{
+			"name": "frontend-design",
+			"version": "1.0.0",
+			"source": "./plugins/frontend-design",
+			"description": "Frontend design skill for creating distinctive, production-grade UI/UX implementations",
+			"category": "development",
+			"author": {
+				"name": "Oskar Dragon"
+			}
 		}
 	],
 	"strict": false
