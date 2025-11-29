@@ -1,7 +1,9 @@
 ---
-name: docs-howto  
+name: docs-howto
 description: Create practical how-to guides for solving specific problems and accomplishing tasks
-version: 1.0.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[problem to solve] [--quick|--comprehensive|--troubleshooting]"
 ---
 
@@ -10,6 +12,7 @@ argument-hint: "[problem to solve] [--quick|--comprehensive|--troubleshooting]"
 You are a **HOW-TO SPECIALIST** focused on creating practical, goal-oriented documentation. Your mission is to help competent users solve specific real-world problems efficiently.
 
 ⚠️ **IMPORTANT**: This command is for creating PROBLEM-SOLVING guides ONLY. Focus exclusively on:
+
 - Providing practical solutions to specific problems
 - Assuming user competence with basics
 - Getting users unstuck quickly
@@ -17,6 +20,7 @@ You are a **HOW-TO SPECIALIST** focused on creating practical, goal-oriented doc
 - Documenting everything in `docs/how-to/[topic-slug].md`
 
 ## Problem to Solve
+
 $ARGUMENTS
 
 If no specific problem was provided above, ask the user: "What specific problem or task would you like to create a how-to guide for?"
@@ -42,6 +46,7 @@ Deploy concurrent documentation specialists:
 @docs-howto-agent @code-archaeologist @system-designer @optimization-engineer
 
 All subagents work in parallel to create comprehensive solutions:
+
 - @docs-howto-agent: Create practical, goal-focused documentation
 - @code-archaeologist: Analyze existing patterns and solutions
 - @system-designer: Design optimal solution architecture
@@ -57,6 +62,7 @@ All subagents work in parallel to create comprehensive solutions:
 **What you'll accomplish**: [Specific, measurable outcome]
 
 **Use cases**:
+
 - When you need to [scenario 1]
 - When you want to [scenario 2]
 - When facing [specific problem]
@@ -70,35 +76,42 @@ All subagents work in parallel to create comprehensive solutions:
 ## Prerequisites
 
 ### Required Knowledge
+
 - Understanding of [concept]
 - Familiarity with [tool/system]
 
 ### Required Access
+
 - [ ] Access to [system/service]
 - [ ] Permissions for [action]
 - [ ] [Tool] installed and configured
 
 ### Starting Point
+
 This guide assumes you have:
+
 - [Current state/setup]
 - [Existing configuration]
 ```
 
 ### Step 3: Solution Steps
 
-```markdown
+````markdown
 ## Solution
 
 ### Option A: Recommended Approach
 
 #### Step 1: [Action]
+
 ```bash
 command --with parameters
 ```
+````
 
 This [what it does] by [how it works].
 
 #### Step 2: [Next Action]
+
 ```code
 configuration {
     setting: value
@@ -109,11 +122,13 @@ configuration {
 **Note**: If you need [variation], use [alternative] instead.
 
 #### Step 3: Verify Success
+
 ```bash
 verification command
 ```
 
 Expected output:
+
 ```
 Success indicator
 ```
@@ -121,11 +136,13 @@ Success indicator
 ### Option B: Alternative Approach
 
 Use this method when:
+
 - [Condition where this is better]
 - [Another condition]
 
 [Steps for alternative approach]
-```
+
+````
 
 ### Step 4: Variations and Adaptations
 
@@ -137,9 +154,10 @@ Use this method when:
 #### Production
 ```bash
 command --production --secure
-```
+````
 
 #### Development
+
 ```bash
 command --dev --verbose
 ```
@@ -147,14 +165,18 @@ command --dev --verbose
 ### For Different Requirements
 
 #### High Performance
+
 [Optimized approach]
 
 #### High Security
+
 [Secured approach]
 
 #### Limited Resources
+
 [Minimal approach]
-```
+
+````
 
 ### Step 5: Troubleshooting
 
@@ -172,22 +194,25 @@ command --dev --verbose
 **Solution**:
 ```bash
 fix command
-```
+````
 
 **Prevention**: [How to avoid in future]
 
 ### Issue: [Another Problem]
 
 **Quick Fix**:
+
 ```bash
 immediate solution
 ```
 
 **Permanent Fix**:
+
 ```bash
 long-term solution
 ```
-```
+
+````
 
 ## How-To Deliverables
 
@@ -216,13 +241,14 @@ All how-to documentation will be generated in the `docs/how-to/` directory with 
 
 ```bash
 command to execute
-```
+````
 
 **Expected result**: [What should happen]
 
 ### 2. [Second Major Action]
 
 For [specific case]:
+
 ```code
 code or configuration
 ```
@@ -254,9 +280,11 @@ verification command
 ## Common Issues
 
 ### Problem: [Frequent Issue]
+
 **Solution**: [Direct fix]
 
 ### Problem: [Edge Case]
+
 **Solution**: [Handling approach]
 
 ## Related Tasks
@@ -268,10 +296,12 @@ verification command
 ## Summary
 
 You've successfully [what was accomplished]. The key steps were:
+
 1. [Main action 1]
-2. [Main action 2]  
+2. [Main action 2]
 3. [Main action 3]
-```
+
+````
 
 ## How-To Best Practices
 
@@ -322,16 +352,18 @@ Before finalizing the how-to guide:
 # Specific problem solving
 /diataxis-howto "Migrate from MySQL to PostgreSQL"
 /diataxis-howto "Set up CI/CD pipeline with GitHub Actions"
-```
+````
 
 ## Integration with Other Diataxis Types
 
 ### References from Other Documentation
+
 - **From Tutorials**: "Now that you've learned basics, see [how-to guides](../how-to/) to solve specific problems"
 - **To Reference**: "For complete parameter details, see [reference documentation](../reference/)"
 - **To Explanation**: "To understand the underlying concepts, read [explanation](../explanation/)"
 
 ### Documentation Flow
+
 ```
 Tutorial → How-to (You are here) → Reference → Explanation
 Learning → Problem-solving → Information lookup → Understanding
@@ -340,8 +372,10 @@ Learning → Problem-solving → Information lookup → Understanding
 ## Common How-To Patterns
 
 ### Configuration How-To
+
 ```markdown
 ## How to Configure [System]
+
 1. Locate configuration file
 2. Modify specific settings
 3. Validate configuration
@@ -350,8 +384,10 @@ Learning → Problem-solving → Information lookup → Understanding
 ```
 
 ### Integration How-To
+
 ```markdown
 ## How to Integrate [Service A] with [Service B]
+
 1. Set up authentication
 2. Configure endpoints
 3. Map data fields
@@ -360,8 +396,10 @@ Learning → Problem-solving → Information lookup → Understanding
 ```
 
 ### Migration How-To
+
 ```markdown
 ## How to Migrate from [Old] to [New]
+
 1. Assess current state
 2. Prepare target environment
 3. Export/transform data
@@ -371,8 +409,10 @@ Learning → Problem-solving → Information lookup → Understanding
 ```
 
 ### Debugging How-To
+
 ```markdown
 ## How to Debug [Problem Type]
+
 1. Identify symptoms
 2. Gather diagnostic data
 3. Isolate the issue
@@ -384,6 +424,7 @@ Learning → Problem-solving → Information lookup → Understanding
 ## Final Output
 
 Upon completion, generate `docs/how-to/[topic-slug].md` containing:
+
 - Clear problem statement and goal
 - Explicit prerequisites
 - Efficient solution steps

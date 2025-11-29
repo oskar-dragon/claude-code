@@ -1,7 +1,9 @@
 ---
 name: epcc-plan
 description: Plan phase of EPCC workflow - strategic design before implementation
-version: 3.1.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[feature-or-task-to-plan]"
 ---
 

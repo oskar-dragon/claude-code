@@ -1,7 +1,9 @@
 ---
 name: docs-explanation
 description: Create in-depth explanations that build conceptual understanding of complex topics
-version: 1.0.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[concept to explain] [--architecture|--design|--theory|--comparison]"
 ---
 
@@ -359,17 +361,17 @@ Before finalizing explanation documentation:
 
 ```bash
 # Basic explanation creation
-/docs-explanation "microservices architecture"
+/diataxis-explanation "microservices architecture"
 
 # Specify explanation type
-/docs-explanation "database design" --architecture
-/docs-explanation "algorithm choice" --design
-/docs-explanation "CAP theorem" --theory
-/docs-explanation "REST vs GraphQL" --comparison
+/diataxis-explanation "database design" --architecture
+/diataxis-explanation "algorithm choice" --design
+/diataxis-explanation "CAP theorem" --theory
+/diataxis-explanation "REST vs GraphQL" --comparison
 
 # Specific concepts
-/docs-explanation "event-driven architecture"
-/docs-explanation "zero-trust security model"
+/diataxis-explanation "event-driven architecture"
+/diataxis-explanation "zero-trust security model"
 ```
 
 ## Integration with Other Diataxis Types

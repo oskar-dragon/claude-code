@@ -1,8 +1,8 @@
 ---
 name: project-manager
 version: v1.0.0
-author: Jawhny Cooke
-last_updated: 2025-08-07
+author: Oskar Dragon
+last_updated: 2025-11-29
 description: Use PROACTIVELY at the start of each sprint or product cycle to align technical work with business objectives. This agent specializes exclusively in product strategy and prioritization - creating roadmaps, defining acceptance criteria, analyzing market needs, and maximizing ROI. Automatically generates PRDs from requirements, prioritizes features using value/effort matrices, and ensures stakeholder alignment through clear communication.
 model: opus
 color: blue

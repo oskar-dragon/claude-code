@@ -1,7 +1,9 @@
 ---
 name: docs-tutorial
 description: Create step-by-step learning tutorials that guide beginners through hands-on practice
-version: 1.0.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[topic to teach] [--beginner|--intermediate|--advanced]"
 ---
 
@@ -298,15 +300,15 @@ Before finalizing the tutorial:
 
 ```bash
 # Basic tutorial creation
-/docs-tutorial "Getting started with React hooks"
+/diataxis-tutorial "Getting started with React hooks"
 
 # Specify difficulty level
-/docs-tutorial "Building a REST API" --beginner
-/docs-tutorial "Kubernetes deployment" --intermediate
+/diataxis-tutorial "Building a REST API" --beginner
+/diataxis-tutorial "Kubernetes deployment" --intermediate
 
 # Domain-specific tutorials
-/docs-tutorial "Your first machine learning model"
-/docs-tutorial "Introduction to test-driven development"
+/diataxis-tutorial "Your first machine learning model"
+/diataxis-tutorial "Introduction to test-driven development"
 ```
 
 ## Integration with Other Diataxis Types

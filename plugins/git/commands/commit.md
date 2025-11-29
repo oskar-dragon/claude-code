@@ -1,6 +1,9 @@
 ---
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
 description: Create a git commit
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 ---
 
 ## Context
