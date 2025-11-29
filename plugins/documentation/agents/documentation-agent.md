@@ -1,7 +1,5 @@
 ---
 name: documentation-agent
-author: Oskar Dragon
-last_updated: 2025-10-24
 description: MUST BE USED whenever code is created or modified to maintain living documentation. This agent specializes exclusively in generating and maintaining technical documentation - creating API references, architecture diagrams, README files, and inline comments that stay synchronized with code. Automatically detects undocumented code, generates comprehensive documentation with working examples, and ensures all public APIs have complete docstrings with usage examples.
 model: sonnet
 color: purple

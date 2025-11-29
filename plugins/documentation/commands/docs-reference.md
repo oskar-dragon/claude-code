@@ -1,7 +1,7 @@
 ---
 name: docs-reference
 description: Create comprehensive technical reference documentation with complete specifications
-version: 1.0.0  
+version: 1.0.0
 argument-hint: "[system/API to document] [--api|--config|--cli|--complete]"
 ---
 
@@ -10,6 +10,7 @@ argument-hint: "[system/API to document] [--api|--config|--cli|--complete]"
 You are in the **REFERENCE** phase of the Diataxis documentation workflow. Your mission is to create comprehensive, accurate, information-oriented documentation that serves as the authoritative source of technical truth.
 
 ⚠️ **IMPORTANT**: This command is for creating REFERENCE documentation ONLY. Focus exclusively on:
+
 - Providing complete, accurate technical information
 - Structuring for quick lookup and search
 - Maintaining consistency and predictability
@@ -17,6 +18,7 @@ You are in the **REFERENCE** phase of the Diataxis documentation workflow. Your 
 - Documenting everything in `docs/reference/[topic-slug].md`
 
 ## System/API to Document
+
 $ARGUMENTS
 
 If no specific system was provided above, ask the user: "What system, API, or technical component needs reference documentation?"
@@ -42,6 +44,7 @@ Deploy concurrent documentation specialists:
 @docs-reference-agent @documentation-agent @code-archaeologist @test-generator
 
 All subagents work in parallel to create comprehensive reference:
+
 - @docs-reference-agent: Create structured technical documentation
 - @documentation-agent: Generate API documentation and schemas
 - @code-archaeologist: Extract undocumented features and parameters
@@ -55,12 +58,14 @@ All subagents work in parallel to create comprehensive reference:
 ## Documentation Scope
 
 ### System Overview
+
 - **Name**: [System/API name]
 - **Version**: [Version number]
 - **Type**: [API/CLI/Configuration/Library]
 - **Purpose**: [One-line description]
 
 ### Coverage
+
 - Components documented: [count]
 - Parameters documented: [count]
 - Examples provided: [count]
@@ -73,6 +78,7 @@ All subagents work in parallel to create comprehensive reference:
 ## Reference Structure
 
 ### Top-Level Organization
+
 1. Overview
 2. Core Concepts
 3. [Component/Module A]
@@ -84,7 +90,9 @@ All subagents work in parallel to create comprehensive reference:
 9. Index
 
 ### Entry Template
+
 Each entry follows:
+
 - Name and signature
 - Description
 - Parameters/Options
@@ -95,7 +103,7 @@ Each entry follows:
 
 ### Step 3: API Documentation
 
-```markdown
+````markdown
 ## API Reference
 
 ### Endpoints / Functions / Commands
@@ -105,6 +113,7 @@ Each entry follows:
 **Description**: Brief description of what it does
 
 **Signature**:
+
 ```language
 returnType functionName(
     param1: type,
@@ -113,28 +122,30 @@ returnType functionName(
     **kwargs
 )
 ```
+````
 
 **Parameters**:
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| param1 | string | Yes | - | Description of param1 |
-| param2 | number | No | 10 | Description of param2 |
+| Parameter | Type   | Required | Default | Description           |
+| --------- | ------ | -------- | ------- | --------------------- |
+| param1    | string | Yes      | -       | Description of param1 |
+| param2    | number | No       | 10      | Description of param2 |
 
 **Returns**:
 
-| Type | Description |
-|------|-------------|
+| Type   | Description                 |
+| ------ | --------------------------- |
 | object | Description of return value |
 
 **Exceptions**:
 
-| Exception | When Raised |
-|-----------|-------------|
+| Exception  | When Raised           |
+| ---------- | --------------------- |
 | ValueError | When input is invalid |
-| KeyError | When key not found |
+| KeyError   | When key not found    |
 
 **Example**:
+
 ```language
 # Basic usage
 result = functionName("value", 20)
@@ -148,9 +159,11 @@ result = functionName(
 ```
 
 **See Also**:
+
 - [relatedFunction](#relatedfunction)
 - [Configuration](#configuration)
-```
+
+````
 
 ### Step 4: Configuration Reference
 
@@ -164,31 +177,34 @@ result = functionName(
 system:
   setting1: value    # Required
   setting2: value    # Optional, default: X
-  
+
   subsystem:
     option1: value   # Required
     option2: []      # Optional, default: empty
-```
+````
 
 ### Configuration Options
 
 #### `system.setting1`
+
 - **Type**: string
 - **Required**: Yes
 - **Default**: None
 - **Description**: Controls primary system behavior
-- **Valid Values**: 
+- **Valid Values**:
   - `value1`: Description
   - `value2`: Description
 - **Example**: `system.setting1: value1`
 
 #### `system.subsystem.option1`
+
 - **Type**: integer
 - **Required**: Yes
 - **Range**: 1-1000
 - **Description**: Sets subsystem threshold
 - **Related**: See `system.subsystem.option2`
-```
+
+````
 
 ### Step 5: CLI Reference
 
@@ -198,12 +214,12 @@ system:
 ### Global Options
 ```bash
 command [global-options] <subcommand> [options] [arguments]
-```
+````
 
-| Option | Short | Description | Default |
-|--------|-------|-------------|---------|
-| --verbose | -v | Increase output verbosity | False |
-| --config FILE | -c | Specify configuration file | ./config.yaml |
+| Option        | Short | Description                | Default       |
+| ------------- | ----- | -------------------------- | ------------- |
+| --verbose     | -v    | Increase output verbosity  | False         |
+| --config FILE | -c    | Specify configuration file | ./config.yaml |
 
 ### Commands
 
@@ -212,11 +228,13 @@ command [global-options] <subcommand> [options] [arguments]
 Create a new resource.
 
 **Synopsis**:
+
 ```bash
 command create [options] <name>
 ```
 
 **Arguments**:
+
 - `<name>`: Name of the resource to create (required)
 
 **Options**:
@@ -226,6 +244,7 @@ command create [options] <name>
 | --force | Overwrite if exists | False |
 
 **Examples**:
+
 ```bash
 # Create with defaults
 command create myresource
@@ -235,10 +254,12 @@ command create --type advanced --force myresource
 ```
 
 **Exit Codes**:
+
 - `0`: Success
 - `1`: General error
 - `2`: Invalid arguments
-```
+
+````
 
 ## Reference Deliverables
 
@@ -271,11 +292,12 @@ All reference documentation will be generated in the `docs/reference/` directory
 ##### Constructor
 ```language
 new ClassName(param1, param2)
-```
+````
 
 ##### Methods
 
 ###### `methodName(params)`
+
 [Complete documentation following template]
 
 ### Configuration Reference
@@ -284,8 +306,8 @@ new ClassName(param1, param2)
 
 ### Error Reference
 
-| Code | Name | Description | Resolution |
-|------|------|-------------|------------|
+| Code | Name      | Description    | Resolution |
+| ---- | --------- | -------------- | ---------- |
 | E001 | ErrorName | What causes it | How to fix |
 
 ### Type Definitions
@@ -300,17 +322,22 @@ type TypeName = {
 ## Appendices
 
 ### A. Complete Parameter List
+
 [Alphabetical list of all parameters]
 
 ### B. Deprecations
+
 [List of deprecated features]
 
 ### C. Version History
+
 [Changes across versions]
 
 ## Index
+
 [Alphabetical index of all entries]
-```
+
+````
 
 ## Reference Best Practices
 
@@ -363,16 +390,18 @@ Before finalizing reference documentation:
 # Specific components
 /diataxis-reference "authentication module"
 /diataxis-reference "payment processing API"
-```
+````
 
 ## Integration with Other Diataxis Types
 
 ### Relationship to Other Documentation
+
 - **From Tutorial**: "For complete details, see [reference](../reference/)"
 - **From How-to**: "For all parameters, consult [reference](../reference/)"
 - **To Explanation**: "For background on these concepts, see [explanation](../explanation/)"
 
 ### Documentation Navigation
+
 ```
 Tutorial → How-to → Reference (You are here) → Explanation
 Learning → Doing → Looking up → Understanding
@@ -381,23 +410,28 @@ Learning → Doing → Looking up → Understanding
 ## Common Reference Patterns
 
 ### REST API Pattern
-```markdown
+
+````markdown
 ### GET /api/resource/{id}
 
 **Description**: Retrieve a specific resource
 
 **Parameters**:
+
 - Path: `id` (required) - Resource identifier
 - Query: `include` (optional) - Related data to include
 
 **Response**: 200 OK
+
 ```json
 {
-    "id": "string",
-    "data": {}
+  "id": "string",
+  "data": {}
 }
 ```
-```
+````
+
+````
 
 ### Configuration Pattern
 ```markdown
@@ -406,21 +440,24 @@ Learning → Doing → Looking up → Understanding
 - **Default**: value
 - **Environment**: SETTING_NAME
 - **Description**: What it controls
-```
+````
 
 ### CLI Pattern
+
 ```markdown
 ### command [options] <required> [optional]
+
 Options:
-  --flag, -f    Description
+--flag, -f Description
 Arguments:
-  required      Description
-  optional      Description (default: value)
+required Description
+optional Description (default: value)
 ```
 
 ## Final Output
 
 Upon completion, generate `docs/reference/[topic-slug].md` containing:
+
 - Complete technical specifications
 - Every parameter and option
 - Consistent structure throughout
