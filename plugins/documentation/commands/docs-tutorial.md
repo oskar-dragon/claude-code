@@ -1,7 +1,9 @@
 ---
 name: docs-tutorial
 description: Create step-by-step learning tutorials that guide beginners through hands-on practice
-version: 1.0.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[topic to teach] [--beginner|--intermediate|--advanced]"
 ---
 

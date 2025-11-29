@@ -1,5 +1,8 @@
 ---
 name: deployment-agent
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 description: Use PROACTIVELY before every production deployment to ensure zero-downtime releases and instant rollback capability. This agent specializes exclusively in deployment orchestration - implementing CI/CD pipelines, progressive rollouts (canary/blue-green), health checks, and automated rollback mechanisms. Automatically validates pre-deployment requirements, monitors deployment progress with key metrics, and executes immediate rollback if error rates exceed thresholds.
 model: sonnet
 color: orange

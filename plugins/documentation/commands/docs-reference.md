@@ -1,7 +1,9 @@
 ---
 name: docs-reference
 description: Create comprehensive technical reference documentation with complete specifications
-version: 1.0.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[system/API to document] [--api|--config|--cli|--complete]"
 ---
 

@@ -1,7 +1,9 @@
 ---
 name: docs-explanation
 description: Create in-depth explanations that build conceptual understanding of complex topics
-version: 1.0.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[concept to explain] [--architecture|--design|--theory|--comparison]"
 ---
 

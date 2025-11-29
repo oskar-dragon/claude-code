@@ -1,7 +1,9 @@
 ---
 name: prd
 description: Interactive PRD creation - Optional feeder command that prepares requirements before EPCC workflow
-version: 3.1.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[initial-idea-or-project-name]"
 ---
 

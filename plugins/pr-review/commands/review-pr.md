@@ -2,6 +2,9 @@
 description: "Comprehensive PR review using specialized agents"
 argument-hint: "[review-aspects]"
 allowed-tools: ["Bash", "Glob", "Grep", "Read", "Task"]
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 ---
 
 # Comprehensive PR Review

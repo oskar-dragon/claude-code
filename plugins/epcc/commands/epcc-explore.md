@@ -1,7 +1,9 @@
 ---
 name: epcc-explore
 description: Explore phase of EPCC workflow - understand thoroughly before acting
-version: 3.1.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[area-to-explore] [--deep|--quick]"
 ---
 

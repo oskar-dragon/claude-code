@@ -1,6 +1,9 @@
 ---
 allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*)
 description: Commit, push, and open a PR
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 ---
 
 ## Context

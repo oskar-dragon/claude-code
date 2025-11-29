@@ -1,7 +1,9 @@
 ---
 name: epcc-commit
 description: Commit phase of EPCC workflow - finalize with confidence
-version: 3.1.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[commit-message] [--amend|--squash]"
 ---
 

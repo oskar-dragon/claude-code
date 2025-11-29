@@ -1,7 +1,9 @@
 ---
 name: trd
 description: Technical Requirements Document generation through interactive interview
-version: 3.1.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[initial-technical-context-or-project-name]"
 ---
 

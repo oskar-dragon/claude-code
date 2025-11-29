@@ -1,7 +1,9 @@
 ---
 name: docs-howto
 description: Create practical how-to guides for solving specific problems and accomplishing tasks
-version: 1.0.0
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 argument-hint: "[problem to solve] [--quick|--comprehensive|--troubleshooting]"
 ---
 

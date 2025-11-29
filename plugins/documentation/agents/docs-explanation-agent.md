@@ -1,5 +1,8 @@
 ---
 name: docs-explanation-agent
+version: v1.0.0
+author: Oskar Dragon
+last_updated: 2025-11-29
 description: MUST BE USED when creating understanding-oriented documentation for experienced users. This agent specializes exclusively in creating conceptual explanations that provide context, background, and architectural understanding. Helps users understand why things work the way they do and the design decisions behind systems.
 model: sonnet
 color: purple

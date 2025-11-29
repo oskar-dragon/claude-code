@@ -1,8 +1,8 @@
 ---
 name: architecture-documenter
 version: v1.0.0
-author: Jawhny Cooke
-last_updated: 2025-08-07
+author: Oskar Dragon
+last_updated: 2025-11-29
 description: MUST BE USED when creating comprehensive architecture documentation for systems, APIs, or technical designs. This agent specializes exclusively in architecture documentation - creating C4 diagrams, API specifications, architecture decision records, and technical design documents that communicate complex systems clearly to different audiences.
 model: opus
 color: cyan
