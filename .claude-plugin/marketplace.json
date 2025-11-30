@@ -54,6 +54,16 @@
 			"author": {
 				"name": "Oskar Dragon"
 			}
+		},
+		{
+			"name": "skill-creator",
+			"version": "1.0.0",
+			"source": "./plugins/skill-creator",
+			"description": "Create and validate Claude Code skills with proper directory structure and SKILL.md templates using Anthropic's proven skill-creator scripts",
+			"category": "productivity",
+			"author": {
+				"name": "Oskar Dragon"
+			}
 		}
 	],
 	"strict": false
