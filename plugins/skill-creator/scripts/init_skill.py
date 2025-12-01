@@ -3,10 +3,9 @@
 Skill Initializer - Creates a new skill from template
 
 Usage:
-    init_skill.py <skill-name> [--path <path>]
+    init_skill.py <skill-name> --path <path>
 
 Examples:
-    init_skill.py my-new-skill
     init_skill.py my-new-skill --path skills/public
     init_skill.py my-api-helper --path skills/private
     init_skill.py custom-skill --path /custom/location
@@ -18,7 +17,7 @@ from pathlib import Path
 
 SKILL_TEMPLATE = """---
 name: {skill_name}
-description: "TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it."
+description: [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]
 ---
 
 # {skill_title}
@@ -272,33 +271,21 @@ def init_skill(skill_name, path):
 
 
 def main():
-    # Parse arguments with optional --path parameter
-    skill_name = None
-    path = ".claude/skills"  # Default path for Claude Code
-
-    if len(sys.argv) < 2:
-        print("Usage: init_skill.py <skill-name> [--path <path>]")
+    if len(sys.argv) < 4 or sys.argv[2] != '--path':
+        print("Usage: init_skill.py <skill-name> --path <path>")
         print("\nSkill name requirements:")
         print("  - Hyphen-case identifier (e.g., 'data-analyzer')")
         print("  - Lowercase letters, digits, and hyphens only")
         print("  - Max 40 characters")
         print("  - Must match directory name exactly")
         print("\nExamples:")
-        print("  init_skill.py my-new-skill")
         print("  init_skill.py my-new-skill --path skills/public")
         print("  init_skill.py my-api-helper --path skills/private")
         print("  init_skill.py custom-skill --path /custom/location")
         sys.exit(1)
 
     skill_name = sys.argv[1]
-
-    # Check for optional --path argument
-    if len(sys.argv) >= 4 and sys.argv[2] == '--path':
-        path = sys.argv[3]
-    elif len(sys.argv) == 3:
-        print("❌ Error: Invalid arguments. Use --path flag to specify custom path.")
-        print("\nUsage: init_skill.py <skill-name> [--path <path>]")
-        sys.exit(1)
+    path = sys.argv[3]
 
     print(f"🚀 Initializing skill: {skill_name}")
     print(f"   Location: {path}")
