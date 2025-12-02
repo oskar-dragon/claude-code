@@ -26,21 +26,11 @@
       "category": "documentation"
     },
     {
-      "name": "git",
-      "source": "./plugins/git",
-      "description": "A toolkit for git operations",
-      "version": "1.0.0",
-      "category": "productivity",
-      "author": {
-        "name": "Oskar Dragon"
-      }
-    },
-    {
       "name": "pr-review",
       "source": "./plugins/pr-review",
       "description": "A PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification",
       "version": "1.0.0",
-      "category": "productivity",
+      "category": "development",
       "author": {
         "name": "Oskar Dragon"
       }
@@ -61,6 +51,16 @@
       "source": "./plugins/skill-creator",
       "description": "Create and validate Claude Code skills with proper directory structure and SKILL.md templates using Anthropic's proven skill-creator scripts",
       "category": "productivity",
+      "author": {
+        "name": "Oskar Dragon"
+      }
+    },
+    {
+      "name": "utils",
+      "version": "1.0.0",
+      "source": "./plugins/dev",
+      "description": "Utilities for Claude",
+      "category": "development",
       "author": {
         "name": "Oskar Dragon"
       }
