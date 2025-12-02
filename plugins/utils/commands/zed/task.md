@@ -9,11 +9,6 @@ argument-hint: "[task-description]"
 ## Context
 
 - Task description: $ARGUMENTS
-- Current directory: !`pwd`
-- Existing .zed directory: !`test -d .zed && echo "exists" || echo "not found"`
-- Current tasks file: !`test -f .zed/tasks.json && echo "found" || echo "not found"`
-- Project type: !`fd -t f "(package.json|go.mod|Cargo.toml|pyproject.toml)" -d 1 | head -3`
-- Available scripts: !`test -f package.json && jq -r '.scripts | keys[]' package.json 2>/dev/null | head -5 || echo "none"`
 
 ## Your Task
 
