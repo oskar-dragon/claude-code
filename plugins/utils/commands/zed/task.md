@@ -45,7 +45,7 @@ CREATE task object with:
   - allow_concurrent_runs: true for tests/formatters, false for servers
 - **Reveal Behavior**:
   - "always" for servers
-  - "on_error" for tests/builds
+  - "no_focus" for tests/builds
   - "never" for formatters
 
 APPLY Zed variable best practices:
