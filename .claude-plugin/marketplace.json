@@ -26,16 +26,6 @@
 			"category": "documentation"
 		},
 		{
-			"name": "pr-review",
-			"source": "./plugins/pr-review",
-			"description": "A PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification",
-			"version": "1.0.0",
-			"category": "development",
-			"author": {
-				"name": "Oskar Dragon"
-			}
-		},
-		{
 			"name": "frontend-design",
 			"version": "1.0.0",
 			"source": "./plugins/frontend-design",
@@ -60,6 +50,16 @@
 			"version": "1.0.0",
 			"source": "./plugins/utils",
 			"description": "Utilities for Claude",
+			"category": "development",
+			"author": {
+				"name": "Oskar Dragon"
+			}
+		},
+		{
+			"name": "git",
+			"version": "1.0.0",
+			"source": "./plugins/git",
+			"description": "All git operations",
 			"category": "development",
 			"author": {
 				"name": "Oskar Dragon"
