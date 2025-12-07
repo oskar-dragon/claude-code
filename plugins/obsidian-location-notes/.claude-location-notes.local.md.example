@@ -1,0 +1,53 @@
+---
+vault_path: "/Users/yourusername/Library/CloudStorage/GoogleDrive-your.email@gmail.com/My Drive/Obsidian/My Vault"
+save_location: "97 - MAPS"
+---
+
+# Obsidian Location Notes Configuration
+
+This file configures the obsidian-location-notes plugin.
+
+## Required Settings
+
+- **vault_path**: Absolute path to your Obsidian vault directory
+- **save_location**: Directory within vault where location notes should be saved (relative to vault root)
+
+## Setup Instructions
+
+1. Copy this file to `.claude/obsidian-location-notes.local.md` in your project
+2. Update `vault_path` with your actual Obsidian vault path
+3. Update `save_location` with your preferred directory (e.g., "Maps", "Locations", "97 - MAPS")
+
+## Examples
+
+### macOS with Google Drive
+```yaml
+vault_path: "/Users/yourname/Library/CloudStorage/GoogleDrive-email@gmail.com/My Drive/Obsidian/My Vault"
+save_location: "97 - MAPS"
+```
+
+### macOS with iCloud
+```yaml
+vault_path: "/Users/yourname/Library/Mobile Documents/iCloud~md~obsidian/Documents/My Vault"
+save_location: "Locations"
+```
+
+### Windows with Google Drive
+```yaml
+vault_path: "C:/Users/yourname/Google Drive/Obsidian/My Vault"
+save_location: "Maps"
+```
+
+### Linux
+```yaml
+vault_path: "/home/yourname/Documents/Obsidian/My Vault"
+save_location: "Locations"
+```
+
+## Notes
+
+- Use absolute paths for `vault_path`
+- Vault path should point to the root of your Obsidian vault
+- Save location is relative to the vault root
+- Directory will be created if it doesn't exist
+- This file should be added to `.gitignore` as it contains local paths

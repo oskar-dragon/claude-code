@@ -1,0 +1,17 @@
+{
+	"name": "obsidian-location-notes",
+	"version": "0.1.0",
+	"description": "Automated location research and note creation for Obsidian with geolocation and multi-source research",
+	"author": {
+		"name": "Oskar Dragon",
+		"email": "dragon.t.oskar@gmail.com"
+	},
+	"keywords": [
+		"obsidian",
+		"location",
+		"research",
+		"geolocation",
+		"travel",
+		"notes"
+	]
+}

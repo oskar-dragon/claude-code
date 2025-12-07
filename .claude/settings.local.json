@@ -6,7 +6,8 @@
       "Bash(python3:*)",
       "Bash(bun run check:all:*)",
       "Bash(bun run:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Skill(plugin-dev:command-development)"
     ],
     "deny": [],
     "ask": []
