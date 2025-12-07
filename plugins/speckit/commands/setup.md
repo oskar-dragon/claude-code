@@ -15,8 +15,9 @@ Execute the setup script to create the `.specify/` directory structure with all 
 ```
 
 The script will:
+
 1. Check for existing `.specify/` directory and handle appropriately (skip/overwrite/merge)
-2. Create directory structure: `memory/`, `specs/`, `scripts/`, `templates/`
+2. Create directory structure: `memory/`, `specs/`,
 3. Copy all templates from the plugin to the repository
 4. Copy automation scripts (bash) to the repository
 5. Initialize constitution template in `memory/constitution.md`
@@ -40,6 +41,7 @@ Once setup completes, guide the user through the next steps:
 ## User Guidance
 
 After the script completes, explain:
+
 - Where files were created
 - What each directory contains
 - The SDD workflow sequence
