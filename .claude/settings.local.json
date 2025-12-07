@@ -7,7 +7,9 @@
       "Bash(bun run check:all:*)",
       "Bash(bun run:*)",
       "Bash(git add:*)",
-      "Skill(plugin-dev:command-development)"
+      "Skill(plugin-dev:command-development)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)"
     ],
     "deny": [],
     "ask": []

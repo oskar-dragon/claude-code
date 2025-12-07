@@ -56,11 +56,13 @@ This file configures the obsidian-location-notes plugin.
 ### Basic Usage
 
 Create a location note by name:
+
 ```bash
 /obsidian-location-notes:create "Old Man of Storr"
 ```
 
 The plugin will:
+
 1. Ask you to select location type (General/Food/Photo/Accommodation)
 2. Research the location from multiple sources
 3. Find accurate GPS coordinates via OpenStreetMap
@@ -70,6 +72,7 @@ The plugin will:
 ### With URL
 
 Provide a website URL as source:
+
 ```bash
 /obsidian-location-notes:create "https://example.com/restaurant"
 ```
@@ -77,6 +80,7 @@ Provide a website URL as source:
 ### With PDF
 
 Provide a PDF file path:
+
 ```bash
 /obsidian-location-notes:create "/path/to/location-info.pdf"
 ```
@@ -84,6 +88,7 @@ Provide a PDF file path:
 ### With Type Flag
 
 Skip the interactive question by specifying type:
+
 ```bash
 /obsidian-location-notes:create "Dishoom" --type food
 /obsidian-location-notes:create "Fairy Pools" --type photo
@@ -113,6 +118,7 @@ Skip the interactive question by specifying type:
 ## Templates
 
 The plugin includes four Obsidian note templates:
+
 - General Location Template
 - Food Template
 - Photo Location Template
@@ -123,6 +129,7 @@ Templates are stored in the plugin and used automatically based on location type
 ## Note Structure
 
 Created notes include:
+
 - **YAML frontmatter**: Country, Region, location (coordinates), tags, image URL, source URLs
 - **Mapview block**: Interactive map showing the location
 - **Description**: Detailed information about the location
@@ -143,6 +150,7 @@ Created notes include:
 ## Validation
 
 The note validator checks:
+
 - ✅ Country field populated
 - ✅ Region field populated
 - ✅ Source URLs provided in frontmatter
@@ -157,38 +165,48 @@ If issues are found, the validator asks if you want them fixed.
 ## Troubleshooting
 
 **"Configuration not found"**
+
 - Create `.claude/obsidian-location-notes.local.md` with `vault_path` setting
 
 **"Note already exists"**
+
 - A note with this location name already exists in your vault
 - Choose a different name or manually handle the existing note
 
 **"Coordinates not found"**
+
 - OpenStreetMap couldn't geocode the location
 - The note will be created without coordinates (location field left empty)
 
 **"Validation failed"**
+
 - Some required fields are missing or incorrectly formatted
 - The validator will ask if you want issues fixed automatically
 
 ## Examples
 
 ### Example 1: Research a landmark
+
 ```bash
 /obsidian-location-notes:create "University of Bristol Botanic Gardens"
 ```
+
 → Prompts for type → Select "General" → Creates comprehensive note with hours, admission, features
 
 ### Example 2: Food location with URL
+
 ```bash
 /obsidian-location-notes:create "https://dishoom.com/edinburgh/" --type food
 ```
+
 → Reads website → Researches additional sources → Creates food note with cuisine, prices, info
 
 ### Example 3: Photography location
+
 ```bash
 /obsidian-location-notes:create "Fairy Pools, Isle of Skye" --type photo
 ```
+
 → Researches → Includes best time of day, seasonal advice, equipment tips, directions
 
 ## Contributing
