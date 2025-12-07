@@ -1,6 +1,7 @@
 ---
+name: slash-command
 description: "Generate slash commands for Claude Code plugins"
-argument-hint: "<command-purpose>"
+argument-hint: "[command-purpose] [--namespace <name of namespace e.g. utils>] [--name <plugin-name e.g. create-plugin>]"
 version: v1.0.0
 author: Oskar Dragon
 ---
@@ -9,7 +10,9 @@ You are a slash command generator for Claude Code plugins. Your task is to creat
 
 ## Context
 
-- Command purpose: $ARGUMENTS
+- Command purpose: $1 (required)
+- Namespace: $2 (optional "utils", "git", "epcc", "documentation")
+- Plugin name: $3 (optional)
 
 ## Your Task
 
@@ -130,15 +133,15 @@ Next steps:
 ## Rules
 
 **Frontmatter Generation Rules:**
+[target] [--level basic|intermediate|advanced] [--format text|examples|interactive] [--context domain]
 
-- `name`: Use the command name from user input (kebab-case)
 - `description`: Brief description (1-2 sentences max)
 - `argument-hint`:
-  - IF no arguments: omit this field
-  - IF optional args: `"[optional-arg]"`
-  - IF required args: `"<required-arg>"`
-  - IF flags: `"[--flag1|--flag2]"`
-  - IF multiple: `"<required> [optional] [--flags]"`
+  - IF no args, skip this compeltely
+  - IF args: `"[required-arg]"`
+  - IF flags: `"[--flag1 <options>]"`
+  - IF multiple: `"[required-arg] [--flags <options>]"`
+- Flags can accept free text e.g. `"[--flag1 <free text>]"` or options e.g `"[--flag1 option1|option2]"`.
 
 ## Examples
 
