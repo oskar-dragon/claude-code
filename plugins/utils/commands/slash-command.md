@@ -100,6 +100,12 @@ author: Oskar Dragon
 [Step 3 instruction]
 
 [More Steps]
+
+## Requirements
+
+- [Requirement 1]
+- [Requirement 2]
+- [Requirement 3]
 ```
 
 **STEP 6: Write Command File**
@@ -130,19 +136,6 @@ Next steps:
   2. Test the command: /{namespace}:{command-name}
 ```
 
-## Rules
-
-**Frontmatter Generation Rules:**
-[target] [--level basic|intermediate|advanced] [--format text|examples|interactive] [--context domain]
-
-- `description`: Brief description (1-2 sentences max)
-- `argument-hint`:
-  - IF no args, skip this compeltely
-  - IF args: `"[required-arg]"`
-  - IF flags: `"[--flag1 <options>]"`
-  - IF multiple: `"[required-arg] [--flags <options>]"`
-- Flags can accept free text e.g. `"[--flag1 <free text>]"` or options e.g `"[--flag1 option1|option2]"`.
-
 ## Examples
 
 ### Example 1: Simple command without arguments
@@ -156,7 +149,7 @@ Creates a command that prints a greeting, no arguments needed.
 ### Example 2: Command with arguments
 
 ```
-/utils:slash-command git quick-commit
+/utils:slash-command utils --namespace git --namequick-commit
 ```
 
 Creates a command that accepts a commit message and creates a git commit.
@@ -177,6 +170,19 @@ Creates a command that generates README.md files based on project analysis.
 
 Creates: plugins/epcc/commands/my-agent.md
 Available as: /epcc:my-agent
+
+## Rules
+
+**Frontmatter Generation Rules:**
+[target] [--level basic|intermediate|advanced] [--format text|examples|interactive] [--context domain]
+
+- `description`: Brief description (1-2 sentences max)
+- `argument-hint`:
+  - IF no args, skip this compeltely
+  - IF args: `"[arg]"`
+  - IF flags: `"[--flag1 <options>]"`
+  - IF multiple: `"[required-arg] [--flags <options>]"`
+- Flags can accept free text e.g. `"[--flag1 <free text>]"` or options e.g `"[--flag1 option1|option2]"`.
 
 ## Important Notes
 
