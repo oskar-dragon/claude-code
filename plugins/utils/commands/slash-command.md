@@ -1,5 +1,4 @@
 ---
-name: slash-command
 description: "Generate slash commands for Claude Code plugins"
 argument-hint: "<command-purpose>"
 version: v1.0.0
