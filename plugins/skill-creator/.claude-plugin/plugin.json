@@ -1,8 +1,0 @@
-{
-	"name": "skill-creator-2",
-	"version": "1.0.0",
-	"description": "Create and validate Claude Code skills with proper directory structure and SKILL.md templates using Anthropic's proven skill-creator scripts",
-	"author": {
-		"name": "Oskar Dragon"
-	}
-}

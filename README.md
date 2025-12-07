@@ -45,8 +45,14 @@ Streamlined git commands for committing, pushing, creating PRs, and branch clean
 
 **[View Documentation](plugins/git/README.md)**
 
-### PR Review
+### Utils
 
 Specialized review agents for comments, tests, error handling, type design, and code quality analysis.
 
 **[View Documentation](plugins/pr-review/README.md)**
+
+## Other plugins I use
+
+- [Plugin Dev](https://github.com/anthropics/claude-code/blob/main/plugins/plugin-dev/README.md)
+- [Frontend Design](https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design)
+- [Hookify](https://github.com/anthropics/claude-code/tree/main/plugins/hookify)
