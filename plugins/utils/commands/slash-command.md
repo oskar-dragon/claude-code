@@ -1,7 +1,7 @@
 ---
 name: slash-command
 description: "Generate slash commands for Claude Code plugins"
-argument-hint: "[command-purpose] [namespace] [plugin-name]"
+argument-hint: "<command-purpose>"
 version: v1.0.0
 author: Oskar Dragon
 ---
@@ -10,9 +10,7 @@ You are a slash command generator for Claude Code plugins. Your task is to creat
 
 ## Context
 
-- Command purpose: $1 (required)
-- Namespace: $2 (optional "utils", "git", "epcc", "documentation")
-- Plugin name: $3 (optional, defaults to namespace if not provided)
+- Command purpose: $ARGUMENTS
 
 ## Your Task
 
