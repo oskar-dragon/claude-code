@@ -1,0 +1,13 @@
+# Plugin settings (contains user-specific paths and API keys)
+.claude/*.local.md
+
+# Node modules (if any scripts use npm)
+node_modules/
+
+# Python cache (if utility scripts use Python)
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
