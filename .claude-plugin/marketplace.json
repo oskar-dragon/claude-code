@@ -1,70 +1,60 @@
 {
-	"name": "claude-code",
-	"source": {
-		"source": "github",
-		"repo": "oskar-dragon/claude-code"
-	},
-	"description": "A marketplace with my Claude Code plugins",
-	"repository": "https://github.com/oskar-dragon/claude-code",
-	"owner": {
-		"name": "Oskar Dragon",
-		"email": "oskar.dragon@example.com"
-	},
-	"plugins": [
-		{
-			"name": "epcc-workflow",
-			"version": "1.0.0",
-			"source": "./plugins/epcc",
-			"description": "EPCC (Explore-Plan-Code-Commit) systematic development workflow with 12 agents for exploration, planning, coding, and commit phases",
-			"category": "workflow"
-		},
-		{
-			"name": "documentation",
-			"version": "1.0.0",
-			"source": "./plugins/documentation",
-			"description": "Diataxis documentation framework with 12 agents for tutorials, how-tos, references, explanations, and analysis",
-			"category": "documentation"
-		},
-		{
-			"name": "frontend-design",
-			"version": "1.0.0",
-			"source": "./plugins/frontend-design",
-			"description": "Frontend design skill for creating distinctive, production-grade UI/UX implementations",
-			"category": "development",
-			"author": {
-				"name": "Oskar Dragon"
-			}
-		},
-		{
-			"name": "skill-creator",
-			"version": "1.0.0",
-			"source": "./plugins/skill-creator",
-			"description": "Create and validate Claude Code skills with proper directory structure and SKILL.md templates using Anthropic's proven skill-creator scripts",
-			"category": "productivity",
-			"author": {
-				"name": "Oskar Dragon"
-			}
-		},
-		{
-			"name": "utils",
-			"version": "1.0.0",
-			"source": "./plugins/utils",
-			"description": "Utilities for Claude",
-			"category": "development",
-			"author": {
-				"name": "Oskar Dragon"
-			}
-		},
-		{
-			"name": "git",
-			"version": "1.0.0",
-			"source": "./plugins/git",
-			"description": "All git operations",
-			"category": "development",
-			"author": {
-				"name": "Oskar Dragon"
-			}
-		}
-	],
-	"strict": false
+  "name": "claude-code",
+  "source": {
+    "source": "github",
+    "repo": "oskar-dragon/claude-code"
+  },
+  "description": "A marketplace with my Claude Code plugins",
+  "repository": "https://github.com/oskar-dragon/claude-code",
+  "owner": {
+    "name": "Oskar Dragon",
+    "email": "oskar.dragon@example.com"
+  },
+  "plugins": [
+    {
+      "name": "epcc-workflow",
+      "version": "1.0.0",
+      "source": "./plugins/epcc",
+      "description": "EPCC (Explore-Plan-Code-Commit) systematic development workflow with 12 agents for exploration, planning, coding, and commit phases",
+      "category": "workflow"
+    },
+    {
+      "name": "documentation",
+      "version": "1.0.0",
+      "source": "./plugins/documentation",
+      "description": "Diataxis documentation framework with 12 agents for tutorials, how-tos, references, explanations, and analysis",
+      "category": "documentation"
+    },
+    {
+      "name": "utils",
+      "version": "1.0.0",
+      "source": "./plugins/utils",
+      "description": "Utilities for Claude",
+      "category": "development",
+      "author": {
+        "name": "Oskar Dragon"
+      }
+    },
+    {
+      "name": "git",
+      "version": "1.0.0",
+      "source": "./plugins/git",
+      "description": "All git operations",
+      "category": "development",
+      "author": {
+        "name": "Oskar Dragon"
+      }
+    },
+    {
+      "name": "obsidian-location-notes",
+      "version": "0.1.0",
+      "description": "Create location-based notes in Obsidian with automated research, accurate coordinates, and template-specific information gathering",
+      "author": {
+        "name": "oskar-dragon"
+      },
+      "source": "./plugins/obsidian-location-notes",
+      "category": "productivity"
+    }
+  ],
+  "strict": false
 }
