@@ -47,16 +47,6 @@
       },
       "source": "./plugins/obsidian-location-notes",
       "category": "productivity"
-    },
-    {
-      "name": "speckit",
-      "version": "0.1.0",
-      "description": "Spec-Driven Development (SDD) toolkit for Claude Code - create specifications that generate implementations",
-      "author": {
-        "name": "Oskar Dragon"
-      },
-      "source": "./plugins/speckit",
-      "category": "development"
     }
   ],
   "strict": false
