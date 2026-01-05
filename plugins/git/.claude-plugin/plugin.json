@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "All git operations",
 	"author": {
-		"name": "Oskar Dragon"
+		"name": "Oskar Dragon",
+		"email": "dragon.t.oskar@gmail.com"
 	}
 }

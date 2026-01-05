@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Utilities for Claude",
 	"author": {
-		"name": "Oskar Dragon"
+		"name": "Oskar Dragon",
+		"email": "dragon.t.oskar@gmail.com"
 	}
 }
