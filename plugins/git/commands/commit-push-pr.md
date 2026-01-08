@@ -10,7 +10,7 @@ description: Commit, push, and open a PR
 - Current git status: !`git status`
 - Current git diff (staged and unstaged changes): !`git diff HEAD`
 - Current branch: !`git branch --show-current`
-- PR template (if exists): !`test -f .github/pull_request_template.md && cat .github/pull_request_template.md || echo "Template not found"`
+- PR template (if exists): !`cat .github/pull_request_template.md 2>/dev/null || echo "Template not found"`
 
 ## Your task
 
