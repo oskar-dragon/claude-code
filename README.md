@@ -27,12 +27,6 @@ Install plugins:
 
 ## Available Plugins
 
-### EPCC Workflow
-
-4-phase development workflow (Explore -> Plan -> Code -> Commit) with 12 specialized agents for systematic feature development.
-
-**[View Documentation](plugins/epcc/README.md)**
-
 ### Documentation
 
 Diataxis framework implementation with agents for tutorials, how-tos, references, and explanations.
@@ -45,6 +39,12 @@ Streamlined git commands for committing, pushing, creating PRs, and branch clean
 
 **[View Documentation](plugins/git/README.md)**
 
+### Obsidian Location Notes
+
+[TODO]
+
+**[View Documentation](plugins/obsidian-location-notes/README.md)**
+
 ### Utils
 
 Specialized review agents for comments, tests, error handling, type design, and code quality analysis.
@@ -53,6 +53,6 @@ Specialized review agents for comments, tests, error handling, type design, and 
 
 ## Other plugins I use
 
-- [Plugin Dev](https://github.com/anthropics/claude-code/blob/main/plugins/plugin-dev/README.md)
-- [Frontend Design](https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design)
-- [Hookify](https://github.com/anthropics/claude-code/tree/main/plugins/hookify)
+- [Plugin Dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev)
+- [PR Review Toolkit](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/pr-review-toolkit)
+- [Feature Dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev)

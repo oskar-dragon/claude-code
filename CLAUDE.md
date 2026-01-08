@@ -4,168 +4,169 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Claude Code plugin marketplace repository containing four plugins:
-- **EPCC Workflow**: 4-phase development workflow (Explore → Plan → Code → Commit) with 12 specialized agents
-- **Documentation**: Diataxis framework implementation with agents for tutorials, how-tos, references, and explanations
-- **Git Operations**: Streamlined git commands for commits, pushes, and PRs
-- **PR Review**: Specialized review agents for comprehensive code review
+This is a personal marketplace of reusable Claude Code plugins. The repository contains multiple independent plugins that provide specialized agents, commands, and skills for systematic development workflows, documentation generation, git operations, and utilities.
 
-## Development Commands
+## Repository Structure
 
-### Testing & Quality
-```bash
-bun test                 # Run tests
-bun run typecheck        # TypeScript type checking
-bun run biome:check      # Check formatting and linting
-bun run biome:fix        # Auto-fix formatting and linting issues
-bun run check:all        # Run all checks (typecheck + biome:ci + test)
 ```
-
-### Formatting & Linting
-```bash
-bun run biome:format     # Format code
-bun run biome:lint       # Lint code
-bun run biome:ci         # CI mode (no writes, exit on errors)
+plugins/
+├── documentation/          # Diataxis framework implementation
+│   ├── agents/            # 12 specialized documentation agents
+│   └── commands/          # /doc:tutorial, /doc:howto, etc.
+├── git/                   # Git workflow automation
+│   └── commands/          # /commit, /commit-push-pr, /clean_gone
+├── utils/                 # Development utilities
+│   └── commands/          # /prompt-generator, /slash-command, /zed:task
+└── obsidian-location-notes/ # Location research for Obsidian
+    ├── agents/            # Research agents
+    ├── commands/          # /create command
+    ├── skills/            # Coordinate lookup, formatting
+    └── templates/         # Note templates
 ```
-
-### Pre-commit
-Husky pre-commit hook automatically runs `biome check --write --staged` on staged files.
 
 ## Plugin Architecture
 
-### Directory Structure
-```
-plugins/
-├── epcc/
-│   ├── .claude-plugin/plugin.json    # Plugin metadata
-│   ├── commands/                      # Slash commands (*.md)
-│   │   ├── epcc-explore.md
-│   │   ├── epcc-plan.md
-│   │   ├── epcc-code.md
-│   │   └── epcc-commit.md
-│   └── agents/                        # Agent definitions (*.md)
-│       ├── code-archaeologist.md
-│       └── ...
-├── documentation/
-├── git/
-└── pr-review/
-```
+Each plugin follows the Claude Code plugin structure:
 
-### Key Files
-- `.claude-plugin/marketplace.json`: Marketplace definition with all plugins
-- `plugins/*/commands/*.md`: Slash command implementations
-- `plugins/*/agents/*.md`: Agent prompt definitions
-- `plugins/*/.claude-plugin/plugin.json`: Plugin metadata
+- **`.claude-plugin/plugin.json`**: Plugin metadata (name, version, author, description)
+- **`agents/`**: Autonomous agents with specialized prompts (`.md` files with YAML frontmatter)
+- **`commands/`**: Slash commands (`.md` files with YAML frontmatter)
+- **`skills/`**: Reusable capabilities with progressive disclosure
+- **`templates/`**: Reusable content templates
 
-## Code Style
+### Key Patterns
 
-### Biome Configuration
-- **Indentation**: Tabs (not spaces)
-- **Line width**: 100 characters
-- **Quote style**: Double quotes
-- **Semicolons**: Always required
-- **Trailing commas**: ES5 style
+1. **YAML frontmatter**: All commands and agents use frontmatter for metadata:
+   - `version`: Command/agent version
+   - `author`: Creator name
+   - `allowed-tools`: Tool restrictions (for commands)
+   - `description`: Brief description for discovery
 
-### TypeScript
-- Strict mode enabled
-- Module resolution: bundler mode
-- Target: ESNext with Preserve module
-- Array types: Use shorthand syntax (`string[]` not `Array<string>`)
-- No unused variables/imports (error level)
+2. **Dynamic context**: Commands use `!`git command`` syntax to inject dynamic context
 
-### Important Rules
-- No `console` allowed except where explicitly needed
-- Unused variables and imports are errors
-- Prefer `for...of` over `.forEach()` where applicable
-- Use block statements for conditionals
-- Organize imports automatically
+3. **Tool restrictions**: Commands specify allowed tools in frontmatter for safety
 
-## Plugin Development
+## Common Commands
 
-### Creating a New Command
-1. Add `*.md` file to `plugins/<plugin-name>/commands/`
-2. Command name becomes `/plugin-name:command-name`
-3. Markdown content is the slash command prompt
+### Plugin Management
 
-### Creating a New Agent
-1. Add `*.md` file to `plugins/<plugin-name>/agents/`
-2. Agent name matches filename (e.g., `code-reviewer.md` → `@code-reviewer`)
-3. Markdown content defines agent behavior and instructions
-
-### EPCC Workflow Pattern
-EPCC commands follow a 4-phase workflow that generates documentation files:
-- **Explore**: Creates `EPCC_EXPLORE.md` with codebase analysis
-- **Plan**: Creates `EPCC_PLAN.md` with implementation strategy
-- **Code**: Creates `EPCC_CODE.md` with implementation details
-- **Commit**: Creates `EPCC_COMMIT.md` with commit message and PR description
-
-Each phase reads previous phase outputs to maintain context.
-
-### Documentation Plugin Pattern
-Documentation commands follow the Diataxis framework:
-- **Tutorials**: Learning-oriented, step-by-step for beginners
-- **How-tos**: Task-oriented guides for specific problems
-- **Explanations**: Understanding-oriented conceptual content
-- **References**: Information-oriented technical specifications
-
-## Installation & Usage
-
-### Adding the Marketplace
 ```bash
+# Add this marketplace
 /plugin marketplace add oskar-dragon/claude-code
-```
 
-### Installing Plugins
-```bash
-/plugin install epcc-workflow@claude-code
+# List available plugins
+/plugin marketplace list
+
+# Install specific plugin
 /plugin install documentation@claude-code
 /plugin install git@claude-code
-/plugin install pr-review@claude-code
+/plugin install utils@claude-code
 ```
 
-### Example Usage
-```bash
-# EPCC workflow
-/epcc:epcc-explore "authentication system"
-/epcc:epcc-plan "Add OAuth support"
-/epcc:epcc-code --tdd "OAuth implementation"
-/epcc:epcc-commit "Add OAuth authentication"
+## Development Workflow
 
-# Documentation
-/documentation:docs-tutorial "Getting started guide"
-/documentation:docs-howto "Configure authentication"
-/documentation:docs-reference "API endpoints"
-/documentation:docs-explanation "Architecture decisions"
+### Adding New Plugins
+
+1. Create new directory under `plugins/`
+2. Add `.claude-plugin/plugin.json` with metadata
+3. Create subdirectories: `agents/`, `commands/`, `skills/` as needed
+4. Update main `README.md` with plugin description
+
+### Creating Commands
+
+Commands are markdown files with YAML frontmatter:
+
+```markdown
+---
+version: "1.0.0"
+author: "Your Name"
+allowed-tools: Bash(git:*), Read(*), Write(*)
+description: Brief description
+---
+
+## Context
+
+Dynamic context using !`command` syntax
+
+## Your task
+
+Clear instructions for Claude
 ```
 
-## CI/CD
+### Creating Agents
 
-GitHub Actions workflow runs on push/PR:
-1. Install dependencies with Bun
-2. Run `bun run biome:ci` (formatting + linting)
-3. Run `bun run typecheck` (TypeScript validation)
-4. Run `bun test` (test suite)
+Agents are markdown files with YAML frontmatter and detailed system prompts:
 
-All checks must pass for CI to succeed.
+```markdown
+---
+name: agent-name
+description: Agent description for discovery
+tools: [Read, Write, Grep, Glob]
+color: blue
+---
 
-## Best Practices
+Detailed agent system prompt...
+```
 
-### When Modifying Plugins
-- Test commands locally before committing
-- Keep command prompts focused and actionable
-- Document agent responsibilities clearly
-- Follow existing patterns in similar plugins
-- Update plugin README.md when adding features
+### Creating Skills
 
-### Code Changes
-- Run `bun run check:all` before committing
-- Let pre-commit hook auto-fix Biome issues
-- Ensure TypeScript strict mode compliance
-- Add tests for new functionality
-- Keep dependencies minimal (currently only @stricli/core)
+Skills use progressive disclosure with `SKILL.md` as entry point:
 
-### Documentation
-- Plugin READMEs should explain purpose, commands, agents, and usage patterns
-- Include troubleshooting sections for common issues
-- Provide examples for all commands and workflows
-- Document flags and options clearly
+```
+skills/
+└── skill-name/
+    ├── SKILL.md           # Entry point
+    ├── examples/          # Usage examples
+    └── references/        # Detailed documentation
+```
+
+## Architecture Principles
+
+1. **Modularity**: Each plugin is independent and self-contained
+2. **Reusability**: Commands, agents, and skills are reusable across projects
+3. **Progressive disclosure**: Skills provide overview first, details on demand
+4. **Safety**: Commands use `allowed-tools` to restrict capabilities
+5. **Dynamic context**: Commands inject runtime context via backtick execution
+6. **Convention over configuration**: Standard directory structure for auto-discovery
+
+## Plugin-Specific Notes
+
+### Documentation Plugin
+
+Implements the Diataxis framework with four documentation types:
+
+- **Tutorials**: Learning-oriented, step-by-step for beginners
+- **How-tos**: Task-oriented guides for practitioners
+- **Explanations**: Understanding-oriented conceptual content
+- **Reference**: Information-oriented technical specifications
+
+Agents include: tutorial-writer, technical-writer, concept-explainer, api-documenter, documentation-reviewer, plus analysis agents (code-archaeologist, business-analyst, system-designer, test-generator, optimization-engineer, ux-optimizer).
+
+### Git Plugin
+
+Focused on git workflow automation:
+
+- `/commit`: Stage and commit changes
+- `/commit-push-pr`: Full workflow (branch, commit, push, PR)
+- `/clean_gone`: Remove local branches deleted on remote
+
+Uses dynamic context injection to read git status, diffs, and templates.
+
+### Obsidian Location Notes Plugin
+
+Specialized for travel research and Obsidian note creation:
+
+- Research agents for accommodations, food, photos, general locations
+- Coordinate lookup via geolocation APIs
+- Obsidian-specific formatting (frontmatter, dataview syntax)
+- Template-based note generation
+
+Requires configuration in `.claude-location-notes.local.md` for API keys and vault paths.
+
+## Important Conventions
+
+1. **File naming**: Use kebab-case for all files and directories
+2. **No package.json**: This is a plugin repository, not a Node.js project
+3. **Git workflow**: Use `/commit` or `/commit-push-pr` for changes
+4. **Documentation**: Each plugin has its own README.md
+5. **Examples**: Use `.example` suffix for template files requiring configuration
