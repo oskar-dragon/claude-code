@@ -1,5 +1,4 @@
 ---
-name: docs-howto
 description: Create practical how-to guides for solving specific problems and accomplishing tasks
 version: v1.0.0
 author: Oskar Dragon

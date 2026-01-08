@@ -1,5 +1,4 @@
 ---
-name: docs-create
 description: Create comprehensive documentation with intelligent type detection and orchestration
 version: v1.0.0
 author: Oskar Dragon

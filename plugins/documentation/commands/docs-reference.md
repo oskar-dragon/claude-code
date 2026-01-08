@@ -1,5 +1,4 @@
 ---
-name: docs-reference
 description: Create comprehensive technical reference documentation with complete specifications
 version: v1.0.0
 author: Oskar Dragon

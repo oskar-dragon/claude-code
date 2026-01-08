@@ -1,5 +1,4 @@
 ---
-name: docs-tutorial
 description: Create step-by-step learning tutorials that guide beginners through hands-on practice
 version: v1.0.0
 author: Oskar Dragon

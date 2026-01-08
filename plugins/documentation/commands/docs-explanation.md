@@ -1,5 +1,4 @@
 ---
-name: docs-explanation
 description: Create in-depth explanations that build conceptual understanding of complex topics
 version: v1.0.0
 author: Oskar Dragon
