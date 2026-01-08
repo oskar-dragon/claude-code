@@ -1,7 +1,7 @@
 ---
 version: "1.0.0"
 author: "Oskar Dragon"
-allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*)
+allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*), Bash(test:*), Bash(cat:*), Bash(echo:*), Bash(git branch:*), Bash(git diff:*)
 description: Commit, push, and open a PR
 ---
 
