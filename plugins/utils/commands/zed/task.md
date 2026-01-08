@@ -1,5 +1,4 @@
 ---
-name: zed-task
 version: v1.0.0
 author: Oskar Dragon
 description: Generate Zed task configuration with intelligent defaults
@@ -90,7 +89,7 @@ ELSE:
   "cwd": "$ZED_WORKTREE_ROOT",
   "use_new_terminal": false,
   "allow_concurrent_runs": true,
-  "reveal": "on_error"
+  "reveal": "always"
 }
 ```
 
