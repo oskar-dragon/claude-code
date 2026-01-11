@@ -58,6 +58,17 @@
       },
       "source": "./plugins/canary-dev",
       "category": "development"
+    },
+    {
+      "name": "ty-lsp",
+      "version": "1.0.0",
+      "description": "Python type checker (ty) from Astral for Claude Code - An extremely fast LSP alternative to Pyright",
+      "author": {
+        "name": "Qogita",
+        "email": "engineering@qogita.com"
+      },
+      "source": "./plugins/ty-lsp",
+      "category": "development"
     }
   ],
   "strict": false
