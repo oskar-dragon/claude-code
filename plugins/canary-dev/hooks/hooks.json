@@ -6,11 +6,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uvx ruff check --fix || true"
+            "command": "uvx ruff check --fix $FILE || true"
           },
           {
             "type": "command",
-            "command": "uvx ruff format || true"
+            "command": "uvx ruff format $FILE || true"
           }
         ]
       }
