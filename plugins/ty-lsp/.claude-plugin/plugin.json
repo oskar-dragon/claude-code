@@ -1,0 +1,22 @@
+{
+  "name": "ty-lsp",
+  "version": "1.0.0",
+  "description": "Python type checker (ty) from Astral for Claude Code - An extremely fast LSP alternative to Pyright",
+  "author": {
+    "name": "Community Reference Implementation",
+    "url": "https://github.com/astral-sh/ty/issues/2230"
+  },
+  "homepage": "https://github.com/astral-sh/ty",
+  "repository": "https://github.com/astral-sh/ty",
+  "keywords": ["python", "type-checker", "lsp", "ty", "astral"],
+  "lspServers": {
+    "ty": {
+      "command": "uvx",
+      "args": ["ty@latest", "server"],
+      "extensionToLanguage": {
+        ".py": "python",
+        ".pyi": "python"
+      }
+    }
+  }
+}
