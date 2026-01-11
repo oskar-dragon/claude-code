@@ -5,11 +5,11 @@
       "hooks": [
         {
           "type": "command",
-          "command": "ruff check --fix \"${FILE_PATH}\" || true"
+          "command": "ruff check --fix || true"
         },
         {
           "type": "command",
-          "command": "ruff format \"${FILE_PATH}\" || true"
+          "command": "ruff format || true"
         }
       ]
     }
