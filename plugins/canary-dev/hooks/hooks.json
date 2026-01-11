@@ -5,11 +5,11 @@
       "hooks": [
         {
           "type": "command",
-          "command": "ruff check --fix || true"
+          "command": "uvx ruff check --fix || true"
         },
         {
           "type": "command",
-          "command": "ruff format || true"
+          "command": "uvx ruff format || true"
         }
       ]
     }
