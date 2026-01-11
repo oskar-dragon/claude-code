@@ -1,17 +1,19 @@
 {
-  "PostToolUse": [
-    {
-      "matcher": "Write|Edit",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "uvx ruff check --fix || true"
-        },
-        {
-          "type": "command",
-          "command": "uvx ruff format || true"
-        }
-      ]
-    }
-  ]
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uvx ruff check --fix || true"
+          },
+          {
+            "type": "command",
+            "command": "uvx ruff format || true"
+          }
+        ]
+      }
+    ]
+  }
 }
