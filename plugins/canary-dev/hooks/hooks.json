@@ -1,0 +1,17 @@
+{
+  "PostToolUse": [
+    {
+      "matcher": "Write|Edit",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "ruff check --fix \"${FILE_PATH}\" || true"
+        },
+        {
+          "type": "command",
+          "command": "ruff format \"${FILE_PATH}\" || true"
+        }
+      ]
+    }
+  ]
+}
