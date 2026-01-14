@@ -39,5 +39,24 @@ jobs:
           plugin_marketplaces: "https://github.com/oskar-dragon/claude-code.git"
           plugins: "code-review@claude-code"
           prompt: "/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }} --comment"
+          claude_args: >-
+            --allowedTools
+            "mcp__github__get_commit,
+            mcp__github__get_pull_request,
+            mcp__github__list_pull_requests,
+            mcp__github__get_pull_request_diff,
+            mcp__github__get_pull_request_files,
+            mcp__github__get_pull_request_review_comments,
+            mcp__github_inline_comment__create_inline_comment,
+            mcp__github__create_pending_pull_request_review,
+            mcp__github__add_comment_to_pending_review,
+            mcp__github__submit_pending_pull_request_review,
+            Bash(uv),
+            View,
+            GlobTool,
+            GrepTool,
+            BatchTool,
+            WebFetch,
+            WebSearch"
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
