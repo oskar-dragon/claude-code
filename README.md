@@ -63,3 +63,5 @@ Specialized review agents for comments, tests, error handling, type design, and 
 - [Plugin Dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev)
 - [PR Review Toolkit](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/pr-review-toolkit)
 - [Feature Dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev)
+
+- DUPA
