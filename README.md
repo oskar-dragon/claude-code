@@ -2,6 +2,13 @@
 
 A personal marketplace of reusable Claude Code plugins for systematic development workflows, documentation, git operations, and PR review.
 
+## Features
+
+- **Documentation Generation**: Diataxis framework implementation with specialized agents for creating tutorials, how-tos, references, and explanations
+- **Git Workflow Automation**: Streamlined commands for commits, PRs, and branch management
+- **Code Quality Tools**: Specialized review agents for comprehensive code analysis
+- **Extensible Architecture**: Modular plugin system with agents, commands, and skills
+
 ## Installation
 
 Add this marketplace using the CLI:
@@ -56,3 +63,5 @@ Specialized review agents for comments, tests, error handling, type design, and 
 - [Plugin Dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev)
 - [PR Review Toolkit](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/pr-review-toolkit)
 - [Feature Dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev)
+
+- DUPA JASIA

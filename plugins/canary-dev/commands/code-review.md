@@ -28,7 +28,7 @@ Note: Still review Claude generated PR's.
 
 3. Launch a sonnet agent to view the pull request and return a summary of the changes
 
-4. Launch 4 agents in parallel to independently review the changes. Each agent should return the list of issues, where each issue includes a description and the reason it was flagged (e.g. "CLAUDE.md adherence", "bug"). The agents should do the following:
+4. Launch 6 agents in parallel to independently review the changes. Each agent should return the list of issues, where each issue includes a description and the reason it was flagged (e.g. "CLAUDE.md adherence", "bug"). The agents should do the following:
 
    Agents 1 + 2: CLAUDE.md compliance sonnet agents
    Audit changes for CLAUDE.md compliance in parallel. Note: When evaluating CLAUDE.md compliance for a file, you should only consider CLAUDE.md files that share a file path with the file or parents.
@@ -38,6 +38,35 @@ Note: Still review Claude generated PR's.
 
    Agent 4: Opus bug agent (parallel subagent with agent 3)
    Look for problems that exist in the introduced code. This could be security issues, incorrect logic, etc. Only look for issues that fall within the changed code.
+
+   Agent 5: Sonnet BFF architect agent (parallel with agents 1-4)
+   Review changes for Backend-for-Frontend (BFF) pattern violations. Focus ONLY on architectural issues that violate the BFF aggregation pattern. Flag issues where:
+   - BFF apps contain business logic instead of coordination logic
+   - BFF apps depend on domain implementations instead of interfaces
+   - Domains have circular dependencies or mutual imports
+   - Domains depend on BFF layers (reverse dependency)
+   - BFF apps contain models/ directories (BFF shouldn't own data)
+   - Cross-domain coordination exists outside of BFF layers (Domain A imports Domain B directly)
+   - Aggregation logic includes business rules instead of pure coordination
+
+   Do NOT flag style issues, performance concerns (unless violating dependency flow), general preferences, or issues in non-BFF code.
+
+   For each issue, cite the specific BFF principle violated: one-way dependency flow, dependency inversion, domain independence, or coordination vs business logic separation.
+
+   Agent 6: Sonnet interface architect agent (parallel with agents 1-5)
+   Review changes for interface design and boundary violations following RFC-109 patterns. Flag issues where:
+   - Code imports another app's models instead of interfaces
+   - ORM model instances are passed across app boundaries (should use DTOs)
+   - Circular app dependencies exist (App A → App B and App B → App A)
+   - Interface modules contain logic instead of re-exports
+   - DTOs are mutable or expose implementation details
+   - Code prefetches or traverses ORM relations across domain boundaries
+   - App writes to another app's models (transactional boundary violation)
+   - Business logic depends on database schema instead of stable concepts
+
+   Do NOT flag style issues, intra-app imports, performance issues (unless violating encapsulation), or lack of DTOs in single-app operations.
+
+   For each issue, cite the specific interface principle violated: depend on interfaces not implementations, pass DTOs not ORM instances, one-way dependencies only, each app owns its data writes, or stable concepts over implementation details.
 
    **CRITICAL: We only want HIGH SIGNAL issues.** Flag issues where:
    - The code will fail to compile or parse (syntax errors, type errors, missing imports, unresolved references)
