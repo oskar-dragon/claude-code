@@ -17,10 +17,12 @@ Performs automated code review on a pull request using multiple specialized agen
 1. Checks if review is needed (skips closed, draft, trivial, or already-reviewed PRs)
 2. Gathers relevant CLAUDE.md guideline files from the repository
 3. Summarizes the pull request changes
-4. Launches 4 parallel agents to independently review:
-   - **Agents #1 & #2**: Audit for CLAUDE.md compliance
-   - **Agent #3**: Scan for obvious bugs in changes
-   - **Agent #4**: Analyze git blame/history for context-based issues
+4. Launches 6 parallel agents to independently review:
+   - **Agents #1 & #2**: Audit for CLAUDE.md compliance (Sonnet)
+   - **Agent #3**: Scan for obvious bugs in diff only (Opus)
+   - **Agent #4**: Analyze introduced code for issues (Opus)
+   - **Agent #5**: Review BFF pattern violations (Sonnet)
+   - **Agent #6**: Review interface design violations (Sonnet)
 5. Scores each issue 0-100 for confidence level
 6. Filters out issues below 80 confidence threshold
 7. Outputs review (to terminal by default, or as PR comment with `--comment` flag)
@@ -60,6 +62,7 @@ Performs automated code review on a pull request using multiple specialized agen
 - Historical context analysis via git blame
 - Automatic skipping of closed, draft, or already-reviewed PRs
 - Links directly to code with full SHA and line ranges
+- Architecture pattern enforcement (BFF aggregation, RFC-109 interfaces)
 
 **Review comment format:**
 
@@ -253,10 +256,35 @@ Edit `commands/code-review.md` to add or modify agent tasks:
 
 ### Agent architecture
 
-- **2x CLAUDE.md compliance agents**: Redundancy for guideline checks
-- **1x bug detector**: Focused on obvious bugs in changes only
-- **1x history analyzer**: Context from git blame and history
-- **Nx confidence scorers**: One per issue for independent scoring
+- **2x CLAUDE.md compliance agents**: Redundancy for guideline checks (Sonnet)
+- **1x bug detector**: Focused on obvious bugs in diff only (Opus)
+- **1x context analyzer**: Analyzes introduced code for issues (Opus)
+- **1x BFF architect**: Reviews BFF aggregation pattern violations (Sonnet)
+- **1x interface architect**: Reviews RFC-109 interface design violations (Sonnet)
+- **Validation agents**: For bug issues from agents 3-4 (Opus for bugs)
+
+### Architecture review
+
+The architecture agents enforce Canary's structural patterns:
+
+**BFF Architect reviews for:**
+- Business logic in BFF layers (should only coordinate)
+- BFF depending on domain implementations (should use interfaces)
+- Circular dependencies between domains
+- Domains depending on BFF (reverse dependency)
+- Cross-domain imports (Domain A → Domain B)
+- BFF apps with models/ directories (BFF doesn't own data)
+
+**Interface Architect reviews for:**
+- Imports of another app's models (should import interfaces)
+- ORM models passed across boundaries (should use DTOs)
+- Circular app dependencies (App A ⟷ App B)
+- Logic in interface modules (should only re-export)
+- Mutable DTOs or implementation leakage
+- ORM prefetching across domains
+- Cross-app model writes (transactional violations)
+
+Both agents apply the "high signal only" philosophy and only flag violations that create real maintenance issues.
 
 ### Scoring system
 

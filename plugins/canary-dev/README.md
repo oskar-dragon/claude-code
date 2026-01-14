@@ -13,6 +13,15 @@ PostToolUse hooks that automatically format Python code after Write or Edit oper
 
 Both hooks run silently (errors don't block operations) and target the specific file that was modified.
 
+### Automated Code Review
+
+Architecture pattern enforcement in pull requests:
+
+- **BFF pattern validation**: Prevents circular dependencies, ensures proper coordination vs business logic separation
+- **Interface design validation**: Enforces RFC-109 patterns, protects app boundaries
+- **Parallel execution**: Runs alongside CLAUDE.md compliance and bug detection (6 total agents)
+- **High signal only**: Flags only real architectural violations that cause maintenance issues
+
 ### Architecture Guidance Agents
 
 Two specialized agents provide expert guidance on Canary's architecture patterns:
@@ -40,6 +49,22 @@ Expert in RFC-109 interface design patterns. Helps with:
 - Performance within domain boundaries
 
 **When to use**: Ask about interface design, DTOs, dependency management, or encapsulation patterns.
+
+### Code Review Integration
+
+Both architecture agents are integrated into the `/code-review` command for automated PR review:
+
+- **BFF Architect**: Automatically reviews PRs for BFF pattern violations including circular dependencies, improper aggregation, business logic in BFF layers, and dependency inversion issues
+- **Interface Architect**: Automatically reviews PRs for interface design violations including improper cross-app imports, DTO violations, boundary violations, and encapsulation issues
+
+These agents run in parallel with CLAUDE.md compliance and bug detection agents during automated code reviews, ensuring architectural patterns are enforced across all pull requests.
+
+**Architecture violations flagged:**
+- Circular dependencies and wrong dependency direction
+- Business logic in aggregation layers
+- Cross-app boundary violations (model imports, ORM traversal)
+- Implementation leakage and improper DTOs
+- Transactional boundary violations
 
 ## Usage
 
@@ -129,6 +154,13 @@ Plugin structure:
 
 ## Version History
 
+- **0.1.2** (2026-01-11): Enhanced code review
+  - Integrated BFF architect into /code-review command
+  - Integrated Interface architect into /code-review command
+  - Added automated BFF pattern violation detection in PRs
+  - Added automated interface design violation detection in PRs
+  - Enhanced PR review with 6 parallel agents (up from 4)
+- **0.1.1** (2026-01-11): Minor updates
 - **0.1.0** (2026-01-11): Initial release
   - Automatic ruff check and format hooks
   - BFF architect agent
