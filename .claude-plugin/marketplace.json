@@ -69,6 +69,16 @@
       },
       "source": "./plugins/ty-lsp",
       "category": "development"
+    },
+    {
+      "name": "code-review",
+      "version": "1.0.0",
+      "description": "Automated code review for pull requests using multiple specialized agents with confidence-based scoring",
+      "author": {
+        "name": "Oskar Dragon"
+      },
+      "source": "./plugins/code-review",
+      "category": "development"
     }
   ],
   "strict": false
