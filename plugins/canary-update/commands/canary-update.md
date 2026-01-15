@@ -1,11 +1,21 @@
 ---
 description: Update canary-types schema and propagate changes across the codebase
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash, Task, TodoWrite
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash, Task, TodoWrite, Skill
 ---
 
 # Canary Schema Update Workflow
 
-Execute the complete canary-types schema update workflow:
+Execute the complete canary-types schema update workflow.
+
+## Prerequisites
+
+Before starting the workflow, load the `canary-workflow` skill to get codebase context about:
+
+- Key file locations (canary-types, canary-client, data layers, network handlers)
+- Data flow between components
+- Common patterns for adding/updating API methods
+
+**ACTION**: Use the Skill tool with `skill: "canary-update:canary-workflow"` to load this context.
 
 ## Phase 1: Generate Types
 
@@ -19,7 +29,7 @@ Wait for the command to complete successfully before proceeding.
 
 ## Phase 2: Analyze Changes
 
-Use the `schema-analyzer` agent to analyze the schema changes and create an implementation plan.
+**ACTION**: Invoke the `schema-analyzer` agent using the Task tool with `subagent_type: "canary-update:schema-analyzer"`.
 
 The agent will:
 
@@ -55,7 +65,7 @@ After user approves the plan, implement all changes identified by the schema-ana
 
 ## Phase 4: Validate and Fix
 
-Use the `schema-validator` agent to validate all changes.
+**ACTION**: Invoke the `schema-validator` agent using the Task tool with `subagent_type: "canary-update:schema-validator"`.
 
 The agent will run:
 
@@ -64,13 +74,18 @@ The agent will run:
 - `turbo format` - Prettier formatting
 - `turbo unused-exports` - Check for orphaned exports
 
-**Critical**: If the validator reports any issues:
+**CRITICAL - Validation Loop**:
 
-1. Fix the reported issues
-2. Run the validator again
-3. Repeat until all checks pass
+The validator MUST run in a loop until all checks pass:
 
-Do NOT consider the workflow complete until the validator reports zero issues.
+1. Run all validation commands
+2. If ANY issues are found:
+   - Fix each reported issue
+   - Re-invoke the `schema-validator` agent
+   - Repeat from step 1
+3. Only proceed to Phase 5 when ALL checks pass with zero issues
+
+Do NOT proceed to Phase 5 until the validator reports all checks passing.
 
 ## Phase 5: Report Completion
 
