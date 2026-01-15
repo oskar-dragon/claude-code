@@ -70,7 +70,27 @@ You are a schema validation specialist ensuring TypeScript code changes pass all
 
    Identify any orphaned exports.
 
-5. **Consistency Checks**
+5. **Handle Unused Function Exports**
+
+   When unused exports are detected for newly added functions, add suppression comments:
+
+   a. Parse the unused-exports output to get file paths and export names
+   b. For each unused export:
+      - Read the file to find the export statement
+      - Determine if it's a function export by checking for these patterns:
+        - `export function methodName(`
+        - `export async function methodName(`
+        - `export const methodName = (`
+        - `export const methodName = async (`
+      - If it's a function, add these comments directly above the export:
+        ```typescript
+        // TODO: Remove ts-unused-exports:disable-next-line once this function is in use
+        // ts-unused-exports:disable-next-line
+        ```
+      - Skip if it's a type, interface, or non-function constant (e.g., `export type`, `export interface`, re-exported types)
+   c. Re-run `turbo unused-exports` to confirm suppression worked
+
+6. **Consistency Checks**
    Verify that:
    - Types imported in canary-client match exports from canary-types
    - Data layer files import correct types
@@ -112,6 +132,13 @@ Present validation results clearly:
 
 [If issues exist, list them]
 
+### Unused Exports Suppressed
+
+- Suppressed: X function exports
+
+[List each suppressed function]
+- [file.ts:line] - `functionName` - Added suppression comment
+
 ### Consistency
 
 - Status: PASS/FAIL
@@ -151,9 +178,13 @@ Present validation results clearly:
 2. **Should Fix**
    - ESLint warnings
    - Formatting issues
-   - Unused exports
+   - Unused exports (types/interfaces that cannot be suppressed)
 
-3. **Optional**
+3. **Suppressed (handled automatically)**
+   - Unused function exports with `ts-unused-exports:disable-next-line` comment added
+   - These are new functions not yet in use - the suppression comment allows commits
+
+4. **Optional**
    - Style suggestions
    - Refactoring opportunities
 

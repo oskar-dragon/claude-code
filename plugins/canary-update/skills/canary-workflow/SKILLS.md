@@ -165,6 +165,29 @@ When a type is removed or significantly changed:
 4. Update network handlers
 5. Update test factories
 
+### Handling Unused Function Exports
+
+When new functions are added to canary-client but aren't used yet in data layers, the `turbo unused-exports` check will fail. For new functions that are intentionally not yet in use, add suppression comments:
+
+```typescript
+// TODO: Remove ts-unused-exports:disable-next-line once this function is in use
+// ts-unused-exports:disable-next-line
+export function newApiMethod() { ... }
+```
+
+**When to use suppression:**
+
+- New API methods added to canary-client that aren't yet consumed by data layers
+- Functions that are part of a larger feature being implemented incrementally
+
+**When NOT to use suppression:**
+
+- Types or interfaces (these don't block commits)
+- Functions that should be removed or are truly orphaned
+- Re-exported types from canary-types
+
+The schema-validator agent handles this automatically for function exports.
+
 ## File Mapping
 
 Common mappings between canary-client methods and data layer files:
