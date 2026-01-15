@@ -15,7 +15,7 @@ Before starting the workflow, load the `canary-workflow` skill to get codebase c
 - Data flow between components
 - Common patterns for adding/updating API methods
 
-**ACTION**: Use the Skill tool with `skill: "canary-update:canary-workflow"` to load this context.
+**ACTION**: Use the Skill tool with `skill: "canary-workflow"` to load this context.
 
 ## Phase 1: Generate Types
 
