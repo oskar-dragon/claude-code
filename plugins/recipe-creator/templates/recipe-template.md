@@ -9,16 +9,17 @@ rating:
 created:
 last:
 image:
-this_week:
+this_week: false
 ---
+
 ## Ingredients
 
-- 
+-
 
 ## Directions
 
-- 
+-
 
 ## Notes
 
-- 
+-
