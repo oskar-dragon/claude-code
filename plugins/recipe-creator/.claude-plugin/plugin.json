@@ -1,6 +1,6 @@
 {
   "name": "recipe-creator",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Automates creation of recipe notes in Obsidian from URLs or text with proper formatting, unit conversion, and macro calculation",
   "author": {
     "name": "Oskar Dragon"
