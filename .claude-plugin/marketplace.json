@@ -84,6 +84,10 @@
       "name": "canary-update",
       "source": "./plugins/canary-update",
       "category": "development"
+    },
+    {
+      "name": "recipe-creator",
+      "source": "./plugins/recipe-creator"
     }
   ],
   "strict": false
