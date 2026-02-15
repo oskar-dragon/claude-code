@@ -7,6 +7,16 @@ Execute Oskar's weekly review and planning session. Use the productivity-system 
 
 This is a comprehensive 3-phase process combining reflection and forward planning.
 
+## Execution Rules
+
+**CRITICAL: Sequential Execution Required**
+
+- Each step MUST be fully completed before starting the next step
+- Steps that ask questions or request approval are BLOCKING — do not proceed until the user responds
+- NEVER say "while you..." or "in the meantime..." to parallelize interactive steps
+- **Exception**: Steps 1-4 (data gathering) CAN be executed in parallel since they don't require user input
+- After completing Steps 1-4, you MUST stop and wait before proceeding to Step 5
+
 ## Phase 1: Review
 
 ### Step 1: Compile Journal Entries
@@ -63,6 +73,8 @@ Ask Oskar:
 
 Use AskUserQuestion or discuss conversationally based on Oskar's preference.
 
+> **⚠️ WAIT FOR RESPONSE BEFORE CONTINUING**
+
 ## Phase 2: Plan
 
 ### Step 7: Clear Todoist Inbox
@@ -75,6 +87,8 @@ Find unassigned inbox tasks:
 - Get Oskar's approval for routing decisions
 - Execute moves using `update-tasks` (change projectId)
 
+> **⚠️ WAIT FOR RESPONSE BEFORE CONTINUING**
+
 ### Step 8: Review Calendar
 
 Fetch next 7 days of events:
@@ -83,6 +97,8 @@ Fetch next 7 days of events:
 - If Google Calendar MCP tools are unavailable, ask Oskar to describe upcoming commitments
 - Identify busy days, available time blocks, and major commitments
 - Note this for task scheduling in later steps
+
+> **⚠️ WAIT FOR RESPONSE BEFORE CONTINUING** (if asking for calendar info)
 
 ### Step 9: Review Master Project List
 
@@ -93,6 +109,8 @@ Read active projects from `Projects/` folder:
 - Flag stalled projects (no activity for 2+ weeks based on modified date or lack of linked tasks)
 - **Identify work mentioned in journals/calendar that lacks a project note** (capture context for Step 14)
 - Ask Oskar about priorities and focus areas
+
+> **⚠️ WAIT FOR RESPONSE BEFORE CONTINUING**
 
 ### Step 10: Review THIS WEEK Incomplete Tasks
 
@@ -106,6 +124,8 @@ Find tasks in THIS WEEK project:
 - Get Oskar's approval for each decision
 - Execute moves using `complete-tasks` or `update-tasks`
 
+> **⚠️ WAIT FOR RESPONSE BEFORE CONTINUING**
+
 ### Step 11: Promote from NEXT WEEK
 
 Find tasks in NEXT WEEK project:
@@ -115,6 +135,8 @@ Find tasks in NEXT WEEK project:
 - Suggest appropriate due dates based on available time blocks
 - Get Oskar's approval
 - Execute moves using `update-tasks` (change to THIS WEEK project ID and set dueString)
+
+> **⚠️ WAIT FOR RESPONSE BEFORE CONTINUING**
 
 ### Step 12: Promote from THIS MONTH
 
@@ -127,6 +149,8 @@ Find tasks in THIS MONTH project:
   - Project priorities from Step 9
 - Get Oskar's approval
 - Execute moves using `update-tasks` (change to THIS WEEK project ID and set dueString)
+
+> **⚠️ WAIT FOR RESPONSE BEFORE CONTINUING**
 
 ## Phase 3: Wrap Up
 
@@ -160,6 +184,9 @@ Create a weekly review journal entry:
 
 - **DO NOT create project notes directly**
 - Ask Oskar: "I noticed [project description]. Would you like to create this project now, or should I create a Todoist task to remind you?"
+
+> **⚠️ WAIT FOR RESPONSE BEFORE CONTINUING**
+
 - **If creating now**: Tell Oskar to run `/vault-manager:project` and provide context verbally
 - **If creating task**: Use `add-tasks` to create a Todoist task with:
   - **Content**: "Create project: [Project Name]"
@@ -171,6 +198,9 @@ Create a weekly review journal entry:
 **For new goals identified during review:**
 
 - Same pattern: ask if now or task
+
+> **⚠️ WAIT FOR RESPONSE BEFORE CONTINUING**
+
 - **If creating task**: Similar Todoist task for goal creation
 
 **Todoist task description format for new projects:**
