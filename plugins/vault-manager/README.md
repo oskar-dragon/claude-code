@@ -9,24 +9,24 @@ Claude Code plugin for managing Oskar's Obsidian vault — daily planning, inbox
 
 ## Skills
 
-| Skill | Triggers on |
-|-------|------------|
+| Skill                   | Triggers on                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------------- |
 | **productivity-system** | Planning, reviewing, organising tasks, COD/Time Sector/Fractal Journaling methodology |
-| **todoist-workflow** | Creating tasks, Todoist integration, deep links, task-to-note linking |
+| **todoist-workflow**    | Creating tasks, Todoist integration, deep links, task-to-note linking                 |
 
 Vault conventions (folder structure, frontmatter, naming, properties) are documented in the vault's `CLAUDE.md` rather than a skill, since they apply to every interaction.
 
 ## Commands
 
-| Command | Purpose |
-|---------|---------|
-| `/daily-plan` | Morning planning — review yesterday, compile journal fragments, set 2+8 priorities |
-| `/inbox` | COD Organise — scan unprocessed items, route to proper locations, create tasks |
-| `/meeting` | Process SuperWhisper transcript — create meeting note, extract action items |
-| `/weekly` | Weekly review and planning — compile entries, reflect, then plan next week (inbox, calendar, projects, task promotion) |
-| `/monthly` | Monthly review and planning — compile summaries, reflect, then plan ahead (calendar, goals, projects, task promotion) |
-| `/goal` | Create or review goals — ideate, link to areas, suggest projects |
-| `/project` | Create or review projects — ideate, plan, track status |
+| Command       | Purpose                                                                                                                |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `/daily-plan` | Morning planning — review yesterday, compile journal fragments, set 2+8 priorities                                     |
+| `/inbox`      | COD Organise — scan unprocessed items, route to proper locations, create tasks                                         |
+| `/meeting`    | Process SuperWhisper transcript — create meeting note, extract action items                                            |
+| `/weekly`     | Weekly review and planning — compile entries, reflect, then plan next week (inbox, calendar, projects, task promotion) |
+| `/monthly`    | Monthly review and planning — compile summaries, reflect, then plan ahead (calendar, goals, projects, task promotion)  |
+| `/goal`       | Create or review goals — ideate, link to areas, suggest projects                                                       |
+| `/project`    | Create or review projects — ideate, plan, track status                                                                 |
 
 ## Productivity System
 
