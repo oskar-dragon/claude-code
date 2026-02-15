@@ -55,44 +55,6 @@ Run every morning using /daily-plan:
 4. Set 2+8 priorities for the day
 5. Allocate time blocks on calendar
 
-### Weekly Planning
-
-Run weekly using /weekly command. This is a comprehensive 3-phase process:
-
-**Phase 1 — Review:**
-
-1. Compile week's journal entries (Fractal Journaling weekly level)
-2. Summarize daily notes (2+8 priorities set vs completed)
-3. Review Todoist tasks (completed, pending, overdue, repeatedly deferred)
-4. Check goal progress against weekly activity
-5. Present weekly summary and gather reflections
-
-**Phase 2 — Plan:** 6. Clear Todoist inbox (apply ZeroInbox, route to Time Sector projects) 7. Review calendar for next 7 days 8. Review active projects, flag stalled projects 9. Process THIS WEEK incomplete tasks (complete, defer, or reschedule) 10. Promote tasks from NEXT WEEK to THIS WEEK based on calendar availability 11. Promote urgent tasks from THIS MONTH to THIS WEEK
-
-**Phase 3 — Wrap Up:** 12. Create journal entry with review summary and planning decisions 13. Update goal and project notes 14. Save insights to auto memory
-
-Interaction pattern: bot proposes routing/scheduling decisions → Oskar approves/rejects → bot executes
-
-### Monthly Planning
-
-Run monthly using /monthly command. This is a comprehensive 3-phase process at the monthly cadence where goals and projects are questioned, not just tasks shuffled:
-
-**Phase 1 — Review:**
-
-1. Find or create monthly note (NNN - Month YYYY.md format)
-2. Compile weekly summaries from weekly review journal entries
-3. Review goal progress (active goals, on-track vs stalled, quarterly check)
-4. Review project progress (active projects, milestones, blockers)
-5. Identify patterns (recurring themes, productivity patterns, shifting priorities)
-6. Suggest adjustments (goals needing revised timelines, projects to pause/escalate)
-7. Ask for reflections
-
-**Phase 2 — Plan:** 8. Review calendar for next month 9. Deep goal review (close, pause, or create new goals) 10. Deep project review (status changes, add next actions to project notes) 11. Promote tasks from NEXT MONTH to THIS MONTH based on calendar and priorities 12. Review full THIS MONTH list, promote tasks to THIS WEEK for first week
-
-**Phase 3 — Wrap Up:** 13. Update monthly note with review summary and planning decisions 14. Update goal and project notes with status changes 15. Save insights to auto memory
-
-Monthly cadence emphasizes strategic questioning: Are goals still relevant? Should projects be paused? What patterns emerged? This differs from weekly's tactical focus on task scheduling.
-
 ### Time Sector Task Movement
 
 Tasks flow forward through Todoist Time Sector projects during planning sessions:

@@ -1,6 +1,6 @@
 ---
 description: This skill should be used when the user asks to "create a project", "review my projects", "start a new project", "check project status", or wants to ideate, create, or review projects in the vault.
-argument-hint: [create|review]
+argument-hint: [create|review] [--type personal|work]
 version: "2.0.0"
 ---
 
@@ -8,9 +8,11 @@ Manage projects in the vault. Use the todoist-workflow skill for Todoist integra
 
 ## Determine Mode
 
-If argument is "create" or "review", use that mode.
+Parse arguments:
+- If "create" or "review", use that mode
+- If `--type personal` or `--type work`, store the type for later use in Step 1
 
-Otherwise, ask Oskar:
+If no mode argument provided, ask Oskar:
 
 - **Create**: Ideate and set up a new project
 - **Review**: Check status of existing projects
@@ -26,9 +28,12 @@ Ask Oskar questions **one at a time** to understand the project. Prefer multiple
 1. What is the project? (name and brief description)
 2. Which goal or area of focus does it serve? (read `Goals/` folder for active goals — populates `topics` property)
 3. What type? (populates `type` property)
-   - Personal Project → `["[[Personal Projects]]"]`
-   - Work Project → `["[[Work Projects]]"]`
+   - **Skip this question** if `--type` flag was provided in arguments — use the flag value instead
+   - Otherwise, ask:
+     - Personal Project → `["[[Personal Projects]]"]`
+     - Work Project → `["[[Work Projects]]"]`
 4. If work: which organization? (populates `organization` property)
+   - Ask this even if `--type work` was provided via flag
 
 ### Step 2: Ideate — Think Through the Project
 
@@ -45,32 +50,24 @@ Present the proposed plan and get Oskar's approval before creating the note.
 
 ### Step 3: Create Project Note
 
-Read [project-template.md](project-template.md) first — it defines the frontmatter structure.
+Read the appropriate template based on project type:
+- **Personal project** → Read [project-template.md](project-template.md)
+- **Work project** → Read [work-project-template.md](work-project-template.md)
 
 Create the project note in `Projects/` folder with:
 
 - Descriptive filename (e.g., `Projects/Vault Manager Plugin Update.md`)
-- Template frontmatter filled in with Oskar's answers:
-  ```yaml
-  categories:
-    - "[[Projects]]"
-  type:
-    - "[[Personal Projects]]" # or "[[Work Projects]]"
-  topics:
-    - "[[Goal Name]]" # or "[[Area Name]]" if no goal
-  organization: [] # e.g., ["[[Qogita]]"] if work
-  created: (today's date)
-  start: (today or specified)
-  end:
-  year:
-  url:
-  status:
-    - "[[Active]]"
-  ```
+- Use the selected template's frontmatter structure, filling in values from Step 1 answers:
+  - `topics`: Goal or area from question 2
+  - `organization`: Organization from question 4 (work projects only)
+  - `created`: Today's date
+  - `start`: Today or as specified
+  - `status`: `["[[Active]]"]`
 - **## Project Goal** section: what success looks like
 - **## Tasks** section: the agreed task breakdown as markdown checkboxes — this is the **source of truth** for what needs doing
 - **## Resources** section: relevant links, notes, and references
 - Add wikilinks to related goal notes and other projects
+- **Work projects only**: Include the `## Meetings` section with Obsidian Bases embed from work template
 
 ### Step 4: Create Todoist Project-Reference Task
 
