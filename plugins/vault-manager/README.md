@@ -9,10 +9,9 @@ Claude Code plugin for managing Oskar's Obsidian vault — daily planning, inbox
 
 ## Skills
 
-| Skill                   | Triggers on                                                                           |
-| ----------------------- | ------------------------------------------------------------------------------------- |
-| **productivity-system** | Planning, reviewing, organising tasks, COD/Time Sector/Fractal Journaling methodology |
-| **todoist-workflow**    | Creating tasks, Todoist integration, deep links, task-to-note linking                 |
+| Skill                | Triggers on                                                           |
+| -------------------- | --------------------------------------------------------------------- |
+| **todoist-workflow** | Creating tasks, Todoist integration, deep links, task-to-note linking |
 
 Vault conventions (folder structure, frontmatter, naming, properties) are documented in the vault's `CLAUDE.md` rather than a skill, since they apply to every interaction.
 

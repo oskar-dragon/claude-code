@@ -3,7 +3,7 @@ description: This skill should be used when the user asks to "do monthly review"
 version: "2.0.0"
 ---
 
-Execute Oskar's monthly review and planning session. Use the productivity-system skill for methodology (Fractal Journaling monthly compilation, Time Sector monthly planning) and the todoist-workflow skill for task management.
+Execute Oskar's monthly review and planning session. Use todoist-workflow skill for task management.
 
 This is a comprehensive 3-phase process combining deep reflection and strategic forward planning at the monthly cadence.
 

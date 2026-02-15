@@ -3,7 +3,7 @@ description: This skill should be used when the user asks to "do weekly review",
 version: "2.0.0"
 ---
 
-Execute Oskar's weekly review and planning session. Use the productivity-system skill for methodology (Fractal Journaling weekly compilation, Time Sector weekly planning, ZeroInbox) and the todoist-workflow skill for task management.
+Execute Oskar's weekly review and planning session. Use todoist-workflow skill for task management.
 
 This is a comprehensive 3-phase process combining reflection and forward planning.
 

@@ -4,11 +4,12 @@ argument-hint: [create|review] [--type personal|work]
 version: "2.0.0"
 ---
 
-Manage projects in the vault. Use the todoist-workflow skill for Todoist integration and the productivity-system skill for the Area -> Goal -> Project hierarchy.
+Manage projects in the vault. Use the todoist-workflow skill for Todoist integration.
 
 ## Determine Mode
 
 Parse arguments:
+
 - If "create" or "review", use that mode
 - If `--type personal` or `--type work`, store the type for later use in Step 1
 
@@ -51,6 +52,7 @@ Present the proposed plan and get Oskar's approval before creating the note.
 ### Step 3: Create Project Note
 
 Read the appropriate template based on project type:
+
 - **Personal project** → Read [project-template.md](project-template.md)
 - **Work project** → Read [work-project-template.md](work-project-template.md)
 

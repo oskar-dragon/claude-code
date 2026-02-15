@@ -3,7 +3,7 @@ description: This skill should be used when the user asks to "plan my day", "do 
 version: "2.0.0"
 ---
 
-Execute Oskar's morning planning routine. Use the productivity-system skill for methodology (COD Organise, Time Sector daily planning, 2+8 Prioritisation) and the todoist-workflow skill for task management.
+Execute Oskar's morning planning routine. Use the todoist-workflow skill for task management.
 
 ## Step 1: Review Yesterday
 

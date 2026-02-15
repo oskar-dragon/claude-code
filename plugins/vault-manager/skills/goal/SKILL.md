@@ -4,7 +4,7 @@ argument-hint: [create|review]
 version: "2.0.0"
 ---
 
-Manage goals in the vault. Use the productivity-system skill for the Area -> Goal -> Project hierarchy.
+Manage goals in the vault.
 
 Goals live in Obsidian, not Todoist. A goal is achieved through projects. The only exception is recurring/habit goals which need Todoist recurring tasks for daily execution.
 

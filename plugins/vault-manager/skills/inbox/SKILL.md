@@ -3,7 +3,7 @@ description: This skill should be used when the user asks to "process my inbox",
 version: "1.0.0"
 ---
 
-Execute the COD Organise phase for Oskar's inbox. Use the productivity-system skill for methodology (COD workflow, ZeroInbox principle) and the todoist-workflow skill for task management.
+Execute the COD Organise phase for Oskar's inbox. Use todoist-workflow skill for task management.
 
 This is the systematic processing of all unprocessed items (notes, emails, tasks, files) into their proper locations.
 
