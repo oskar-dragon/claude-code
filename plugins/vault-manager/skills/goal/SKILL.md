@@ -1,6 +1,7 @@
 ---
-description: Create a new goal or review existing goals — ideate, link to areas, suggest projects
-argument-hint: [create|review]
+name: goal
+description: This skill should be used when the user asks to "create a goal", "review my goals", "set a new goal", "check goal progress", or wants to ideate, create, or review goals linked to areas of focus.
+version: "2.0.0"
 ---
 
 Manage goals in the vault. Use the productivity-system skill for the Area -> Goal -> Project hierarchy.
@@ -50,7 +51,7 @@ Present the proposed plan and get Oskar's approval before creating the note.
 
 ### Step 3: Create Goal Note
 
-Read `Templates/Goal Template.md` first — it defines the frontmatter structure.
+Read [goal-template.md](goal-template.md) first — it defines the frontmatter structure.
 
 Create the goal note in `Goals/` folder with:
 
@@ -77,7 +78,7 @@ Create the goal note in `Goals/` folder with:
 
 - Suggest which project(s) Oskar should create to achieve this goal
 - Name each suggested project and briefly explain what it would cover
-- Do NOT create the projects — that's `/project create`'s job with its own ideation flow
+- Do NOT create the projects — that's `/vault-manager:project`'s job with its own ideation flow
 - Do NOT create any Todoist tasks
 
 **Recurring/habit goal:**
@@ -124,7 +125,7 @@ Present goal status to Oskar:
 
 For goals needing attention:
 
-- **One-time goals**: Suggest projects to create (via `/project create`). Do NOT create Todoist tasks.
+- **One-time goals**: Suggest projects to create (via `/vault-manager:project`). Do NOT create Todoist tasks.
 - **Recurring/habit goals**: Check if the recurring Todoist task still exists and is active. If not, offer to create one.
 - Update goal notes with new status information
 

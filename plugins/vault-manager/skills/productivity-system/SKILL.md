@@ -31,7 +31,7 @@ Route captured items to proper locations with correct metadata. This is a separa
 - Process Todoist inbox → assign projects, dates, priorities
 - Process journal fragments → file to correct folders with frontmatter
 - Route notes → apply templates, set categories property, add wikilinks
-- The /inbox command automates this phase
+- The inbox skill automates this phase
 - Apply ZeroInbox 2.0 method (see below)
 
 ### Do

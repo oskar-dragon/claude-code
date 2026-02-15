@@ -1,5 +1,7 @@
 ---
-description: Monthly review and planning — reflect, then plan ahead
+name: monthly
+description: This skill should be used when the user asks to "do monthly review", "monthly planning", "review my month", "plan next month", or wants to run the monthly review and planning cycle.
+version: "2.0.0"
 ---
 
 Execute Oskar's monthly review and planning session. Use the productivity-system skill for methodology (Fractal Journaling monthly compilation, Time Sector monthly planning) and the todoist-workflow skill for task management.
@@ -15,7 +17,7 @@ Monthly notes use the format `NNN - Month YYYY.md` (e.g., `122 - February 2026.m
 Check if a monthly note exists for the current month:
 
 - Search in vault root for the current month's note
-- If not found, read `Templates/Monthly Note Template.md` and create the note
+- If not found, read the [monthly-note-template.md](monthly-note-template.md) and create the note
 - The template uses frontmatter: `aliases` (month + year), `previous`/`next` links, `tags: [monthly-notes]`
 - Determine the correct NNN prefix by checking existing monthly notes for the sequence
 
@@ -99,7 +101,7 @@ Review all goals with strategic lens:
 Propose changes and get Oskar's approval for:
 - Closing goals (update `done: true`)
 - Pausing goals (update `status` property)
-- Creating new goals (use `/goal` command after this review if needed)
+- Creating new goals (use `/vault-manager:goal` after this review if needed)
 
 ### Step 10: Deep Project Review
 
@@ -115,23 +117,23 @@ Get Oskar's approval for:
 
 ### Step 11: Promote from NEXT MONTH
 
-Find tasks in NEXT MONTH project (ID: `6Fgfm7x56gQVcJQg`):
+Find tasks in NEXT MONTH project:
 
-- Use `find-tasks` with `projectId: "6Fgfm7x56gQVcJQg"`
+- Use `find-tasks` with the NEXT MONTH project ID from the todoist-workflow skill
 - Based on calendar from Step 8 and goals/projects from Steps 9-10, propose which tasks to move to THIS MONTH
 - Consider timing, capacity, and strategic priorities
 - Get Oskar's approval
-- Execute moves using `update-tasks` (change projectId to `6Fgfm7VhJ5W2Wp5c`)
+- Execute moves using `update-tasks` (change to THIS MONTH project ID)
 
 ### Step 12: Review THIS MONTH
 
 After promotions from NEXT MONTH, review the full THIS MONTH task list:
 
-- Use `find-tasks` with `projectId: "6Fgfm7VhJ5W2Wp5c"`
+- Use `find-tasks` with the THIS MONTH project ID from the todoist-workflow skill
 - Propose which tasks should move to THIS WEEK for the first week of the month
 - Based on calendar availability and priorities, suggest appropriate due dates
 - Get Oskar's approval
-- Execute moves using `update-tasks` (change projectId to `6Fgfm6g4fC4Rp7Mq` and set dueString)
+- Execute moves using `update-tasks` (change to THIS WEEK project ID and set dueString)
 
 ## Phase 3: Wrap Up
 

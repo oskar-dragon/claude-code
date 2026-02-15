@@ -1,6 +1,7 @@
 ---
-description: Create a new project or review existing projects — ideate, plan, track status
-argument-hint: [create|review]
+name: project
+description: This skill should be used when the user asks to "create a project", "review my projects", "start a new project", "check project status", or wants to ideate, create, or review projects in the vault.
+version: "2.0.0"
 ---
 
 Manage projects in the vault. Use the todoist-workflow skill for Todoist integration and the productivity-system skill for the Area -> Goal -> Project hierarchy.
@@ -44,7 +45,7 @@ Present the proposed plan and get Oskar's approval before creating the note.
 
 ### Step 3: Create Project Note
 
-Read `Templates/Project Template.md` first — it defines the frontmatter structure.
+Read [project-template.md](project-template.md) first — it defines the frontmatter structure.
 
 Create the project note in `Projects/` folder with:
 
@@ -76,11 +77,11 @@ Create the project note in `Projects/` folder with:
 Create **ONE** Todoist task that represents this project. This is NOT a task from the project's breakdown — it is a reference so Oskar can see the project in his Time Sector view and click through to the Obsidian note.
 
 - **Task content**: `[Project Name](obsidian://open?vault=Vault%20V2&file=Projects%2F<URL-encoded-name>)` — deep link in the task name so it's clickable
-- **Time Sector bucket**: Ask Oskar which one:
-  - THIS WEEK (project ID: `6Fgfm6g4fC4Rp7Mq`)
-  - NEXT WEEK (project ID: `6Fgfm72qRmG6Qcw8`)
-  - THIS MONTH (project ID: `6Fgfm7VhJ5W2Wp5c`)
-  - LONG TERM (project ID: `6Fgfm7x56gQVcJQg`)
+- **Time Sector bucket**: Ask Oskar which one (use the todoist-workflow skill for project IDs):
+  - THIS WEEK
+  - NEXT WEEK
+  - THIS MONTH
+  - LONG TERM
 - **Labels**: Based on context:
   - "Projects" for personal projects
   - "Work" for work-related projects

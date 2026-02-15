@@ -1,5 +1,7 @@
 ---
-description: Morning planning routine — review yesterday, compile journal fragments, set 2+8 priorities, create daily note
+name: daily-plan
+description: This skill should be used when the user asks to "plan my day", "do morning planning", "daily plan", "review yesterday", "set priorities", or wants to start their morning planning routine with 2+8 prioritisation.
+version: "2.0.0"
 ---
 
 Execute Oskar's morning planning routine. Use the productivity-system skill for methodology (COD Organise, Time Sector daily planning, 2+8 Prioritisation) and the todoist-workflow skill for task management.
@@ -44,7 +46,7 @@ Use AskUserQuestion for structured input if helpful, or discuss conversationally
 
 ## Step 5: Create or Update Daily Note
 
-Read `Templates/Daily Template.md` to understand the daily note format.
+Read the [daily-template.md](daily-template.md) template to understand the daily note format.
 
 Create today's daily note (`Daily/YYYY-MM-DD.md`) or update if it already exists:
 
