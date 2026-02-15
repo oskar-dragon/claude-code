@@ -1,5 +1,6 @@
 ---
 description: This skill should be used when the user asks to "create a goal", "review my goals", "set a new goal", "check goal progress", or wants to ideate, create, or review goals linked to areas of focus.
+argument-hint: [create|review]
 version: "2.0.0"
 ---
 
