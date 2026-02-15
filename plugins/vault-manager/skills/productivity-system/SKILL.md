@@ -58,12 +58,79 @@ Run every morning using /daily-plan:
 
 ### Weekly Planning
 
-Run weekly using /weekly-review:
+Run weekly using /weekly command. This is a comprehensive 3-phase process:
 
+**Phase 1 — Review:**
 1. Compile week's journal entries (Fractal Journaling weekly level)
-2. Review completed and pending tasks
-3. Check goal progress against weekly activity
-4. Set focus areas for next week
+2. Summarize daily notes (2+8 priorities set vs completed)
+3. Review Todoist tasks (completed, pending, overdue, repeatedly deferred)
+4. Check goal progress against weekly activity
+5. Present weekly summary and gather reflections
+
+**Phase 2 — Plan:**
+6. Clear Todoist inbox (apply ZeroInbox, route to Time Sector projects)
+7. Review calendar for next 7 days
+8. Review active projects, flag stalled projects
+9. Process THIS WEEK incomplete tasks (complete, defer, or reschedule)
+10. Promote tasks from NEXT WEEK to THIS WEEK based on calendar availability
+11. Promote urgent tasks from THIS MONTH to THIS WEEK
+
+**Phase 3 — Wrap Up:**
+12. Create journal entry with review summary and planning decisions
+13. Update goal and project notes
+14. Save insights to auto memory
+
+Interaction pattern: bot proposes routing/scheduling decisions → Oskar approves/rejects → bot executes
+
+### Monthly Planning
+
+Run monthly using /monthly command. This is a comprehensive 3-phase process at the monthly cadence where goals and projects are questioned, not just tasks shuffled:
+
+**Phase 1 — Review:**
+1. Find or create monthly note (NNN - Month YYYY.md format)
+2. Compile weekly summaries from weekly review journal entries
+3. Review goal progress (active goals, on-track vs stalled, quarterly check)
+4. Review project progress (active projects, milestones, blockers)
+5. Identify patterns (recurring themes, productivity patterns, shifting priorities)
+6. Suggest adjustments (goals needing revised timelines, projects to pause/escalate)
+7. Ask for reflections
+
+**Phase 2 — Plan:**
+8. Review calendar for next month
+9. Deep goal review (close, pause, or create new goals)
+10. Deep project review (status changes, add next actions to project notes)
+11. Promote tasks from NEXT MONTH to THIS MONTH based on calendar and priorities
+12. Review full THIS MONTH list, promote tasks to THIS WEEK for first week
+
+**Phase 3 — Wrap Up:**
+13. Update monthly note with review summary and planning decisions
+14. Update goal and project notes with status changes
+15. Save insights to auto memory
+
+Monthly cadence emphasizes strategic questioning: Are goals still relevant? Should projects be paused? What patterns emerged? This differs from weekly's tactical focus on task scheduling.
+
+### Time Sector Task Movement
+
+Tasks flow forward through Todoist Time Sector projects during planning sessions:
+
+```
+NEXT MONTH → THIS MONTH → NEXT WEEK → THIS WEEK
+```
+
+**Weekly planning promotes:**
+- NEXT WEEK → THIS WEEK (based on calendar availability)
+- THIS MONTH → THIS WEEK (urgent items only)
+
+**Monthly planning promotes:**
+- NEXT MONTH → THIS MONTH (based on calendar and strategic priorities)
+- THIS MONTH → THIS WEEK (for first week of new month)
+
+Tasks move forward during planning sessions, never backward. If a task in THIS WEEK doesn't get done, it's either:
+- Completed late (mark as done)
+- Deferred to NEXT WEEK (move during next weekly planning)
+- Dropped (no longer relevant)
+
+This forward-flow system prevents task accumulation and forces regular review of whether tasks remain relevant.
 
 ## 2+8 Prioritisation
 
@@ -96,8 +163,8 @@ Multi-scale review and compilation system. Each level zooms out further, tracing
 
 1. **Capture**: Timestamped journal fragments throughout the day (YYYY-MM-DD HHmm in Journal/)
 2. **Daily Compilation**: Salient thoughts from fragments → daily note (during /daily-plan)
-3. **Weekly Compilation**: Themes from daily notes → weekly review (during /weekly-review)
-4. **Monthly Compilation**: Patterns from weekly reviews → monthly note (during /monthly-review)
+3. **Weekly Compilation**: Themes from daily notes → weekly review (during /weekly)
+4. **Monthly Compilation**: Patterns from weekly reviews → monthly note (during /monthly)
 5. **Yearly Compilation**: Major themes → yearly review
 
 ## Time Blocking
@@ -115,12 +182,45 @@ Calendar allocation for execution (the Do phase):
 Morning:  Collect (overnight items) → Organise (inbox/ZeroInbox) → Plan (2+8 + time blocks)
 Day:      Do (follow time blocks) → Collect (capture as needed)
 Evening:  Collect (capture reflections as journal fragments)
-Weekly:   Compile (Fractal Journaling) → Review → Plan next week
-Monthly:  Compile weekly reviews → Review goals → Adjust
+Weekly:   Review (compile + reflect) → Plan (inbox, calendar, projects, task promotion) → Journal entry
+Monthly:  Review (compile + reflect) → Plan (calendar, goals, projects, task promotion) → Monthly note
 ```
+
+## Area -> Goal -> Project Hierarchy
+
+The vault uses a top-down hierarchy from Areas of Focus through Goals to Projects:
+
+```
+Area of Focus -> Goal -> Project -> Tasks (in project note)
+```
+
+**Areas of Focus** (6 evergreen notes — not created by the plugin):
+- Career
+- Finances
+- Health & Fitness
+- Lifestyle & Life Experiences
+- Personal Development
+- Relationship & Close Connections
+
+**Property mapping:**
+
+| Note type | Property | Maps to |
+|-----------|----------|---------|
+| Goal | `type` | Area of Focus (e.g., `["[[Career]]"]`) |
+| Project | `type` | Project kind (`["[[Personal Projects]]"]` or `["[[Work Projects]]"]`) |
+| Project | `topics` | Goal or Area it serves (e.g., `["[[Learn Rust]]"]`) |
+
+- A goal is achieved through one or more projects
+- A project usually serves a goal, but can exist standalone
+- Projects sometimes link directly to an Area if no specific goal exists
+- Tasks within a project live in the project note's `## Tasks` section (source of truth), NOT in Todoist
+- Each project gets ONE Todoist project-reference task for Time Sector visibility
 
 ## Key Distinctions
 
+- **Area vs Goal**: An area of focus is an ongoing life domain (Career, Health). A goal is a specific desired outcome within an area, with a target timeframe.
+- **Goal vs Project**: A goal describes what you want to achieve. A project describes how — the concrete work to get there. Goals are achieved through projects.
 - **Task vs Project**: A project requires multiple tasks to complete. A single actionable item is a task. Do not confuse with Process (ongoing, never-ending activity like "stay fit").
+- **Project tasks vs Todoist tasks**: A project's task breakdown lives in the Obsidian project note. Todoist only gets ONE project-reference task (a deep link for Time Sector visibility).
 - **Collecting vs Organising**: Never do both at once. Capture fast during collection, organise methodically later.
 - **Planning vs Doing**: Plan in the morning, execute during the day. Do not replan mid-execution unless genuinely urgent.

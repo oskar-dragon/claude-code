@@ -1,9 +1,9 @@
 ---
-description: Create a new project or review existing projects — track status, link to goals, break down next steps
+description: Create a new project or review existing projects — ideate, plan, track status
 argument-hint: [create|review]
 ---
 
-Manage projects in the vault. Use the todoist-workflow skill for task creation and the productivity-system skill for the task vs project distinction.
+Manage projects in the vault. Use the todoist-workflow skill for Todoist integration and the productivity-system skill for the Area -> Goal -> Project hierarchy.
 
 ## Determine Mode
 
@@ -11,62 +11,86 @@ If argument is "create" or "review", use that mode.
 
 Otherwise, ask Oskar:
 
-- **Create**: Set up a new project note
+- **Create**: Ideate and set up a new project
 - **Review**: Check status of existing projects
 
 Use AskUserQuestion to determine which mode.
 
 ## Create Mode
 
-### Step 1: Gather Project Details
+### Step 1: Ideate — Understand the Project
 
-Ask Oskar about the project:
+Ask Oskar questions **one at a time** to understand the project. Prefer multiple choice when possible.
 
-- What is the project? (name and brief description)
-- What is the goal of this project?
-- What type? (personal project, work project, etc.)
-- What topics does it relate to?
-- Which organization? (if work-related)
-- Does it link to any existing goals?
+1. What is the project? (name and brief description)
+2. Which goal or area of focus does it serve? (read `Goals/` folder for active goals — populates `topics` property)
+3. What type? (populates `type` property)
+   - Personal Project → `["[[Personal Projects]]"]`
+   - Work Project → `["[[Work Projects]]"]`
+4. If work: which organization? (populates `organization` property)
 
-### Step 2: Create Project Note
+### Step 2: Ideate — Think Through the Project
 
-Read `Templates/Project Template.md` first — it defines the frontmatter structure:
+Help Oskar think through the project collaboratively:
 
-```yaml
-categories:
-  - "[[Projects]]"
-type:
-  - "[[Personal Projects]]"
-topics: []
-organization: []
-created: (today's date)
-start: (today or specified)
-end:
-year:
-url:
-status:
-  - "[[Active]]"
-```
+- Propose approaches and discuss trade-offs
+- Refine scope — apply YAGNI ruthlessly
+- Arrive at:
+  - A clear **project goal** (what success looks like)
+  - A **task breakdown** (concrete steps as checkboxes)
+  - **Resources and references** (relevant links, notes)
+
+Present the proposed plan and get Oskar's approval before creating the note.
+
+### Step 3: Create Project Note
+
+Read `Templates/Project Template.md` first — it defines the frontmatter structure.
 
 Create the project note in `Projects/` folder with:
 
-- Descriptive filename (e.g., `Projects/Vault Manager Plugin.md`)
-- Template frontmatter filled in with Oskar's answers
+- Descriptive filename (e.g., `Projects/Vault Manager Plugin Update.md`)
+- Template frontmatter filled in with Oskar's answers:
+  ```yaml
+  categories:
+    - "[[Projects]]"
+  type:
+    - "[[Personal Projects]]"  # or "[[Work Projects]]"
+  topics:
+    - "[[Goal Name]]"  # or "[[Area Name]]" if no goal
+  organization: []  # e.g., ["[[Qogita]]"] if work
+  created: (today's date)
+  start: (today or specified)
+  end:
+  year:
+  url:
+  status:
+    - "[[Active]]"
+  ```
 - **## Project Goal** section: what success looks like
-- **## Tasks** section: initial task breakdown
+- **## Tasks** section: the agreed task breakdown as markdown checkboxes — this is the **source of truth** for what needs doing
 - **## Resources** section: relevant links, notes, and references
-- Add wikilinks to related goal notes, people, and other projects
+- Add wikilinks to related goal notes and other projects
 
-### Step 3: Create Todoist Tasks
+### Step 4: Create Todoist Project-Reference Task
 
-Break the project into actionable next steps:
+Create **ONE** Todoist task that represents this project. This is NOT a task from the project's breakdown — it is a reference so Oskar can see the project in his Time Sector view and click through to the Obsidian note.
 
-- Create Todoist tasks for the first batch of work
-- Include deep link to the project note in each task description
-- Create or assign to a matching Todoist project if appropriate
+- **Task content**: `[Project Name](obsidian://open?vault=Vault%20V2&file=Projects%2F<URL-encoded-name>)` — deep link in the task name so it's clickable
+- **Time Sector bucket**: Ask Oskar which one:
+  - THIS WEEK (project ID: `6Fgfm6g4fC4Rp7Mq`)
+  - NEXT WEEK (project ID: `6Fgfm72qRmG6Qcw8`)
+  - THIS MONTH (project ID: `6Fgfm7VhJ5W2Wp5c`)
+  - LONG TERM (project ID: `6Fgfm7x56gQVcJQg`)
+- **Labels**: Based on context:
+  - "Projects" for personal projects
+  - "Work" for work-related projects
+  - "Planning" if the project is in a planning phase
+  - "Studying" if study-related
+- **No due date** unless Oskar specifies one
 
-### Step 4: Update Memory
+Use `add-tasks` with content, projectId, and labels parameters.
+
+### Step 5: Update Memory
 
 Save project creation to auto memory projects.md topic file.
 
@@ -83,9 +107,9 @@ Read project notes from `Projects/` folder:
 
 For each active project:
 
-- Read the project note for current state
+- Read the project note for current state and `## Tasks` section
 - Check related meeting notes (search for wikilinks to the project)
-- Check Todoist for linked tasks (search for deep links in task descriptions)
+- Check Todoist for the project-reference task (search for deep links containing the project name)
 - Review recent journal entries mentioning the project
 - Identify stalled projects (no activity for 2+ weeks)
 
@@ -102,9 +126,11 @@ Present project status to Oskar:
 
 For projects needing action:
 
-- Help break down next steps into specific tasks
-- Create Todoist tasks with deep links
-- Update project notes with new status or tasks
+- Help break down next steps and **add them to the project note's `## Tasks` section** — the project note is the source of truth
+- If a project-reference task doesn't exist in Todoist (legacy project), offer to create one
+- Update project notes with new status
+
+Do NOT create individual Todoist tasks for project work items.
 
 ### Step 5: Update Memory
 

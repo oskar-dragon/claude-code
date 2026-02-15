@@ -3,6 +3,14 @@
     "todoist": {
       "type": "http",
       "url": "https://ai.todoist.net/mcp"
+    },
+    "google-calendar": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@cocal/google-calendar-mcp"],
+      "env": {
+        "GOOGLE_OAUTH_CREDENTIALS": "/Users/oskardragon-work/.claude/plugins/vault-manager/gcp-oauth.keys.json"
+      }
     }
   }
 }

@@ -23,10 +23,10 @@ Vault conventions (folder structure, frontmatter, naming, properties) are docume
 | `/daily-plan` | Morning planning — review yesterday, compile journal fragments, set 2+8 priorities |
 | `/inbox` | COD Organise — scan unprocessed items, route to proper locations, create tasks |
 | `/meeting` | Process SuperWhisper transcript — create meeting note, extract action items |
-| `/weekly-review` | Weekly review — compile entries, summarise, review goals, plan next week |
-| `/monthly-review` | Monthly review — compile weekly summaries, review goals/projects, identify patterns |
-| `/goal` | Create or review goals — track progress, link to projects, create next actions |
-| `/project` | Create or review projects — track status, break down tasks, link to goals |
+| `/weekly` | Weekly review and planning — compile entries, reflect, then plan next week (inbox, calendar, projects, task promotion) |
+| `/monthly` | Monthly review and planning — compile summaries, reflect, then plan ahead (calendar, goals, projects, task promotion) |
+| `/goal` | Create or review goals — ideate, link to areas, suggest projects |
+| `/project` | Create or review projects — ideate, plan, track status |
 
 ## Productivity System
 
