@@ -88,6 +88,10 @@
     {
       "name": "recipe-creator",
       "source": "./plugins/recipe-creator"
+    },
+    {
+      "name": "vault-manager",
+      "source": "./plugins/vault-manager"
     }
   ],
   "strict": false
