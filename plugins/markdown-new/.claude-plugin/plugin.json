@@ -1,0 +1,10 @@
+{
+  "name": "markdown-new",
+  "version": "0.1.0",
+  "description": "Teach Claude to use markdown.new for web content fetching, reducing token usage by ~80% compared to raw HTML",
+  "author": {
+    "name": "Oskar Dragon",
+    "email": "oskardragon@users.noreply.github.com"
+  },
+  "keywords": ["markdown", "web-fetching", "token-optimization", "web-scraping"]
+}

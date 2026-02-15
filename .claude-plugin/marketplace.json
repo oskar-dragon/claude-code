@@ -92,6 +92,10 @@
     {
       "name": "vault-manager",
       "source": "./plugins/vault-manager"
+    },
+    {
+      "name": "markdown-new",
+      "source": "./plugins/markdown-new"
     }
   ],
   "strict": false
