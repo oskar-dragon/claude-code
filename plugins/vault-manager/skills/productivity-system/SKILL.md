@@ -1,5 +1,4 @@
 ---
-name: productivity-system
 description: This skill should be used when the user asks to "plan my day", "do daily planning", "process my inbox", "review my week", "review my month", "set priorities", "organize tasks", discusses productivity methodology, mentions COD, Time Sector, Fractal Journaling, 2+8 priorities, ZeroInbox, or needs guidance on planning, reviewing, or organizing work within the vault.
 ---
 
@@ -44,7 +43,7 @@ Execute using Time Sector planning and Time Blocking.
 
 ## Time Sector System
 
-Plan *when* to work, not just *what* to work on. Two planning cycles:
+Plan _when_ to work, not just _what_ to work on. Two planning cycles:
 
 ### Daily Planning (Morning)
 
@@ -61,24 +60,16 @@ Run every morning using /daily-plan:
 Run weekly using /weekly command. This is a comprehensive 3-phase process:
 
 **Phase 1 — Review:**
+
 1. Compile week's journal entries (Fractal Journaling weekly level)
 2. Summarize daily notes (2+8 priorities set vs completed)
 3. Review Todoist tasks (completed, pending, overdue, repeatedly deferred)
 4. Check goal progress against weekly activity
 5. Present weekly summary and gather reflections
 
-**Phase 2 — Plan:**
-6. Clear Todoist inbox (apply ZeroInbox, route to Time Sector projects)
-7. Review calendar for next 7 days
-8. Review active projects, flag stalled projects
-9. Process THIS WEEK incomplete tasks (complete, defer, or reschedule)
-10. Promote tasks from NEXT WEEK to THIS WEEK based on calendar availability
-11. Promote urgent tasks from THIS MONTH to THIS WEEK
+**Phase 2 — Plan:** 6. Clear Todoist inbox (apply ZeroInbox, route to Time Sector projects) 7. Review calendar for next 7 days 8. Review active projects, flag stalled projects 9. Process THIS WEEK incomplete tasks (complete, defer, or reschedule) 10. Promote tasks from NEXT WEEK to THIS WEEK based on calendar availability 11. Promote urgent tasks from THIS MONTH to THIS WEEK
 
-**Phase 3 — Wrap Up:**
-12. Create journal entry with review summary and planning decisions
-13. Update goal and project notes
-14. Save insights to auto memory
+**Phase 3 — Wrap Up:** 12. Create journal entry with review summary and planning decisions 13. Update goal and project notes 14. Save insights to auto memory
 
 Interaction pattern: bot proposes routing/scheduling decisions → Oskar approves/rejects → bot executes
 
@@ -87,6 +78,7 @@ Interaction pattern: bot proposes routing/scheduling decisions → Oskar approve
 Run monthly using /monthly command. This is a comprehensive 3-phase process at the monthly cadence where goals and projects are questioned, not just tasks shuffled:
 
 **Phase 1 — Review:**
+
 1. Find or create monthly note (NNN - Month YYYY.md format)
 2. Compile weekly summaries from weekly review journal entries
 3. Review goal progress (active goals, on-track vs stalled, quarterly check)
@@ -95,17 +87,9 @@ Run monthly using /monthly command. This is a comprehensive 3-phase process at t
 6. Suggest adjustments (goals needing revised timelines, projects to pause/escalate)
 7. Ask for reflections
 
-**Phase 2 — Plan:**
-8. Review calendar for next month
-9. Deep goal review (close, pause, or create new goals)
-10. Deep project review (status changes, add next actions to project notes)
-11. Promote tasks from NEXT MONTH to THIS MONTH based on calendar and priorities
-12. Review full THIS MONTH list, promote tasks to THIS WEEK for first week
+**Phase 2 — Plan:** 8. Review calendar for next month 9. Deep goal review (close, pause, or create new goals) 10. Deep project review (status changes, add next actions to project notes) 11. Promote tasks from NEXT MONTH to THIS MONTH based on calendar and priorities 12. Review full THIS MONTH list, promote tasks to THIS WEEK for first week
 
-**Phase 3 — Wrap Up:**
-13. Update monthly note with review summary and planning decisions
-14. Update goal and project notes with status changes
-15. Save insights to auto memory
+**Phase 3 — Wrap Up:** 13. Update monthly note with review summary and planning decisions 14. Update goal and project notes with status changes 15. Save insights to auto memory
 
 Monthly cadence emphasizes strategic questioning: Are goals still relevant? Should projects be paused? What patterns emerged? This differs from weekly's tactical focus on task scheduling.
 
@@ -118,14 +102,17 @@ NEXT MONTH → THIS MONTH → NEXT WEEK → THIS WEEK
 ```
 
 **Weekly planning promotes:**
+
 - NEXT WEEK → THIS WEEK (based on calendar availability)
 - THIS MONTH → THIS WEEK (urgent items only)
 
 **Monthly planning promotes:**
+
 - NEXT MONTH → THIS MONTH (based on calendar and strategic priorities)
 - THIS MONTH → THIS WEEK (for first week of new month)
 
 Tasks move forward during planning sessions, never backward. If a task in THIS WEEK doesn't get done, it's either:
+
 - Completed late (mark as done)
 - Deferred to NEXT WEEK (move during next weekly planning)
 - Dropped (no longer relevant)
@@ -140,6 +127,7 @@ Daily priority structure applied during morning planning:
 - **8 Important Tasks**: Important but reschedulable. Work through these after the 2 must-dos are complete.
 
 Selection process:
+
 1. Review today's Todoist tasks and any carryover
 2. Select 2 tasks that absolutely must be completed today
 3. Select 8 tasks that are important but can move to tomorrow if needed
@@ -195,6 +183,7 @@ Area of Focus -> Goal -> Project -> Tasks (in project note)
 ```
 
 **Areas of Focus** (6 evergreen notes — not created by the plugin):
+
 - Career
 - Finances
 - Health & Fitness
@@ -204,11 +193,11 @@ Area of Focus -> Goal -> Project -> Tasks (in project note)
 
 **Property mapping:**
 
-| Note type | Property | Maps to |
-|-----------|----------|---------|
-| Goal | `type` | Area of Focus (e.g., `["[[Career]]"]`) |
-| Project | `type` | Project kind (`["[[Personal Projects]]"]` or `["[[Work Projects]]"]`) |
-| Project | `topics` | Goal or Area it serves (e.g., `["[[Learn Rust]]"]`) |
+| Note type | Property | Maps to                                                               |
+| --------- | -------- | --------------------------------------------------------------------- |
+| Goal      | `type`   | Area of Focus (e.g., `["[[Career]]"]`)                                |
+| Project   | `type`   | Project kind (`["[[Personal Projects]]"]` or `["[[Work Projects]]"]`) |
+| Project   | `topics` | Goal or Area it serves (e.g., `["[[Learn Rust]]"]`)                   |
 
 - A goal is achieved through one or more projects
 - A project usually serves a goal, but can exist standalone

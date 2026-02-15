@@ -1,5 +1,4 @@
 ---
-name: inbox
 description: This skill should be used when the user asks to "process my inbox", "organise inbox", "clean up inbox", "zero inbox", or wants to process unprocessed items using the COD Organise phase.
 version: "1.0.0"
 ---

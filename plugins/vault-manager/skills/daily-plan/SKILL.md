@@ -1,5 +1,4 @@
 ---
-name: daily-plan
 description: This skill should be used when the user asks to "plan my day", "do morning planning", "daily plan", "review yesterday", "set priorities", or wants to start their morning planning routine with 2+8 prioritisation.
 version: "2.0.0"
 ---
@@ -33,12 +32,14 @@ Use Todoist MCP tools to get today's task overview:
 ## Step 4: Present Summary and Set Priorities
 
 Present to Oskar:
+
 - Yesterday's carryover items
 - Key themes from journal fragments
 - Today's Todoist tasks
 - Any relevant goal or project updates
 
 Then ask Oskar to select today's **2+8 priorities**:
+
 - **2 must-do objectives** (non-negotiable today)
 - **8 important-but-reschedulable tasks**
 

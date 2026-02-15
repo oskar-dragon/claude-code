@@ -1,5 +1,4 @@
 ---
-name: project
 description: This skill should be used when the user asks to "create a project", "review my projects", "start a new project", "check project status", or wants to ideate, create, or review projects in the vault.
 version: "2.0.0"
 ---
@@ -55,10 +54,10 @@ Create the project note in `Projects/` folder with:
   categories:
     - "[[Projects]]"
   type:
-    - "[[Personal Projects]]"  # or "[[Work Projects]]"
+    - "[[Personal Projects]]" # or "[[Work Projects]]"
   topics:
-    - "[[Goal Name]]"  # or "[[Area Name]]" if no goal
-  organization: []  # e.g., ["[[Qogita]]"] if work
+    - "[[Goal Name]]" # or "[[Area Name]]" if no goal
+  organization: [] # e.g., ["[[Qogita]]"] if work
   created: (today's date)
   start: (today or specified)
   end:

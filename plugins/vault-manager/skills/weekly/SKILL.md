@@ -1,5 +1,4 @@
 ---
-name: weekly
 description: This skill should be used when the user asks to "do weekly review", "weekly planning", "review my week", "plan next week", or wants to run the weekly review and planning cycle.
 version: "2.0.0"
 ---
@@ -147,15 +146,18 @@ Create a weekly review journal entry:
 ### Step 14: Update Goal and Project Notes
 
 **For existing goal notes:**
+
 - Update `done` property or progress notes on active goals
 - Add weekly progress notes with links to the weekly review journal entry
 - Update goal tracking information based on review findings
 
 **For existing project notes:**
+
 - Update `status` property if changed (e.g., Active → Completed, Active → Paused)
 - Add brief progress notes referencing the weekly review
 
 **For new projects identified during review:**
+
 - **DO NOT create project notes directly**
 - Ask Oskar: "I noticed [project description]. Would you like to create this project now, or should I create a Todoist task to remind you?"
 - **If creating now**: Tell Oskar to run `/vault-manager:project` and provide context verbally
@@ -167,10 +169,12 @@ Create a weekly review journal entry:
   - **Labels**: ["Planning"] (or ["Work", "Planning"] for work projects)
 
 **For new goals identified during review:**
+
 - Same pattern: ask if now or task
 - **If creating task**: Similar Todoist task for goal creation
 
 **Todoist task description format for new projects:**
+
 ```
 Context:
 - Type: [Work Project / Personal Project]
@@ -183,6 +187,7 @@ Suggested prompt for /vault-manager:project:
 ```
 
 **For new goals**, similar format:
+
 ```
 Context:
 - Area: [area name]

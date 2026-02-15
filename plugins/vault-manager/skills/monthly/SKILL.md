@@ -1,5 +1,4 @@
 ---
-name: monthly
 description: This skill should be used when the user asks to "do monthly review", "monthly planning", "review my month", "plan next month", or wants to run the monthly review and planning cycle.
 version: "2.0.0"
 ---
@@ -99,6 +98,7 @@ Review all goals with strategic lens:
 - Are there new goals that should be created based on month's insights?
 
 Propose changes and get Oskar's approval for:
+
 - Closing goals (update `done: true`)
 - Pausing goals (update `status` property)
 - Creating new goals (use `/vault-manager:goal` after this review if needed)
@@ -112,6 +112,7 @@ Review all projects with strategic lens:
 - Check that each active project has a project-reference task in Todoist. If not, offer to create one.
 
 Get Oskar's approval for:
+
 - Status changes (update `status` property in project notes)
 - New tasks added to project notes
 

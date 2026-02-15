@@ -1,5 +1,4 @@
 ---
-name: goal
 description: This skill should be used when the user asks to "create a goal", "review my goals", "set a new goal", "check goal progress", or wants to ideate, create, or review goals linked to areas of focus.
 version: "2.0.0"
 ---
@@ -61,7 +60,7 @@ Create the goal note in `Goals/` folder with:
   categories:
     - "[[Goals]]"
   type:
-    - "[[Career]]"  # Area of Focus as wikilink
+    - "[[Career]]" # Area of Focus as wikilink
   year: 2026
   quarter: 1
   done: false

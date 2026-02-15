@@ -1,5 +1,4 @@
 ---
-name: meeting
 description: This skill should be used when the user asks to "process a meeting", "transcribe a meeting", "create meeting notes", "extract action items", or has a SuperWhisper transcript to process into a structured meeting note.
 version: "2.0.0"
 ---

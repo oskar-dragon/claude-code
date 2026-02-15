@@ -1,5 +1,4 @@
 ---
-name: todoist-workflow
 description: This skill should be used when the user asks to "create a task", "add a Todoist task", "link task to project", "manage tasks", "connect tasks to notes", discusses Todoist integration, mentions deep links, task-to-note linking, or needs guidance on when to use Todoist vs Obsidian for task management.
 ---
 
@@ -14,6 +13,7 @@ Todoist serves as the daily task manager. Obsidian holds project-level detail, g
 ## When to Use Todoist vs Obsidian
 
 **Todoist** — daily execution and quick reference:
+
 - Daily tasks and to-dos
 - Quick captures from COD Collect phase
 - Time-sensitive reminders
@@ -22,6 +22,7 @@ Todoist serves as the daily task manager. Obsidian holds project-level detail, g
 - Recurring tasks for habit goals (e.g., "exercise 3x/week")
 
 **Obsidian** — source of truth for planning:
+
 - Project documentation, task breakdowns, and planning (Projects/ folder)
 - Goal tracking and progress (Goals/ folder)
 - Meeting notes and decisions (via /meeting command)
@@ -30,6 +31,7 @@ Todoist serves as the daily task manager. Obsidian holds project-level detail, g
 Rule of thumb: if it has a due date and can be checked off, it belongs in Todoist. If it needs more than a sentence to describe, it also needs an Obsidian note.
 
 **What does NOT go in Todoist:**
+
 - Individual tasks from a project's task breakdown — those live in the project note's `## Tasks` section
 - Goal action items — goals are achieved through projects, not individual tasks (exception: recurring/habit goals)
 
@@ -37,24 +39,24 @@ Rule of thumb: if it has a due date and can be checked off, it belongs in Todois
 
 Apply labels to every task created in Todoist:
 
-| Label | When to use |
-|-------|------------|
-| Planning | Project in planning phase |
-| Projects | Personal project work |
-| Work | Work-related tasks |
-| Studying | Study-related tasks |
-| Admin | Administrative tasks (emails, scheduling, etc.) |
-| Chores | Household chores |
+| Label    | When to use                                     |
+| -------- | ----------------------------------------------- |
+| Planning | Project in planning phase                       |
+| Projects | Personal project work                           |
+| Work     | Work-related tasks                              |
+| Studying | Study-related tasks                             |
+| Admin    | Administrative tasks (emails, scheduling, etc.) |
+| Chores   | Household chores                                |
 
 ## Time Sector Buckets
 
 Tasks are placed in Time Sector projects during planning sessions:
 
-| Bucket | Todoist Project ID | Purpose |
-|--------|-------------------|---------|
-| THIS WEEK | `6Fgfm6g4fC4Rp7Mq` | Tasks to do this week |
-| NEXT WEEK | `6Fgfm72qRmG6Qcw8` | Tasks for next week |
-| THIS MONTH | `6Fgfm7VhJ5W2Wp5c` | Tasks for this month |
+| Bucket     | Todoist Project ID | Purpose                       |
+| ---------- | ------------------ | ----------------------------- |
+| THIS WEEK  | `6Fgfm6g4fC4Rp7Mq` | Tasks to do this week         |
+| NEXT WEEK  | `6Fgfm72qRmG6Qcw8` | Tasks for next week           |
+| THIS MONTH | `6Fgfm7VhJ5W2Wp5c` | Tasks for this month          |
 | NEXT MONTH | `6Fgfm7x56gQVcJQg` | Tasks for next month or later |
 
 ## Deep Links
@@ -76,15 +78,16 @@ obsidian://open?vault=Vault%20V2&file=<URL-encoded-path>
 
 ### Examples
 
-| Note Path | Deep Link |
-|-----------|-----------|
-| `Projects/Claude Code Setup.md` | `obsidian://open?vault=Vault%20V2&file=Projects%2FClaude%20Code%20Setup` |
-| `Goals/Save £35k.md` | `obsidian://open?vault=Vault%20V2&file=Goals%2FSave%20%C2%A335k` |
+| Note Path                           | Deep Link                                                                    |
+| ----------------------------------- | ---------------------------------------------------------------------------- |
+| `Projects/Claude Code Setup.md`     | `obsidian://open?vault=Vault%20V2&file=Projects%2FClaude%20Code%20Setup`     |
+| `Goals/Save £35k.md`                | `obsidian://open?vault=Vault%20V2&file=Goals%2FSave%20%C2%A335k`             |
 | `Notes/2026-01-15 Meeting Notes.md` | `obsidian://open?vault=Vault%20V2&file=Notes%2F2026-01-15%20Meeting%20Notes` |
 
 ### Placement Rules
 
 **Project-reference tasks:** Deep link goes IN the task name/content so it's directly clickable from the task list:
+
 ```
 [Project Name](obsidian://open?vault=Vault%20V2&file=Projects%2FProject%20Name)
 ```
@@ -107,6 +110,7 @@ The project note's `## Tasks` section is the source of truth for what needs doin
 ### Non-Project Tasks
 
 One-off actions that don't need Obsidian documentation:
+
 - Live only in Todoist
 - No deep link needed
 - Apply appropriate label
@@ -115,6 +119,7 @@ One-off actions that don't need Obsidian documentation:
 ### Recurring Tasks for Habit Goals
 
 For recurring/habit goals (e.g., "exercise 3x/week"):
+
 1. Create recurring Todoist task with appropriate recurrence
 2. Add deep link to the goal note in the task description
 3. Apply appropriate label
@@ -123,6 +128,7 @@ For recurring/habit goals (e.g., "exercise 3x/week"):
 ### Action Items from Meetings
 
 After processing a meeting transcript with /meeting:
+
 1. Extract action items from the meeting note
 2. Create a Todoist task for each action item
 3. Include deep link to the meeting note in each task description
@@ -140,6 +146,7 @@ Project-related actions identified during reviews should be added to the project
 Available via the Todoist MCP server. Tool names may vary by MCP version — verify available tools on first connection.
 
 Expected tools:
+
 - **get-overview**: Overview of tasks, projects, and labels
 - **find-tasks**: Search tasks by project, section, text, labels, or responsible user
 - **find-tasks-by-date**: Get tasks by date range or 'today' (includes overdue)
@@ -153,23 +160,27 @@ Expected tools:
 ### Common Patterns
 
 **Morning planning:**
+
 ```
 find-tasks-by-date with startDate: "today" -> get today's tasks including overdue
 get-overview -> see overall status
 ```
 
 **After processing a meeting:**
+
 ```
 add-tasks -> create tasks for each action item with deep links in descriptions and labels
 ```
 
 **Weekly review:**
+
 ```
 find-completed-tasks with since/until for this week -> see what got done
 find-tasks with projectId for each Time Sector bucket -> see what's pending
 ```
 
 **Creating a project-reference task:**
+
 ```
 add-tasks with:
   - content: "[Project Name](obsidian://open?vault=Vault%20V2&file=Projects%2FProject%20Name)"
