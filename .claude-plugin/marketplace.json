@@ -96,6 +96,10 @@
     {
       "name": "markdown-new",
       "source": "./plugins/markdown-new"
+    },
+    {
+      "name": "notion-doc",
+      "source": "./plugins/notion-doc"
     }
   ],
   "strict": false

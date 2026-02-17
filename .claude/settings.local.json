@@ -10,11 +10,12 @@
       "Skill(plugin-dev:command-development)",
       "Bash(mkdir:*)",
       "Bash(cp:*)",
-      "Bash(eza:*)"
+      "Bash(eza:*)",
+      "WebFetch(domain:markdown.new)"
     ],
     "deny": [],
     "ask": []
   },
-  "outputStyle": "default",
-  "model": "opusplan"
+  "model": "opusplan",
+  "outputStyle": "default"
 }

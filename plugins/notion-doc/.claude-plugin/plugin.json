@@ -1,0 +1,9 @@
+{
+	"name": "notion-doc",
+	"version": "0.1.0",
+	"description": "Generate Qogita project documents from design docs following the Notion PRD template",
+	"author": {
+		"name": "Oskar Dragon",
+		"email": "dragon.t.oskar@gmail.com"
+	}
+}
