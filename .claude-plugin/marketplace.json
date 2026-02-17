@@ -79,7 +79,7 @@
     {
       "name": "notion-doc",
       "source": "./plugins/notion-doc"
-    }
+    },
     {
       "name": "superpowers",
       "source": "./plugins/superpowers"
