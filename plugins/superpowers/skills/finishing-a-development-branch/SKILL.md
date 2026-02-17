@@ -84,6 +84,13 @@ git merge <feature-branch>
 git branch -d <feature-branch>
 ```
 
+**Archive plan folder (if it exists):**
+```bash
+# Archive the feature's plan folder
+git mv docs/plans/<feature-name>/ docs/plans/archive/<feature-name>/
+git commit -m "chore: archive plan for <feature-name>"
+```
+
 Then: Cleanup worktree (Step 5)
 
 #### Option 2: Push and Create PR
@@ -101,6 +108,14 @@ gh pr create --title "<title>" --body "$(cat <<'EOF'
 - [ ] <verification steps>
 EOF
 )"
+```
+
+**Archive plan folder (if it exists):**
+```bash
+# Archive the feature's plan folder
+git mv docs/plans/<feature-name>/ docs/plans/archive/<feature-name>/
+git commit -m "chore: archive plan for <feature-name>"
+git push
 ```
 
 Then: Cleanup worktree (Step 5)
@@ -129,6 +144,13 @@ If confirmed:
 ```bash
 git checkout <base-branch>
 git branch -D <feature-branch>
+```
+
+**Delete plan folder (if it exists):**
+```bash
+# Delete the feature's plan folder (not archiving discarded work)
+git rm -r docs/plans/<feature-name>/
+git commit -m "chore: remove plan for discarded <feature-name>"
 ```
 
 Then: Cleanup worktree (Step 5)

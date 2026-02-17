@@ -5,6 +5,10 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 
 # Writing Plans
 
+## CRITICAL CONSTRAINTS — Read Before Anything Else
+
+**You MUST NOT call `ExitPlanMode` at any point during this skill.** This skill manages its own completion flow via `AskUserQuestion`. Calling `ExitPlanMode` breaks the workflow and skips the user's execution choice. If you feel the urge to call `ExitPlanMode`, STOP — that means you should be at the Execution Handoff section below.
+
 ## Overview
 
 Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
@@ -15,11 +19,26 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** This should be run in a dedicated worktree (created by brainstorming skill).
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to:** `docs/plans/<feature-name>/plan.md`
+
+## REQUIRED FIRST STEP: Initialize Task Tracking
+
+**BEFORE exploring code or writing the plan, you MUST:**
+
+1. Call `TaskList` to check for existing tasks from brainstorming
+2. If tasks exist: you will enhance them with implementation details as you write the plan
+3. If no tasks: you will create them with `TaskCreate` as you write each plan task
+
+**Do not proceed to exploration until TaskList has been called.**
+
+```
+TaskList
+```
 
 ## Bite-Sized Task Granularity
 
 **Each step is one action (2-5 minutes):**
+
 - "Write the failing test" - step
 - "Run it to make sure it fails" - step
 - "Implement the minimal code to make the test pass" - step
@@ -50,6 +69,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ### Task N: [Component Name]
 
 **Files:**
+
 - Create: `exact/path/to/file.py`
 - Modify: `exact/path/to/existing.py:123-145`
 - Test: `tests/exact/path/to/test.py`
@@ -88,6 +108,7 @@ git commit -m "feat: add specific feature"
 ````
 
 ## Remember
+
 - Exact file paths always
 - Complete code in plan (not "add validation")
 - Exact commands with expected output
@@ -96,21 +117,108 @@ git commit -m "feat: add specific feature"
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+<HARD-GATE>
+STOP. You are about to complete the plan. DO NOT call ExitPlanMode. You MUST call AskUserQuestion below. ExitPlanMode is FORBIDDEN — it skips the user's execution choice and breaks the workflow.
+</HARD-GATE>
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+Your ONLY permitted next action is calling `AskUserQuestion` with this EXACT structure:
 
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
+```yaml
+AskUserQuestion:
+  question: "Plan complete and saved to docs/plans/<feature-name>/plan.md. How would you like to execute it?"
+  header: "Execution"
+  options:
+    - label: "Subagent-Driven (this session)"
+      description: "I dispatch fresh subagent per task, review between tasks, fast iteration"
+    - label: "Parallel Session (separate)"
+      description: "Open new session in worktree with executing-plans, batch execution with checkpoints"
+```
 
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
-
-**Which approach?"**
+**If you are about to call ExitPlanMode, STOP — call AskUserQuestion instead.**
 
 **If Subagent-Driven chosen:**
+
 - **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
 - Stay in this session
 - Fresh subagent per task + code review
 
 **If Parallel Session chosen:**
+
 - Guide them to open new session in worktree
 - **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
+
+---
+
+## Native Task Integration Reference
+
+Use Claude Code's native task tools to create structured tasks alongside the plan document.
+
+### Creating Native Tasks
+
+For each task in the plan, create a corresponding native task:
+
+```
+TaskCreate:
+  subject: "Task N: [Component Name]"
+  description: |
+    [Copy the full task content from the plan you just wrote — files, steps, acceptance criteria, everything]
+  activeForm: "Implementing [Component Name]"
+```
+
+### Setting Dependencies
+
+After all tasks created, set blockedBy relationships:
+
+```
+TaskUpdate:
+  taskId: [task-id]
+  addBlockedBy: [prerequisite-task-ids]
+```
+
+### During Execution
+
+Update task status as work progresses:
+
+```
+TaskUpdate:
+  taskId: [task-id]
+  status: in_progress  # when starting
+
+TaskUpdate:
+  taskId: [task-id]
+  status: completed    # when done
+```
+
+### Notes
+
+- Native tasks provide CLI-visible progress tracking
+- Plan document remains the permanent record
+
+---
+
+## Task Persistence
+
+At plan completion, write the task persistence file to `docs/plans/<feature-name>/tasks.json`.
+
+```json
+{
+  "planPath": "docs/plans/<feature-name>/plan.md",
+  "tasks": [
+    { "id": 0, "subject": "Task 0: ...", "status": "pending" },
+    { "id": 1, "subject": "Task 1: ...", "status": "pending", "blockedBy": [0] }
+  ],
+  "lastUpdated": "<timestamp>"
+}
+```
+
+All artifacts (plan, design, tasks) must be co-located in `docs/plans/<feature-name>/`.
+
+### Resuming Work
+
+Any new session can resume by running:
+
+```
+/superpowers:executing-plans <plan-path>
+```
+
+The skill reads the `tasks.json` file and continues from where it left off.

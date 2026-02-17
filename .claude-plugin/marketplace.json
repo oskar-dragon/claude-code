@@ -49,17 +49,6 @@
       "category": "productivity"
     },
     {
-      "name": "canary-dev",
-      "version": "0.1.1",
-      "description": "Canary development plugin with automatic code formatting and architecture guidance for BFF and interface design patterns",
-      "author": {
-        "name": "Qogita",
-        "email": "engineering@qogita.com"
-      },
-      "source": "./plugins/canary-dev",
-      "category": "development"
-    },
-    {
       "name": "ty-lsp",
       "version": "1.0.0",
       "description": "Python type checker (ty) from Astral for Claude Code - An extremely fast LSP alternative to Pyright",
@@ -68,16 +57,6 @@
         "email": "engineering@qogita.com"
       },
       "source": "./plugins/ty-lsp",
-      "category": "development"
-    },
-    {
-      "name": "code-review",
-      "version": "1.0.0",
-      "description": "Automated code review for pull requests using multiple specialized agents with confidence-based scoring",
-      "author": {
-        "name": "Oskar Dragon"
-      },
-      "source": "./plugins/code-review",
       "category": "development"
     },
     {

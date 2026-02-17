@@ -15,11 +15,35 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 
 ## The Process
 
+### Step 0: Load Persisted Tasks
+
+1. Call `TaskList` to check for existing native tasks
+2. **CRITICAL - Locate tasks file:** Look for `tasks.json` in the same directory as the plan file (e.g., if plan is `docs/plans/<feature-name>/plan.md`, look for `docs/plans/<feature-name>/tasks.json`)
+3. If tasks file exists AND native tasks empty: recreate from JSON using TaskCreate, restore blockedBy with TaskUpdate
+4. If native tasks exist: verify they match plan, resume from first `pending`/`in_progress`
+5. If neither: proceed to Step 1b to bootstrap from plan
+
+Update `tasks.json` after every task status change.
+
 ### Step 1: Load and Review Plan
-1. Read plan file
+1. Read plan file fully
 2. Review critically - identify any questions or concerns about the plan
 3. If concerns: Raise them with your human partner before starting
-4. If no concerns: Create TodoWrite and proceed
+4. If no concerns: Proceed to task setup
+
+### Step 1b: Bootstrap Tasks from Plan (if needed)
+
+If TaskList returned no tasks or tasks don't match plan:
+
+1. Parse the plan document for `## Task N:` or `### Task N:` headers
+2. For each task found, use TaskCreate with:
+   - subject: The task title from the plan
+   - description: Full task content including steps, files, acceptance criteria
+   - activeForm: Present tense action (e.g., "Implementing X")
+3. **CRITICAL - Dependencies:** For EACH task that has blockedBy in the plan or .tasks.json:
+   - Call `TaskUpdate` with `taskId` and `addBlockedBy: [list-of-blocking-task-ids]`
+   - Do NOT skip this step - dependencies are essential for correct execution order
+4. Call `TaskList` and verify blockedBy relationships show correctly (e.g., "blocked by #1, #2")
 
 ### Step 2: Execute Batch
 **Default: First 3 tasks**
