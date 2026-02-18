@@ -1,0 +1,7 @@
+{
+  "planPath": "docs/plans/bugfix-tasks-not-completing/plan.md",
+  "tasks": [
+    { "id": 8, "subject": "Task 1: Update Step 2 checklist in executing-plans/SKILL.md", "status": "pending" }
+  ],
+  "lastUpdated": "2026-02-18T00:00:00Z"
+}
