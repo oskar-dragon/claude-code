@@ -1,0 +1,17 @@
+{
+  "planPath": "docs/plans/delivery-diagram-command/plan.md",
+  "tasks": [
+    {
+      "id": 0,
+      "subject": "Task 1: Create /delivery-diagram command file",
+      "status": "pending"
+    },
+    {
+      "id": 1,
+      "subject": "Task 2: Smoke test against this plan's tasks.json",
+      "status": "pending",
+      "blockedBy": [0]
+    }
+  ],
+  "lastUpdated": "2026-02-18T00:00:00Z"
+}
