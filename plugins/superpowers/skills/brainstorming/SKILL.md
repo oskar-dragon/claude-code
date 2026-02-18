@@ -28,7 +28,8 @@ You MUST create a task for each of these items and complete them in order:
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to their complexity, get user approval after each section
 5. **Write design doc** — save to `docs/plans/<feature-name>/design.md` and commit
-6. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+6. **Design review** — invoke design-reviewer agent, resolve all findings
+7. **Transition to implementation** — invoke writing-plans skill to create implementation plan
 
 ## Process Flow
 
@@ -48,11 +49,14 @@ digraph brainstorming {
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
     "User approves design?" -> "Write design doc" [label="yes"];
-    "Write design doc" -> "Invoke writing-plans skill";
+    "Write design doc" -> "Invoke design-reviewer agent";
+    "Invoke design-reviewer agent" -> "All findings resolved?" [shape=diamond];
+    "All findings resolved?" -> "Invoke design-reviewer agent" [label="no, resolve remaining"];
+    "All findings resolved?" -> "Invoke writing-plans skill" [label="yes"];
 }
 ```
 
-**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.
+**The terminal state is invoking writing-plans.** Design review is a mandatory intermediate step — writing-plans is never invoked without it.
 
 ## The Process
 
@@ -86,6 +90,16 @@ digraph brainstorming {
 
 - Write the validated design to `docs/plans/<feature-name>/design.md`
 - Commit the design document to git
+
+**Design Review:**
+
+<HARD-GATE>
+Do NOT invoke writing-plans until the design-reviewer agent has been invoked AND all findings have been explicitly resolved (fix or dismiss). This gate applies even if the design review finds nothing — the agent must still run and confirm zero findings.
+</HARD-GATE>
+
+- Invoke the design-reviewer agent
+- Wait for all findings to be resolved (fixed or dismissed)
+- Only then proceed to writing-plans
 
 **Implementation:**
 
