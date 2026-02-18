@@ -52,10 +52,12 @@ If TaskList returned no tasks or tasks don't match plan:
 
 For each task:
 
-1. Mark as in_progress
+1. Mark as in_progress: `TaskUpdate` (status: in_progress), then update `tasks.json`
+   (set the task's `"status"` to `"in_progress"` and update the root-level `"lastUpdated"`)
 2. Follow each step exactly (plan has bite-sized steps)
 3. Run verifications as specified
-4. Mark as completed
+4. Mark as completed: `TaskUpdate` (status: completed), then update `tasks.json`
+   (set the task's `"status"` to `"completed"` and update the root-level `"lastUpdated"`)
 
 ### Step 3: Report
 
