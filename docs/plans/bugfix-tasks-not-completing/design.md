@@ -33,11 +33,11 @@ When Claude executes Step 2 ("Execute Batch"), the checklist says "Mark as compl
 
 ```
 1. Mark as in_progress: TaskUpdate (status: in_progress) then update tasks.json
-   (set the task's "status" to "in_progress" and update "lastUpdated")
+   (set the task's "status" to "in_progress" and update the root-level "lastUpdated")
 2. Follow each step exactly (plan has bite-sized steps)
 3. Run verifications as specified
 4. Mark as completed: TaskUpdate (status: completed) then update tasks.json
-   (set the task's "status" to "completed" and update "lastUpdated")
+   (set the task's "status" to "completed" and update the root-level "lastUpdated")
 ```
 
 ## No-Gos
