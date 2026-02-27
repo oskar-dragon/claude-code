@@ -121,7 +121,7 @@ Subtasks are created on-the-fly when the PR-task starts executing, chained with 
 7. **Ask:** "Continue to next task, or close session?"
 8. **After final task** -- invoke finishing-a-development-branch for plan archiving and cleanup.
 
-Note: finishing-a-development-branch is only invoked once after the last PR-task. It handles plan archiving (`git mv docs/plans/<feature>/ docs/plans/archive/<feature>/`) and any final cleanup. Per-task PR creation is handled inline by executing-plans to avoid premature archiving/branch deletion.
+Note: finishing-a-development-branch is only invoked once after the last PR-task. At that point we're on main with no feature branch (all tasks already have PRs). The skill detects this state and skips straight to plan archiving (`git mv docs/plans/<feature>/ docs/plans/archive/<feature>/`). Per-task PR creation is handled inline by executing-plans to avoid premature archiving/branch deletion.
 
 ### Subagent-driven-development (new flow)
 
@@ -153,6 +153,7 @@ Unchanged -- tasks.json is the source of truth for cross-session state. New sess
 | **writing-plans** | Read committable metadata, use correct file extensions, PR-sized task format, only PR-level TaskCreates |
 | **executing-plans** | One task at a time, create step subtasks on-the-fly, branch-per-task, update tasks.json on full completion |
 | **subagent-driven-development** | One task at a time, same branch/PR flow, update tasks.json on full completion |
+| **finishing-a-development-branch** | Add "on main, no feature branch" detection: skip branch/merge options, go straight to plan archiving |
 
 ## No-Gos
 
@@ -160,7 +161,7 @@ Unchanged -- tasks.json is the source of truth for cross-session state. New sess
 - No changes to brainstorming's core flow (just one question + metadata)
 - No changes to design-reviewer agent
 - No changes to TDD skill (red-green-refactor stays the same)
-- No changes to finishing-a-development-branch (invoked once after final task for plan archiving/cleanup, not per-task)
+- Minimal change to finishing-a-development-branch: add detection for "on main, no feature branch" state that skips to plan archiving
 - No changes to using-git-worktrees
 - No gitignore management (`.local.md` assumed already ignored)
 - No changes to code-reviewer agent
