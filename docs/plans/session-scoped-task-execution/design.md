@@ -21,33 +21,90 @@ Stays flat, PR-level only. Steps are not persisted — they are derived from pla
   "planPath": "docs/plans/feature/plan.md",
   "tasks": [
     { "id": 0, "subject": "Task 0: Backend endpoint", "status": "completed", "blockedBy": [] },
-    { "id": 1, "subject": "Task 1: Frontend", "status": "pending", "blockedBy": [0] }
+    { "id": 1, "subject": "Task 1: Frontend", "status": "in_progress", "blockedBy": [0] },
+    { "id": 2, "subject": "Task 2: Tests", "status": "pending", "blockedBy": [1] }
   ],
   "lastUpdated": "2026-02-27T00:00:00Z"
 }
 ```
 
-### writing-plans (remove TaskCreate calls)
+Status values: `pending` | `in_progress` | `completed`
+
+---
+
+### writing-plans changes
 
 writing-plans outputs:
 - `plan.md` — unchanged structure and content
 - `tasks.json` — unchanged structure
 
-**Removed:** the `TaskCreate` calls for PR-level tasks. These were mirroring tasks.json into the native task list, which is no longer desired.
+**Removed:** the "Native Task Integration Reference" section entirely. writing-plans no longer calls `TaskCreate` for PR-level tasks — these are not mirrored into the native task list.
 
-### executing-plans (new session flow)
+**Updated:** the "Initialize Task Tracking" section becomes read-only. It calls `TaskList` to check for existing brainstorming tasks (for awareness only) but never calls `TaskCreate` for PR-level tasks. All PR-level tasks go into tasks.json only.
 
-When invoked:
+---
 
-1. **Read tasks.json** — find the next unblocked PR task (status: `pending`, all `blockedBy` IDs have status `completed`)
-2. **Read plan.md** — locate that PR's task section, extract its numbered steps
-3. **Create all step tasks at once** via `TaskCreate`, chained with `blockedBy` (Step N blocked by Step N-1)
-4. **Execute steps in order** — mark each step `in_progress` → `completed`
-5. **Create PR** after all steps are done
-6. **Update tasks.json** — set that PR's `status` to `completed`, update `lastUpdated`
-7. **Session ends** (user closes Claude, returns later for next PR)
+### executing-plans — new session flow
+
+#### Session start (replaces Step 0 bootstrap)
+
+On session start, native tasks are always empty (they are ephemeral). The bootstrap no longer recreates PR-level native tasks from tasks.json. Instead:
+
+1. **Read tasks.json** — find the next unblocked PR task:
+   - status is `pending` AND all `blockedBy` IDs have status `completed`
+   - If no such task exists: all PRs are done — invoke finishing-a-development-branch
+2. **Write `status: in_progress`** for that PR to tasks.json immediately (recovery anchor — see Mid-session failure below)
+3. **Read plan.md** — parse that PR's task section to extract its steps (see Step parsing below)
+4. **Create step tasks sequentially** via `TaskCreate`, capturing each returned ID to wire the next step's `blockedBy`:
+   - Create Step 1 → capture ID `s1`
+   - Create Step 2 with `blockedBy: [s1]` → capture ID `s2`
+   - Create Step 3 with `blockedBy: [s2]` → etc.
+
+#### Execution
+
+5. **Execute steps in order** — mark each step `in_progress` → `completed` as you go
+6. **Create PR** after all steps are done
+
+#### Session end
+
+7. **Update tasks.json** — set that PR's `status` to `completed`, update `lastUpdated`
+8. **Session ends** — present a summary of what was completed. No "Continue to next task" option. User returns in a new session for the next PR.
 
 No PR-level native task is created. Only step tasks, only for the current PR.
+
+---
+
+### Step parsing from plan.md
+
+plan.md uses a stable format defined by writing-plans. Steps are extracted from the PR task section:
+
+```markdown
+### Task N: [Component Name]
+
+**Steps:**
+1. Write failing test for [specific behavior]
+2. Run test — verify it fails: `pytest tests/path/test.py -v`
+3. Implement minimal code to pass test
+...
+```
+
+Parsing rules:
+- Locate the `### Task N:` header matching the current PR (by task ID)
+- Find the `**Steps:**` subsection within that task
+- Extract each numbered list item as a step subject
+- Stop at the next `###` header or end of file
+
+---
+
+### Mid-session failure recovery
+
+If a session ends mid-PR (crash, user closes Claude), tasks.json shows the PR as `in_progress` (written at step 2 above). On the next session:
+
+1. executing-plans reads tasks.json — finds the PR with `in_progress` status
+2. Checks the current git branch — if a feature branch for this PR exists, it resumes from there
+3. Re-reads plan.md, re-creates all step tasks, and continues
+
+This avoids re-running steps that already have commits. The user may need to manually verify which steps were already done if the branch exists but is mid-step.
 
 ---
 
@@ -59,29 +116,35 @@ Session start
     ▼
 Read tasks.json
     │
-    ▼
-Find next unblocked PR (pending + all blockedBy completed)
+    ├─ in_progress PR found? ──► Resume that PR (check git branch)
     │
-    ▼
-Read plan.md → extract steps for this PR
-    │
-    ▼
-TaskCreate for each step (all at once, chained blockedBy)
-    │
-    ▼
-Execute step 1 → mark completed
-Execute step 2 → mark completed
-    ...
-Execute step N → mark completed
-    │
-    ▼
-Create PR
-    │
-    ▼
-Update tasks.json: PR status = "completed"
-    │
-    ▼
-Session ends
+    └─ No in_progress? ──► Find next unblocked pending PR
+                                    │
+                                    ▼
+                          Write status: in_progress → tasks.json
+                                    │
+                                    ▼
+                          Read plan.md → parse steps for this PR
+                                    │
+                                    ▼
+                          TaskCreate Step 1 → capture ID s1
+                          TaskCreate Step 2 (blockedBy: [s1]) → capture ID s2
+                          TaskCreate Step N (blockedBy: [s(n-1)])
+                                    │
+                                    ▼
+                          Execute step 1 → mark completed
+                          Execute step 2 → mark completed
+                              ...
+                          Execute step N → mark completed
+                                    │
+                                    ▼
+                          Create PR
+                                    │
+                                    ▼
+                          Write status: completed → tasks.json
+                                    │
+                                    ▼
+                          Session end summary
 ```
 
 ---
@@ -99,3 +162,4 @@ Commit behavior is defined by the steps in plan.md — not by this design. Typic
 - No change to brainstorming skill's task creation (design-phase tasks are a separate concern)
 - No change to subagent-driven-development in this pass
 - No change to the plan.md format or step structure
+- No "Continue to next task" prompt in executing-plans — one PR per session, hard boundary
