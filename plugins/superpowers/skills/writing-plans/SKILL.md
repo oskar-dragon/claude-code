@@ -56,7 +56,7 @@ TaskList
 
 **Three levels:**
 1. **PR** (`## PR N:`) — a deployable increment; gets its own branch and pull request
-2. **Task** (`### Task N:`) — an atomic commit unit within a PR; each task ends in verify + commit
+2. **Task** (`### Task N:`) — an atomic commit unit within a PR; each task ends in verify + commit. Tasks are not independently deployable — they accumulate on the PR branch until the PR is opened.
 3. **Step** (`**Step N: ...**`) — a single implementation detail within a task; bold named header with content below
 
 **A PR is deployable when:**
@@ -135,6 +135,30 @@ Expected: PASS
 ```bash
 git add tests/path/test.py src/path/file.py
 git commit -m "feat: add specific feature"
+```
+
+**Acceptance Criteria:**
+- [ ] Criterion from design
+
+### Task 2: [Next component — another atomic commit in the same PR]
+
+**Files:**
+- Modify: `exact/path/to/existing.py`
+
+**Step 1: [Action]**
+
+[content]
+
+**Step 2: Verify**
+
+Run: `command`
+Expected: output
+
+**Step 3: Commit**
+
+```bash
+git add path/to/file
+git commit -m "feat: add next component"
 ```
 
 **Acceptance Criteria:**
