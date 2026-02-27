@@ -64,10 +64,13 @@ git commit -m "feat: description"
 
 **Invariants:**
 - Every task MUST end with a named Verify step then a named Commit step
-- PR sections numbered from 1; tasks numbered globally from 1 across all PRs
+- PR sections numbered from 1; tasks numbered globally from 1 across all PRs; steps numbered from 1 within each task
 - Single-PR plans still use `## PR 1:` (no implicit "whole plan = 1 PR")
+- The `→ Open PR: "..."` line at the end of each PR section is the PR title used by the executing skill
 
 ## tasks.json Schema
+
+Only PRs are tracked — no task-level entries. The assumption is that a session either completes a PR fully or doesn't start it; mid-PR interruption is not a supported recovery scenario.
 
 ```json
 {
@@ -76,18 +79,23 @@ git commit -m "feat: description"
     { "id": 1, "subject": "PR 1: Feature name", "status": "pending" },
     { "id": 2, "subject": "PR 2: Next feature", "status": "pending", "blockedBy": [1] }
   ],
-  "tasks": [
-    { "id": 1, "subject": "Task 1: ...", "status": "pending", "prId": 1 },
-    { "id": 2, "subject": "Task 2: ...", "status": "pending", "prId": 1, "blockedBy": [1] },
-    { "id": 3, "subject": "Task 3: ...", "status": "pending", "prId": 2, "blockedBy": [2] }
-  ],
   "lastUpdated": "<timestamp>"
 }
 ```
 
 - PRs can have `blockedBy` other PR IDs
-- Tasks reference their PR via `prId`
-- Both start at 1
+- Valid statuses: `pending`, `in_progress`, `completed`
+- All IDs start at 1
+
+## PR Grouping Heuristic (for writing-plans)
+
+Group tasks into a PR when they collectively deliver **one independently deployable increment**. A PR is deployable when:
+- All tests pass
+- No type errors, lint errors, or formatting errors
+- The feature is complete and reviewable — not half-finished or broken
+- A reviewer can meaningfully assess it as a unit
+
+A PR must not span unrelated concerns. When in doubt, split into more PRs.
 
 ## Execution Flow Changes
 
@@ -96,25 +104,29 @@ git commit -m "feat: description"
 - Plan template updated to show `## PR N:` sections wrapping `### Task N:` blocks
 - Task template updated to use bold named step headers (not numbered list)
 - Template enforces Verify + Commit as the mandatory last two steps of every task
-- tasks.json output updated to include `prs` array and `prId` on tasks
+- tasks.json output updated to contain only a `prs` array (no tasks array)
+- Plan document includes PR grouping heuristic for the plan author
 
 ### executing-plans
 
-- Step 0: reads `prs` array to find current PR (first `pending`/`in_progress` PR)
-- Creates branch at PR start (not task start)
-- Executes all tasks within that PR sequentially; each task commits on its own
-- Opens PR when all tasks for that PR are `completed`
+- Step 0: reads `prs` array to find current PR (first `pending`/`in_progress` PR); writes `in_progress` to tasks.json immediately
+- **Branch created once per PR** (not per task) — Step 1c fires at PR start, asking `"What branch name for PR N: [pr subject]?"`
+- Executes all tasks within the PR sequentially; each task commits on its own
+- **No "continue or close?" prompt between tasks** — tasks within a PR run uninterrupted
+- When all tasks are done: opens PR using the `→ Open PR: "..."` title from the plan; body summarises the tasks completed and their acceptance criteria
+- Marks PR `completed` in tasks.json, switches back to main
 - Session ends after PR is opened — user starts a new session for the next PR
-- Mid-session recovery: if a PR is `in_progress`, check git branch and resume
 
 ### subagent-driven-development
 
-- Same PR-grouping logic: branch at PR start, subagent per task, PR after all PR tasks complete
-- `tasks.json` written twice per PR: `in_progress` at PR start, `completed` after PR opens
+- Same PR-grouping logic: branch at PR start, subagent per task, PR after all tasks in the PR group complete
+- **"Continue or close?" prompt fires after each PR is opened** — not after each task
+- tasks.json written twice per PR: `in_progress` at PR start, `completed` after PR opens
+- Within a PR, tasks execute sequentially without stopping to ask for continuation
 
 ## No-Gos
 
 - **Not changing** `brainstorming` skill — task creation template stays as-is
 - **Not changing** `finishing-a-development-branch` — still handles post-all-PRs cleanup
-- **No backward-compat shim** for old flat plans without `## PR N:` sections — executing-plans will prompt user to restructure if no PRs found
+- **No backward-compat shim** for old flat plans without `## PR N:` sections — executing-plans will prompt the user to restructure if no `prs` key is found in tasks.json
 - **Not touching** `tasks.json` path conventions
