@@ -19,7 +19,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** This should be run in a dedicated worktree (created by brainstorming skill).
 
-**Save plans to:** `docs/plans/<feature-name>/plan.md`
+**Save plans to:** `docs/plans/<feature-name>/plan.md` (or `plan.local.md` if non-committable)
 
 ## REQUIRED FIRST STEP: Initialize Task Tracking
 
@@ -35,15 +35,33 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 TaskList
 ```
 
-## Bite-Sized Task Granularity
+## Committable Mode
 
-**Each step is one action (2-5 minutes):**
+**Read the `**Committable:**` field from the design doc header.** This was set during brainstorming.
 
-- "Write the failing test" - step
-- "Run it to make sure it fails" - step
-- "Implement the minimal code to make the test pass" - step
-- "Run the tests and make sure they pass" - step
-- "Commit" - step
+- If `true` (or absent for backward compatibility): use `.md` extensions, commit planning docs
+- If `false`: use `.local.md` / `.local.json` extensions, skip git add/commit for planning docs
+
+**File extensions follow this table:**
+
+| Committable | Plan | Tasks |
+|---|---|---|
+| `true` | `plan.md` | `tasks.json` |
+| `false` | `plan.local.md` | `tasks.local.json` |
+
+**Copy the `**Committable:**` field into the plan document header** so downstream skills (executing-plans, subagent-driven-development) can read it without needing the design doc.
+
+## PR-Sized Task Granularity
+
+**Each task is a complete, PR-able deliverable** — not individual steps like "write test, run test, commit". Those are steps WITHIN a task.
+
+A task is something someone can:
+- Open a PR for
+- Test independently
+- Review as a unit
+- Merge on its own
+
+**Steps within a task are the TDD cycle and commit — they live inside the task description, not as separate tasks.**
 
 ## Plan Document Header
 
@@ -60,6 +78,8 @@ TaskList
 
 **Tech Stack:** [Key technologies/libraries]
 
+**Committable:** [true/false — copied from design doc]
+
 ---
 ```
 
@@ -74,38 +94,25 @@ TaskList
 - Modify: `exact/path/to/existing.py:123-145`
 - Test: `tests/exact/path/to/test.py`
 
-**Step 1: Write the failing test**
+**Steps:**
 
-```python
-def test_specific_behavior():
-    result = function(input)
-    assert result == expected
-```
+1. Write failing test for [specific behavior]
+2. Run test — verify it fails: `pytest tests/path/test.py::test_name -v`
+3. Implement minimal code to pass test
+4. Run test — verify it passes: `pytest tests/path/test.py::test_name -v`
+5. [Repeat steps 1-4 for additional behaviors]
+6. Commit: `feat: add specific feature`
 
-**Step 2: Run test to verify it fails**
-
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: FAIL with "function not defined"
-
-**Step 3: Write minimal implementation**
-
-```python
-def function(input):
-    return expected
-```
-
-**Step 4: Run test to verify it passes**
-
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: PASS
-
-**Step 5: Commit**
-
-```bash
-git add tests/path/test.py src/path/file.py
-git commit -m "feat: add specific feature"
-```
+**Acceptance Criteria:**
+- [ ] [Criterion from design]
+- [ ] [Criterion from design]
 ````
+
+**Key differences from old format:**
+- Steps are numbered instructions INSIDE the task, not separate tasks
+- Each task is a PR-sized deliverable, not a 2-5 minute action
+- Only PR-level tasks get `TaskCreate` — steps do NOT get their own tasks at plan time
+- The executing skill creates step-level subtasks on-the-fly during execution
 
 ## Remember
 
@@ -155,15 +162,17 @@ Use Claude Code's native task tools to create structured tasks alongside the pla
 
 ### Creating Native Tasks
 
-For each task in the plan, create a corresponding native task:
+For each **PR-sized task** in the plan (NOT each step), create a corresponding native task:
 
 ```
 TaskCreate:
   subject: "Task N: [Component Name]"
   description: |
-    [Copy the full task content from the plan you just wrote — files, steps, acceptance criteria, everything]
+    [Copy the full task content from the plan — files, ALL steps, acceptance criteria]
   activeForm: "Implementing [Component Name]"
 ```
+
+**Important:** Only PR-level tasks get `TaskCreate`. Steps within a task are tracked by the executing skill at runtime, not at plan time.
 
 ### Setting Dependencies
 
@@ -212,6 +221,14 @@ At plan completion, write the task persistence file to `docs/plans/<feature-name
 ```
 
 All artifacts (plan, design, tasks) must be co-located in `docs/plans/<feature-name>/`.
+
+**If committable:** Commit both plan and tasks file:
+```bash
+git add docs/plans/<feature-name>/plan.md docs/plans/<feature-name>/tasks.json
+git commit -m "plan: <feature-name>"
+```
+
+**If non-committable:** Files are `plan.local.md` and `tasks.local.json`. Do NOT commit.
 
 ### Resuming Work
 

@@ -7,9 +7,9 @@ description: Use when you have a written implementation plan to execute in a sep
 
 ## Overview
 
-Load plan, review critically, execute tasks in batches, report for review between batches.
+Load plan, review critically, execute one PR-sized task at a time, create PR, report for review.
 
-**Core principle:** Batch execution with checkpoints for architect review.
+**Core principle:** One PR-sized task at a time with branch-per-task and inline PR creation.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
@@ -24,6 +24,8 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 5. If neither: proceed to Step 1b to bootstrap from plan
 
 Update `tasks.json` after every task status change.
+
+**Committable mode:** Read the `**Committable:**` field from the plan header. If `false`, tasks file is `tasks.local.json` instead of `tasks.json`. Plan file is `plan.local.md` instead of `plan.md`.
 
 ### Step 1: Load and Review Plan
 
@@ -46,42 +48,97 @@ If TaskList returned no tasks or tasks don't match plan:
    - Do NOT skip this step - dependencies are essential for correct execution order
 4. Call `TaskList` and verify blockedBy relationships show correctly (e.g., "blocked by #1, #2")
 
-### Step 2: Execute Batch
+### Step 1c: Branch Check (before each task)
 
-**Default: First 3 tasks**
+Before starting each PR-task, check if on main/master:
 
-For each task:
+```bash
+git branch --show-current
+```
 
-1. Mark as in_progress: `TaskUpdate` (status: in_progress), then update `tasks.json`
-   (set the task's `"status"` to `"in_progress"` and update the root-level `"lastUpdated"`)
-2. Follow each step exactly (plan has bite-sized steps)
-3. Run verifications as specified
-4. Mark as completed: `TaskUpdate` (status: completed), then update `tasks.json`
-   (set the task's `"status"` to `"completed"` and update the root-level `"lastUpdated"`)
+If on main/master, ask for a branch name:
 
-### Step 3: Report
+```yaml
+AskUserQuestion:
+  question: "What branch name for Task N: [task subject]?"
+  header: "Branch"
+  options:
+    - label: "feat/[auto-generated-slug]"
+      description: "Auto-generated from task subject"
+    - label: "Custom name"
+      description: "Enter your own branch name"
+```
 
-When batch complete:
+Create the branch:
+
+```bash
+git checkout -b <branch-name>
+```
+
+### Step 2: Execute PR-Task
+
+**One task at a time.** For the current PR-task:
+
+1. Run Step 1c (Branch Check) — create branch if on main
+2. Mark PR-task as in_progress: `TaskUpdate` (status: in_progress), update `tasks.json`
+3. **Create step subtasks:** Parse the steps from the plan task description. For each step, create a native subtask:
+   ```
+   TaskCreate:
+     subject: "Step N: [step description]"
+     description: "[step detail from plan]"
+     activeForm: "[doing step description]"
+   ```
+   Chain with `addBlockedBy` so steps execute sequentially.
+4. **Execute each step:** Mark subtask in_progress → execute → mark completed
+5. **All steps done — create PR:**
+   ```bash
+   git push -u origin <branch-name>
+   gh pr create --title "Task N: [task subject]" --body "$(cat <<'EOF'
+   ## Summary
+   [What this task implements]
+
+   ## Acceptance Criteria
+   [From the plan task]
+   EOF
+   )"
+   ```
+6. **Switch back to main:**
+   ```bash
+   git checkout main && git pull
+   ```
+7. Mark PR-task as `completed` in native tasks AND `tasks.json`
+
+### Step 3: Report and Continue
+
+After each PR-task:
 
 - Show what was implemented
+- Show PR URL
 - Show verification output
-- Say: "Ready for feedback."
 
-### Step 4: Continue
+Then ask:
 
-Based on feedback:
+```yaml
+AskUserQuestion:
+  question: "Task N complete. PR created. What next?"
+  header: "Next"
+  options:
+    - label: "Continue to next task"
+      description: "Start the next pending PR-task"
+    - label: "Close session"
+      description: "Save progress and stop here. Resume later with /superpowers:executing-plans"
+```
 
-- Apply changes if needed
-- Execute next batch
-- Repeat until complete
+If continuing: go to Step 2 with next pending task.
+If closing: ensure tasks.json is up to date, report remaining tasks.
 
-### Step 5: Complete Development
+### Step 4: Complete All Work
 
-After all tasks complete and verified:
+After the **final** PR-task is completed and its PR created:
 
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
 - **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
+- At this point we're on main with no feature branch. The skill detects this and skips to plan archiving.
 
 ## When to Stop and Ask for Help
 
@@ -112,6 +169,11 @@ After all tasks complete and verified:
 - Between batches: just report and wait
 - Stop when blocked, don't guess
 - Never start implementation on main/master branch without explicit user consent
+- One PR-task at a time, not batches
+- Create branch before each task if on main
+- Create step subtasks on-the-fly during execution
+- Push + PR after each task, not at the end
+- tasks.json updated only when PR-task fully completes
 
 ## Integration
 

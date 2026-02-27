@@ -15,6 +15,31 @@ Guide completion of development work by presenting clear options and handling ch
 
 ## The Process
 
+### Step 0: Detect State
+
+Check if we're on a feature branch or on main:
+
+```bash
+CURRENT=$(git branch --show-current)
+BASE=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main")
+```
+
+**If current branch IS the base branch (main/master):**
+
+This means all PR-tasks have already been completed with individual PRs. Skip straight to plan archiving:
+
+```bash
+# Archive the feature's plan folder (if it exists)
+if [ -d "docs/plans/<feature-name>" ]; then
+  git mv docs/plans/<feature-name>/ docs/plans/archive/<feature-name>/
+  git commit -m "chore: archive plan for <feature-name>"
+fi
+```
+
+Then STOP. Do not present the 4 options — there is no feature branch to merge/push/discard.
+
+**If on a feature branch:** Continue to Step 1 (existing flow unchanged).
+
 ### Step 1: Verify Tests
 
 **Before presenting options, verify tests pass:**
@@ -181,6 +206,11 @@ git worktree remove <worktree-path>
 
 ## Quick Reference
 
+| State                | Action                                    |
+| -------------------- | ----------------------------------------- |
+| On main, no branch   | Archive plan only (skip options)          |
+| On feature branch    | Verify tests → Present 4 options → Execute |
+
 | Option           | Merge | Push | Keep Worktree | Cleanup Branch |
 | ---------------- | ----- | ---- | ------------- | -------------- |
 | 1. Merge locally | ✓     | -    | -             | ✓              |
@@ -230,8 +260,8 @@ git worktree remove <worktree-path>
 
 **Called by:**
 
-- **subagent-driven-development** (Step 7) - After all tasks complete
-- **executing-plans** (Step 5) - After all batches complete
+- **subagent-driven-development** - After all tasks complete (may be on main with no feature branch)
+- **executing-plans** - After all tasks complete (may be on main with no feature branch)
 
 **Pairs with:**
 
