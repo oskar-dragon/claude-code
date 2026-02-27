@@ -20,9 +20,9 @@ Load plan, review critically, execute one PR at a time, create PR, report for re
 Native tasks are always empty at session start — tasks.json is the sole persistent state.
 
 1. **Locate tasks file:** `tasks.json` in the same directory as the plan file (e.g., `docs/plans/<feature-name>/tasks.json`)
-2. If tasks.json has no `prs` key or `prs` is empty: proceed to Step 1b to bootstrap from plan headers.
+2. If tasks.json has no `prs` key or `prs` is empty: proceed to Step 1 (which will proceed to Step 1b to bootstrap from plan headers before starting).
 3. Read the `prs` array to determine what to work on:
-   - If a PR has `status: in_progress`: session was interrupted mid-PR. Check `git branch --show-current` — if a feature branch exists, re-run all tasks in this PR from the beginning of the branch. Proceed to Step 2 for this PR.
+   - If a PR has `status: in_progress`: session was interrupted mid-PR. Check `git branch --show-current` — if a feature branch exists, run `git log --oneline` to see which task commits already exist. Resume from the first task in this PR whose commit is not in the log. Proceed to Step 2 for this PR.
    - If no `in_progress` PR: find the next `pending` PR whose `blockedBy` IDs all have `status: completed`. Proceed to Step 1c then Step 2.
    - If all PRs are `completed`: invoke superpowers:finishing-a-development-branch.
 
@@ -81,17 +81,14 @@ git checkout -b <branch-name>
 1. Run Step 1c (Branch Check) — create branch if on main
 2. **Write `status: in_progress` to `prs[N]` in tasks.json** immediately (recovery anchor)
 3. **Execute all tasks within this PR:** For each `### Task N:` block belonging to this PR section in plan.md:
-   a. Create native subtasks for this task's steps:
+   a. Create a native task:
       ```
       TaskCreate: subject: "Task N: [task subject]", activeForm: "Implementing [task subject]"
-      TaskCreate: subject: "Step 1: [description]", activeForm: "[doing]", blockedBy: [task-id]
-      TaskCreate: subject: "Step 2: [description]", activeForm: "[doing]", blockedBy: [step-1-id]
-      ...
       ```
-   b. Mark task in_progress → execute each `**Step N:**` block in the task sequentially → mark task completed
+   b. Mark task in_progress → follow each `**Step N:**` block in the plan sequentially (these are bold named headers with content below, not a list) → mark task completed
    c. Each task ends with its own named Verify step and Commit step — follow them exactly
    d. **Do NOT open a PR between tasks** — continue to the next task in the PR
-4. **All tasks done — open PR:** Find the `→ Open PR: "..."` line at the end of the current `## PR N:` section in plan.md and extract the quoted string as the PR title:
+4. **All tasks done — open PR:** Find the `→ Open PR: "..."` line at the end of the current `## PR N:` section in plan.md and extract the quoted string as the PR title (e.g. `→ Open PR: "feat: add user auth"` → title is `feat: add user auth`):
    ```bash
    git push -u origin <branch-name>
    gh pr create --title "[title from → Open PR line]" --body "$(cat <<'EOF'
