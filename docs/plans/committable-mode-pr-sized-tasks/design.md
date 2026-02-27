@@ -106,7 +106,7 @@ Task #1: Implement user auth endpoint          [in_progress]
   Task #1e: Commit                             [pending]
 ```
 
-Subtasks are created on-the-fly when the PR-task starts executing, chained with `addBlockedBy`. The parent PR-task is marked completed in native tasks AND tasks.json only after all subtasks are done AND the PR/merge is handled via finishing-a-development-branch.
+Subtasks are created on-the-fly when the PR-task starts executing, chained with `addBlockedBy`. The parent PR-task is marked completed in native tasks AND tasks.json only after all subtasks are done AND the PR is created.
 
 ## Execution Flow Changes
 
@@ -116,13 +116,16 @@ Subtasks are created on-the-fly when the PR-task starts executing, chained with 
 2. **Branch check** -- if on main/master, ask for branch name, create branch.
 3. **Create step subtasks** -- parse steps from plan, TaskCreate each with `addBlockedBy` chaining.
 4. **Execute steps** -- one by one, mark subtasks in_progress -> completed.
-5. **All steps done** -- invoke finishing-a-development-branch skill.
-6. **PR/merge handled** -- mark PR-task `completed` in native tasks AND tasks.json.
+5. **All steps done** -- push branch and create PR directly (`git push -u origin <branch>` + `gh pr create`). This is a lightweight per-task operation, NOT finishing-a-development-branch.
+6. **PR created** -- switch back to main, mark PR-task `completed` in native tasks AND tasks.json.
 7. **Ask:** "Continue to next task, or close session?"
+8. **After final task** -- invoke finishing-a-development-branch for plan archiving and cleanup.
+
+Note: finishing-a-development-branch is only invoked once after the last PR-task. It handles plan archiving (`git mv docs/plans/<feature>/ docs/plans/archive/<feature>/`) and any final cleanup. Per-task PR creation is handled inline by executing-plans to avoid premature archiving/branch deletion.
 
 ### Subagent-driven-development (new flow)
 
-Same principle -- one PR-task at a time. Subagent gets the full PR-task with all steps. Review stages (spec + code quality) still happen after the subagent completes. Then finishing-a-development-branch, then update tasks.json.
+Same principle -- one PR-task at a time. Subagent gets the full PR-task with all steps. Review stages (spec + code quality) still happen after the subagent completes. Then push branch + create PR directly (same as executing-plans step 5-6). finishing-a-development-branch is invoked only after the final task.
 
 ### Branch naming
 
@@ -157,7 +160,7 @@ Unchanged -- tasks.json is the source of truth for cross-session state. New sess
 - No changes to brainstorming's core flow (just one question + metadata)
 - No changes to design-reviewer agent
 - No changes to TDD skill (red-green-refactor stays the same)
-- No changes to finishing-a-development-branch (already handles PRs, branches, archiving)
+- No changes to finishing-a-development-branch (invoked once after final task for plan archiving/cleanup, not per-task)
 - No changes to using-git-worktrees
 - No gitignore management (`.local.md` assumed already ignored)
 - No changes to code-reviewer agent
