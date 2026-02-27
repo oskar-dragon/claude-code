@@ -61,6 +61,7 @@ digraph process {
     "More tasks remain in this PR?" [shape=diamond];
     "Push branch + create PR" [shape=box];
     "Switch back to main" [shape=box];
+    "Create branch for next PR" [shape=box];
     "Ask: continue to next PR or close?" [shape=diamond];
     "Close session" [shape=box];
     "More PRs remain?" [shape=diamond];
@@ -88,7 +89,8 @@ digraph process {
     "Switch back to main" -> "Ask: continue to next PR or close?";
     "Ask: continue to next PR or close?" -> "More PRs remain?" [label="continue"];
     "Ask: continue to next PR or close?" -> "Close session" [label="close"];
-    "More PRs remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
+    "More PRs remain?" -> "Create branch for next PR" [label="yes"];
+    "Create branch for next PR" -> "Dispatch implementer subagent (./implementer-prompt.md)";
     "More PRs remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
     "Dispatch final code reviewer subagent for entire implementation" -> "Use superpowers:finishing-a-development-branch";
 }
