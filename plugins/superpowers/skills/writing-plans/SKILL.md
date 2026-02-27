@@ -25,11 +25,12 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **BEFORE exploring code or writing the plan, you MUST:**
 
-1. Call `TaskList` to check for existing tasks from brainstorming
-2. If tasks exist: you will enhance them with implementation details as you write the plan
-3. If no tasks: you will create them with `TaskCreate` as you write each plan task
+1. Call `TaskList` to check for existing tasks from brainstorming (for awareness only)
+2. Note any existing tasks for context — do not enhance or create PR-level tasks
 
 **Do not proceed to exploration until TaskList has been called.**
+
+**IMPORTANT:** Do NOT call `TaskCreate` for PR-level tasks at plan time. PR tasks go into `tasks.json` only. The executing skill reads tasks.json to find the next PR to work on each session.
 
 ```
 TaskList
@@ -111,8 +112,8 @@ A task is something someone can:
 **Key differences from old format:**
 - Steps are numbered instructions INSIDE the task, not separate tasks
 - Each task is a PR-sized deliverable, not a 2-5 minute action
-- Only PR-level tasks get `TaskCreate` — steps do NOT get their own tasks at plan time
-- The executing skill creates step-level subtasks on-the-fly during execution
+- PR-level tasks go into `tasks.json` only — do NOT create them via `TaskCreate`
+- The executing skill reads tasks.json and creates all step-level native tasks at session start
 
 ## Remember
 
@@ -153,55 +154,6 @@ AskUserQuestion:
 
 - Guide them to open new session in worktree
 - **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
-
----
-
-## Native Task Integration Reference
-
-Use Claude Code's native task tools to create structured tasks alongside the plan document.
-
-### Creating Native Tasks
-
-For each **PR-sized task** in the plan (NOT each step), create a corresponding native task:
-
-```
-TaskCreate:
-  subject: "Task N: [Component Name]"
-  description: |
-    [Copy the full task content from the plan — files, ALL steps, acceptance criteria]
-  activeForm: "Implementing [Component Name]"
-```
-
-**Important:** Only PR-level tasks get `TaskCreate`. Steps within a task are tracked by the executing skill at runtime, not at plan time.
-
-### Setting Dependencies
-
-After all tasks created, set blockedBy relationships:
-
-```
-TaskUpdate:
-  taskId: [task-id]
-  addBlockedBy: [prerequisite-task-ids]
-```
-
-### During Execution
-
-Update task status as work progresses:
-
-```
-TaskUpdate:
-  taskId: [task-id]
-  status: in_progress  # when starting
-
-TaskUpdate:
-  taskId: [task-id]
-  status: completed    # when done
-```
-
-### Notes
-
-- Native tasks provide CLI-visible progress tracking
-- Plan document remains the permanent record
 
 ---
 
