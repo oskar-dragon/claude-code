@@ -27,9 +27,33 @@ You MUST create a task for each of these items and complete them in order:
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to their complexity, get user approval after each section
-5. **Write design doc** — save to `docs/plans/<feature-name>/design.md` and commit
+5. **Write design doc** — save to `docs/plans/<feature-name>/design.md` (or `design.local.md` if non-committable) and commit (if committable)
 6. **Design review** — invoke design-reviewer agent, resolve all findings
 7. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+
+## Committable Mode
+
+**After exploring project context (checklist step 1), ask the committable question:**
+
+```yaml
+AskUserQuestion:
+  question: "Should planning documents for this workflow be committed to git?"
+  header: "Documents"
+  options:
+    - label: "Yes, commit to git (Recommended)"
+      description: "Documents use .md extension and are committed. Good for team visibility and history."
+    - label: "No, keep local only"
+      description: "Documents use .local.md extension and stay gitignored. Good for exploratory/throwaway work."
+```
+
+**This choice determines file extensions for the entire workflow:**
+
+| Committable | Design | Plan | Tasks |
+|---|---|---|---|
+| `true` | `design.md` | `plan.md` | `tasks.json` |
+| `false` | `design.local.md` | `plan.local.md` | `tasks.local.json` |
+
+**Propagation:** Include `**Committable:** true` (or `false`) in the design doc header. Downstream skills read this field.
 
 ## Process Flow
 
@@ -88,8 +112,10 @@ digraph brainstorming {
 
 **Documentation:**
 
-- Write the validated design to `docs/plans/<feature-name>/design.md`
-- Commit the design document to git
+- Write the validated design to `docs/plans/<feature-name>/design.md` (or `design.local.md` if non-committable)
+- Include `**Committable:** true` (or `false`) in the design doc header block
+- If committable: commit the design document to git
+- If non-committable: skip git add/commit for this file
 
 **Design Review:**
 
