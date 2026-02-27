@@ -20,7 +20,7 @@ Load plan, review critically, execute one PR at a time, create PR, report for re
 Native tasks are always empty at session start — tasks.json is the sole persistent state.
 
 1. **Locate tasks file:** `tasks.json` in the same directory as the plan file (e.g., `docs/plans/<feature-name>/tasks.json`)
-2. If tasks.json has no `prs` key: the plan uses the old flat format — prompt the user to restructure with `## PR N:` sections before continuing.
+2. If tasks.json has no `prs` key or `prs` is empty: proceed to Step 1b to bootstrap from plan headers.
 3. Read the `prs` array to determine what to work on:
    - If a PR has `status: in_progress`: session was interrupted mid-PR. Check `git branch --show-current` — if a feature branch exists, re-run all tasks in this PR from the beginning of the branch. Proceed to Step 2 for this PR.
    - If no `in_progress` PR: find the next `pending` PR whose `blockedBy` IDs all have `status: completed`. Proceed to Step 1c then Step 2.
@@ -88,10 +88,10 @@ git checkout -b <branch-name>
       TaskCreate: subject: "Step 2: [description]", activeForm: "[doing]", blockedBy: [step-1-id]
       ...
       ```
-   b. Mark task in_progress → execute each step → mark task completed
+   b. Mark task in_progress → execute each `**Step N:**` block in the task sequentially → mark task completed
    c. Each task ends with its own named Verify step and Commit step — follow them exactly
    d. **Do NOT open a PR between tasks** — continue to the next task in the PR
-4. **All tasks done — open PR:** Parse the `→ Open PR: "..."` line from the current `## PR N:` section in plan.md for the title:
+4. **All tasks done — open PR:** Find the `→ Open PR: "..."` line at the end of the current `## PR N:` section in plan.md and extract the quoted string as the PR title:
    ```bash
    git push -u origin <branch-name>
    gh pr create --title "[title from → Open PR line]" --body "$(cat <<'EOF'
