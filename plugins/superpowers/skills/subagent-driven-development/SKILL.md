@@ -58,6 +58,10 @@ digraph process {
     }
 
     "Read plan, extract tasks, TaskCreate for each with full text" [shape=box];
+    "Push branch + create PR" [shape=box];
+    "Switch back to main" [shape=box];
+    "Ask: continue or close?" [shape=diamond];
+    "Close session" [shape=box];
     "More tasks remain?" [shape=diamond];
     "Dispatch final code reviewer subagent for entire implementation" [shape=box];
     "Use superpowers:finishing-a-development-branch" [shape=box style=filled fillcolor=lightgreen];
@@ -76,12 +80,39 @@ digraph process {
     "Code quality reviewer subagent approves?" -> "Implementer subagent fixes quality issues" [label="no"];
     "Implementer subagent fixes quality issues" -> "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" [label="re-review"];
     "Code quality reviewer subagent approves?" -> "TaskUpdate: mark task completed" [label="yes"];
-    "TaskUpdate: mark task completed" -> "More tasks remain?";
+    "TaskUpdate: mark task completed" -> "Push branch + create PR";
+    "Push branch + create PR" -> "Switch back to main";
+    "Switch back to main" -> "Ask: continue or close?";
+    "Ask: continue or close?" -> "More tasks remain?" [label="continue"];
+    "Ask: continue or close?" -> "Close session" [label="close"];
     "More tasks remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
     "More tasks remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
     "Dispatch final code reviewer subagent for entire implementation" -> "Use superpowers:finishing-a-development-branch";
 }
 ```
+
+## Per-Task Branch and PR Flow
+
+**Before each task:**
+
+Check if on main/master. If so, ask for branch name and create branch (same as executing-plans Step 1c).
+
+**After task passes both reviews:**
+
+1. Push branch and create PR:
+   ```bash
+   git push -u origin <branch-name>
+   gh pr create --title "Task N: [task subject]" --body "..."
+   ```
+2. Switch back to main: `git checkout main && git pull`
+3. Mark PR-task completed in native tasks AND tasks.json
+4. Ask: "Continue to next task, or close session?"
+
+**After final task:**
+- Dispatch final code-reviewer subagent for entire implementation (unchanged)
+- Invoke finishing-a-development-branch for plan archiving (we're on main, no feature branch — skill detects this and skips to archiving)
+
+**Committable mode:** Read the `**Committable:**` field from the plan header. Use correct file extensions for tasks.json (or tasks.local.json).
 
 ## Prompt Templates
 
@@ -121,6 +152,9 @@ Spec reviewer: ✅ Spec compliant - all requirements met, nothing extra
 Code reviewer: Strengths: Good test coverage, clean. Issues: None. Approved.
 
 [Mark Task 1 complete]
+[Push branch, create PR]
+[Switch to main]
+[Ask: continue or close?]
 
 Task 2: Recovery modes
 
@@ -155,6 +189,9 @@ Implementer: Extracted PROGRESS_INTERVAL constant
 Code reviewer: ✅ Approved
 
 [Mark Task 2 complete]
+[Push branch, create PR]
+[Switch to main]
+[Ask: continue or close?]
 
 ...
 
