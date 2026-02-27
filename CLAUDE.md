@@ -71,6 +71,7 @@ Each plugin follows the Claude Code plugin structure:
 2. Add `.claude-plugin/plugin.json` with metadata
 3. Create subdirectories: `agents/`, `commands/`, `skills/` as needed
 4. Update main `README.md` with plugin description
+5. **MUST add the new plugin entry to `.claude-plugin/marketplace.json`**
 
 ### Creating Commands
 
@@ -170,3 +171,5 @@ Requires configuration in `.claude-location-notes.local.md` for API keys and vau
 3. **Git workflow**: Use `/commit` or `/commit-push-pr` for changes
 4. **Documentation**: Each plugin has its own README.md
 5. **Examples**: Use `.example` suffix for template files requiring configuration
+6. **Version bumping**: ALWAYS bump the plugin's version in its `.claude-plugin/plugin.json` when making any changes to it
+7. **Marketplace registration**: ALWAYS add new plugins to `.claude-plugin/marketplace.json`
