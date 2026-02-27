@@ -1,0 +1,8 @@
+{
+  "planPath": "docs/plans/session-scoped-task-execution/plan.md",
+  "tasks": [
+    { "id": 0, "subject": "Task 0: Update writing-plans/SKILL.md", "status": "completed", "blockedBy": [] },
+    { "id": 1, "subject": "Task 1: Update executing-plans/SKILL.md", "status": "completed", "blockedBy": [] }
+  ],
+  "lastUpdated": "2026-02-27T10:30:00Z"
+}

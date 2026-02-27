@@ -7,9 +7,9 @@ description: Use when you have a written implementation plan to execute in a sep
 
 ## Overview
 
-Load plan, review critically, execute one PR-sized task at a time, create PR, report for review.
+Load plan, review critically, execute one PR at a time, create PR, report for review.
 
-**Core principle:** One PR-sized task at a time with branch-per-task and inline PR creation.
+**Core principle:** One PR at a time with branch-per-PR and inline PR creation.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
@@ -17,13 +17,14 @@ Load plan, review critically, execute one PR-sized task at a time, create PR, re
 
 ### Step 0: Load Persisted Tasks
 
-1. Call `TaskList` to check for existing native tasks
-2. **CRITICAL - Locate tasks file:** Look for `tasks.json` in the same directory as the plan file (e.g., if plan is `docs/plans/<feature-name>/plan.md`, look for `docs/plans/<feature-name>/tasks.json`)
-3. If tasks file exists AND native tasks empty: recreate from JSON using TaskCreate, restore blockedBy with TaskUpdate
-4. If native tasks exist: verify they match plan, resume from first `pending`/`in_progress`
-5. If neither: proceed to Step 1b to bootstrap from plan
+Native tasks are always empty at session start — tasks.json is the sole persistent state.
 
-Update `tasks.json` after every task status change.
+1. **Locate tasks file:** `tasks.json` in the same directory as the plan file (e.g., `docs/plans/<feature-name>/tasks.json`)
+2. If tasks.json has no `prs` key or `prs` is empty: proceed to Step 1 (which will proceed to Step 1b to bootstrap from plan headers before starting).
+3. Read the `prs` array to determine what to work on:
+   - If a PR has `status: in_progress`: session was interrupted mid-PR. Check `git branch --show-current` — if a feature branch exists, run `git log --oneline` to see which task commits already exist. Resume from the first task in this PR whose commit is not in the log. Proceed to Step 2 for this PR.
+   - If no `in_progress` PR: find the next `pending` PR whose `blockedBy` IDs all have `status: completed`. Proceed to Step 1c then Step 2.
+   - If all PRs are `completed`: invoke superpowers:finishing-a-development-branch.
 
 **Committable mode:** Read the `**Committable:**` field from the plan header. If `false`, tasks file is `tasks.local.json` instead of `tasks.json`. Plan file is `plan.local.md` instead of `plan.md`.
 
@@ -34,23 +35,21 @@ Update `tasks.json` after every task status change.
 3. If concerns: Raise them with your human partner before starting
 4. If no concerns: Proceed to task setup
 
-### Step 1b: Bootstrap Tasks from Plan (if needed)
+### Step 1b: Bootstrap PRs from Plan (if needed)
 
-If TaskList returned no tasks or tasks don't match plan:
+If tasks.json has no `prs` array or it is empty:
 
-1. Parse the plan document for `## Task N:` or `### Task N:` headers
-2. For each task found, use TaskCreate with:
-   - subject: The task title from the plan
-   - description: Full task content including steps, files, acceptance criteria
-   - activeForm: Present tense action (e.g., "Implementing X")
-3. **CRITICAL - Dependencies:** For EACH task that has blockedBy in the plan or .tasks.json:
-   - Call `TaskUpdate` with `taskId` and `addBlockedBy: [list-of-blocking-task-ids]`
-   - Do NOT skip this step - dependencies are essential for correct execution order
-4. Call `TaskList` and verify blockedBy relationships show correctly (e.g., "blocked by #1, #2")
+1. Parse the plan document for `## PR N:` headers
+2. For each PR section found, write an entry to the `prs` array:
+   ```json
+   { "id": N, "subject": "PR N: [title from plan]", "status": "pending" }
+   ```
+3. Set `blockedBy` in sequence (each PR blocked by the previous one)
+4. Write the updated tasks.json to disk
 
-### Step 1c: Branch Check (before each task)
+### Step 1c: Branch Check (before each PR)
 
-Before starting each PR-task, check if on main/master:
+Before starting each PR, check if on main/master:
 
 ```bash
 git branch --show-current
@@ -60,11 +59,11 @@ If on main/master, ask for a branch name:
 
 ```yaml
 AskUserQuestion:
-  question: "What branch name for Task N: [task subject]?"
+  question: "What branch name for PR N: [pr subject]?"
   header: "Branch"
   options:
     - label: "feat/[auto-generated-slug]"
-      description: "Auto-generated from task subject"
+      description: "Auto-generated from PR subject"
     - label: "Custom name"
       description: "Enter your own branch name"
 ```
@@ -75,70 +74,49 @@ Create the branch:
 git checkout -b <branch-name>
 ```
 
-### Step 2: Execute PR-Task
+### Step 2: Execute PR
 
-**One task at a time.** For the current PR-task:
+**One PR at a time.** For the current PR:
 
 1. Run Step 1c (Branch Check) — create branch if on main
-2. Mark PR-task as in_progress: `TaskUpdate` (status: in_progress), update `tasks.json`
-3. **Create step subtasks:** Parse the steps from the plan task description. For each step, create a native subtask:
-   ```
-   TaskCreate:
-     subject: "Step N: [step description]"
-     description: "[step detail from plan]"
-     activeForm: "[doing step description]"
-   ```
-   Chain with `addBlockedBy` so steps execute sequentially.
-4. **Execute each step:** Mark subtask in_progress → execute → mark completed
-5. **All steps done — create PR:**
+2. **Write `status: in_progress` to `prs[N]` in tasks.json** immediately (recovery anchor)
+3. **Execute all tasks within this PR:** For each `### Task N:` block belonging to this PR section in plan.md:
+   a. Create a native task:
+      ```
+      TaskCreate: subject: "Task N: [task subject]", activeForm: "Implementing [task subject]"
+      ```
+   b. Mark task in_progress → follow each `**Step N:**` block in the plan sequentially (these are bold named headers with content below, not a list) → mark task completed
+   c. Each task ends with its own named Verify step and Commit step — follow them exactly
+   d. **Do NOT open a PR between tasks** — continue to the next task in the PR
+4. **All tasks done — open PR:** Find the `→ Open PR: "..."` line at the end of the current `## PR N:` section in plan.md and extract the quoted string as the PR title (e.g. `→ Open PR: "feat: add user auth"` → title is `feat: add user auth`):
    ```bash
    git push -u origin <branch-name>
-   gh pr create --title "Task N: [task subject]" --body "$(cat <<'EOF'
+   gh pr create --title "[title from → Open PR line]" --body "$(cat <<'EOF'
    ## Summary
-   [What this task implements]
+   [Task subjects from this PR, one per line]
 
    ## Acceptance Criteria
-   [From the plan task]
+   [Acceptance criteria from each task in this PR]
    EOF
    )"
    ```
-6. **Switch back to main:**
+5. **Switch back to main:**
    ```bash
    git checkout main && git pull
    ```
-7. Mark PR-task as `completed` in native tasks AND `tasks.json`
+6. Write `status: completed` to `prs[N]` in tasks.json
 
-### Step 3: Report and Continue
+### Step 3: Report
 
-After each PR-task:
+After each PR:
 
-- Show what was implemented
-- Show PR URL
-- Show verification output
+Present a session-end summary:
+- What was completed (PR title + URL)
+- Verification output
+- How many PRs remain (from tasks.json `prs` array)
+- Command to resume next session: `/superpowers:executing-plans <plan-path>`
 
-Then ask:
-
-```yaml
-AskUserQuestion:
-  question: "Task N complete. PR created. What next?"
-  header: "Next"
-  options:
-    - label: "Continue to next task"
-      description: "Start the next pending PR-task"
-    - label: "Close session"
-      description: "Save progress and stop here. Resume later with /superpowers:executing-plans"
-```
-
-If continuing: go to Step 2 with next pending task.
-If closing: ensure tasks.json is up to date, report remaining tasks.
-
-### Step 4: Complete All Work
-
-After the **final** PR-task is completed and its PR created:
-
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- At this point we're on main with no feature branch. The skill detects this and skips to plan archiving.
+**Session ends here.** Do NOT offer to continue to the next PR.
 
 ## When to Stop and Ask for Help
 
@@ -161,19 +139,18 @@ After the **final** PR-task is completed and its PR created:
 **Don't force through blockers** - stop and ask.
 
 ## Remember
-
 - Review plan critically first
-- Follow plan steps exactly
-- Don't skip verifications
+- Follow plan steps exactly — bold named step headers, not a numbered list
+- Don't skip verifications or commits
 - Reference skills when plan says to
-- Between batches: just report and wait
 - Stop when blocked, don't guess
 - Never start implementation on main/master branch without explicit user consent
-- One PR-task at a time, not batches
-- Create branch before each task if on main
-- Create step subtasks on-the-fly during execution
-- Push + PR after each task, not at the end
-- tasks.json updated only when PR-task fully completes
+- One PR at a time
+- Create branch once per PR, before any tasks start
+- All tasks within a PR run uninterrupted — no "continue or close?" between tasks
+- Each task ends with its own named Verify + Commit steps — follow them exactly
+- Open PR after all tasks in the PR complete, using the `→ Open PR:` title from the plan
+- tasks.json `prs` entry updated twice: `in_progress` at PR start, `completed` after PR opens
 
 ## Integration
 
