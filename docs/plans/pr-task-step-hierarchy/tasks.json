@@ -1,0 +1,7 @@
+{
+  "planPath": "docs/plans/pr-task-step-hierarchy/plan.md",
+  "prs": [
+    { "id": 1, "subject": "PR 1: Restore PR → Task → Step hierarchy across all execution workflows", "status": "pending" }
+  ],
+  "lastUpdated": "2026-02-27T00:00:00Z"
+}
