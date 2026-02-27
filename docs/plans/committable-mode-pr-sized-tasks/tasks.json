@@ -1,0 +1,11 @@
+{
+  "planPath": "docs/plans/committable-mode-pr-sized-tasks/plan.md",
+  "tasks": [
+    { "id": 0, "subject": "Task 1: Add committable mode to brainstorming skill", "status": "pending" },
+    { "id": 1, "subject": "Task 2: Update writing-plans for committable mode and PR-sized task format", "status": "pending", "blockedBy": [0] },
+    { "id": 2, "subject": "Task 3: Update executing-plans for one-task-at-a-time with branch-per-task", "status": "pending", "blockedBy": [1] },
+    { "id": 3, "subject": "Task 4: Update subagent-driven-development for one-task-at-a-time flow", "status": "pending", "blockedBy": [1] },
+    { "id": 4, "subject": "Task 5: Add no-feature-branch detection to finishing-a-development-branch", "status": "pending", "blockedBy": [2, 3] }
+  ],
+  "lastUpdated": "2026-02-27T00:00:00Z"
+}
