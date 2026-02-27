@@ -38,6 +38,11 @@ digraph when_to_use {
 
 ## The Process
 
+**At session start:** Read tasks.json (`prs` array) to find the current PR:
+- If a PR has `status: in_progress`: that session was interrupted. Resume from the first task in that PR whose commit is not in `git log --oneline`.
+- If no `in_progress` PR: find the first `pending` PR whose `blockedBy` IDs are all `completed`.
+- If all PRs are `completed`: invoke superpowers:finishing-a-development-branch.
+
 ```dot
 digraph process {
     rankdir=TB;
@@ -58,6 +63,7 @@ digraph process {
     }
 
     "Read plan, extract tasks, TaskCreate for each with full text" [shape=box];
+    "Write PR in_progress to tasks.json" [shape=box];
     "More tasks remain in this PR?" [shape=diamond];
     "Push branch + create PR" [shape=box];
     "Switch back to main" [shape=box];
@@ -68,7 +74,8 @@ digraph process {
     "Dispatch final code reviewer subagent for entire implementation" [shape=box];
     "Use superpowers:finishing-a-development-branch" [shape=box style=filled fillcolor=lightgreen];
 
-    "Read plan, extract tasks, TaskCreate for each with full text" -> "Dispatch implementer subagent (./implementer-prompt.md)";
+    "Read plan, extract tasks, TaskCreate for each with full text" -> "Write PR in_progress to tasks.json";
+    "Write PR in_progress to tasks.json" -> "Dispatch implementer subagent (./implementer-prompt.md)";
     "Dispatch implementer subagent (./implementer-prompt.md)" -> "Implementer subagent asks questions?";
     "Implementer subagent asks questions?" -> "Answer questions, provide context" [label="yes"];
     "Answer questions, provide context" -> "Dispatch implementer subagent (./implementer-prompt.md)";
@@ -90,7 +97,7 @@ digraph process {
     "Ask: continue to next PR or close?" -> "More PRs remain?" [label="continue"];
     "Ask: continue to next PR or close?" -> "Close session" [label="close"];
     "More PRs remain?" -> "Create branch for next PR" [label="yes"];
-    "Create branch for next PR" -> "Dispatch implementer subagent (./implementer-prompt.md)";
+    "Create branch for next PR" -> "Write PR in_progress to tasks.json";
     "More PRs remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
     "Dispatch final code reviewer subagent for entire implementation" -> "Use superpowers:finishing-a-development-branch";
 }
