@@ -95,23 +95,18 @@ git checkout -b <branch-name>
 
 ### Step 3: Report and End Session
 
-After each PR-task:
+After each PR-task, check tasks.json:
 
-Present a session-end summary:
-- What was completed (PR title + URL)
-- Verification output
-- How many PRs remain (from tasks.json)
-- Command to resume next session: `/superpowers:executing-plans <plan-path>`
+**If PRs remain** (any task still `pending`):
+- Show what was completed (PR title + URL)
+- Show how many PRs remain
+- Show resume command: `/superpowers:executing-plans <plan-path>`
+- **Session ends here.** One PR per session is the hard boundary. The user will open a new session when ready for the next PR.
 
-**Session ends here.** Do NOT offer to continue to the next task. One PR per session is the hard boundary. The user will open a new session when ready for the next PR.
-
-### Step 4: Complete All Work
-
-After the **final** PR-task is completed and its PR created:
-
+**If all tasks are `completed`:**
+- Show what was completed (PR title + URL)
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- At this point we're on main with no feature branch. The skill detects this and skips to plan archiving.
+- **REQUIRED SUB-SKILL:** Invoke superpowers:finishing-a-development-branch immediately. Do not end the session first.
 
 ## When to Stop and Ask for Help
 
