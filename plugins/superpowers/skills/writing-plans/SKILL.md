@@ -52,17 +52,19 @@ TaskList
 
 **Copy the `**Committable:**` field into the plan document header** so downstream skills (executing-plans, subagent-driven-development) can read it without needing the design doc.
 
-## PR-Sized Task Granularity
+## Task Granularity
 
-**Each task is a complete, PR-able deliverable** — not individual steps like "write test, run test, commit". Those are steps WITHIN a task.
+**Three levels:**
+1. **PR** (`## PR N:`) — a deployable increment; gets its own branch and pull request
+2. **Task** (`### Task N:`) — an atomic commit unit within a PR; each task ends in verify + commit
+3. **Step** (`**Step N: ...**`) — a single implementation detail within a task; bold named header with content below
 
-A task is something someone can:
-- Open a PR for
-- Test independently
-- Review as a unit
-- Merge on its own
+**A PR is deployable when:**
+- All tests pass, no type errors, no lint or formatting errors
+- The feature is complete and reviewable — not half-finished or broken
+- A reviewer can meaningfully assess it as a unit
 
-**Steps within a task are the TDD cycle and commit — they live inside the task description, not as separate tasks.**
+Group tasks into a PR when they collectively deliver one independently deployable increment. A PR must not span unrelated concerns. When in doubt, split into more PRs.
 
 ## Plan Document Header
 
@@ -84,36 +86,68 @@ A task is something someone can:
 ---
 ```
 
-## Task Structure
+`````
+## Plan Structure
+
+Plans use a 3-level hierarchy. All numbering starts at 1. Every task MUST end with a named Verify step then a named Commit step.
 
 ````markdown
-### Task N: [Component Name]
+## PR 1: [PR-worthy description]
+
+### Task 1: [Component Name]
 
 **Files:**
-
 - Create: `exact/path/to/file.py`
 - Modify: `exact/path/to/existing.py:123-145`
 - Test: `tests/exact/path/to/test.py`
 
-**Steps:**
+**Step 1: Write the failing test**
 
-1. Write failing test for [specific behavior]
-2. Run test — verify it fails: `pytest tests/path/test.py::test_name -v`
-3. Implement minimal code to pass test
-4. Run test — verify it passes: `pytest tests/path/test.py::test_name -v`
-5. [Repeat steps 1-4 for additional behaviors]
-6. Commit: `feat: add specific feature`
+```python
+def test_specific_behavior():
+    result = function(input)
+    assert result == expected
+```
+
+**Step 2: Run test to verify it fails**
+
+Run: `pytest tests/path/test.py::test_name -v`
+Expected: FAIL with "function not defined"
+
+**Step 3: Write minimal implementation**
+
+```python
+def function(input):
+    return expected
+```
+
+**Step 4: Run test to verify it passes**
+
+Run: `pytest tests/path/test.py::test_name -v`
+Expected: PASS
+
+**Step 5: Verify**
+
+[any additional checks — read the file, grep for patterns, etc.]
+
+**Step 6: Commit**
+
+```bash
+git add tests/path/test.py src/path/file.py
+git commit -m "feat: add specific feature"
+```
 
 **Acceptance Criteria:**
-- [ ] [Criterion from design]
-- [ ] [Criterion from design]
+- [ ] Criterion from design
+
+→ Open PR: "feat: [pr description]"
 ````
 
-**Key differences from old format:**
-- Steps are numbered instructions INSIDE the task, not separate tasks
-- Each task is a PR-sized deliverable, not a 2-5 minute action
-- PR-level tasks go into `tasks.json` only — do NOT create them via `TaskCreate`
-- The executing skill reads tasks.json and creates all step-level native tasks at session start
+**Rules:**
+- Steps are bold named headers (`**Step N: Description**`) with content below — never a numbered list
+- The `→ Open PR: "..."` line ends each PR section — the executing skill reads this for the PR title
+- PR body is built from the task subjects and acceptance criteria in that PR
+`````
 
 ## Remember
 
@@ -164,9 +198,9 @@ At plan completion, write the task persistence file to `docs/plans/<feature-name
 ```json
 {
   "planPath": "docs/plans/<feature-name>/plan.md",
-  "tasks": [
-    { "id": 0, "subject": "Task 0: ...", "status": "pending" },
-    { "id": 1, "subject": "Task 1: ...", "status": "pending", "blockedBy": [0] }
+  "prs": [
+    { "id": 1, "subject": "PR 1: ...", "status": "pending" },
+    { "id": 2, "subject": "PR 2: ...", "status": "pending", "blockedBy": [1] }
   ],
   "lastUpdated": "<timestamp>"
 }
