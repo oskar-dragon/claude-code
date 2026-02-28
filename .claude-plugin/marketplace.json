@@ -12,13 +12,6 @@
   },
   "plugins": [
     {
-      "name": "documentation",
-      "version": "1.0.0",
-      "source": "./plugins/documentation",
-      "description": "Diataxis documentation framework with 12 agents for tutorials, how-tos, references, explanations, and analysis",
-      "category": "documentation"
-    },
-    {
       "name": "utils",
       "version": "1.0.0",
       "source": "./plugins/utils",
@@ -37,27 +30,6 @@
       "author": {
         "name": "Oskar Dragon"
       }
-    },
-    {
-      "name": "obsidian-location-notes",
-      "version": "0.1.0",
-      "description": "Create location-based notes in Obsidian with automated research, accurate coordinates, and template-specific information gathering",
-      "author": {
-        "name": "oskar-dragon"
-      },
-      "source": "./plugins/obsidian-location-notes",
-      "category": "productivity"
-    },
-    {
-      "name": "ty-lsp",
-      "version": "1.0.0",
-      "description": "Python type checker (ty) from Astral for Claude Code - An extremely fast LSP alternative to Pyright",
-      "author": {
-        "name": "Qogita",
-        "email": "engineering@qogita.com"
-      },
-      "source": "./plugins/ty-lsp",
-      "category": "development"
     },
     {
       "name": "canary-update",
@@ -83,6 +55,26 @@
     {
       "name": "superpowers",
       "source": "./plugins/superpowers"
+    },
+    {
+      "name": "chezmoi",
+      "version": "0.1.0",
+      "source": "./plugins/chezmoi",
+      "description": "Chezmoi dotfiles management — reference knowledge and dependency workflows",
+      "category": "development",
+      "author": {
+        "name": "Oskar Dragon"
+      }
+    },
+    {
+      "name": "superpowers",
+      "description": "Superpowers teaches Claude brainstorming, subagent driven development with built in code review, systematic debugging, and red/green TDD. Additionally, it teaches Claude how to author and test new skills.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/obra/superpowers.git"
+      },
+      "homepage": "https://github.com/obra/superpowers.git"
     }
   ],
   "strict": false
