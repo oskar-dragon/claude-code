@@ -75,6 +75,16 @@
         "url": "https://github.com/obra/superpowers.git"
       },
       "homepage": "https://github.com/obra/superpowers.git"
+    },
+    {
+      "name": "tutor",
+      "version": "0.1.0",
+      "source": "./plugins/tutor",
+      "description": "Personalized learning system with adaptive tutoring, course creation, and progress tracking",
+      "category": "learning",
+      "author": {
+        "name": "Oskar Dragon"
+      }
     }
   ],
   "strict": false
