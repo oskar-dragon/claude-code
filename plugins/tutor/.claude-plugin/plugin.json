@@ -1,0 +1,11 @@
+{
+  "name": "tutor",
+  "version": "0.1.0",
+  "description": "Personalized learning system with adaptive tutoring, course creation, and progress tracking",
+  "author": {
+    "name": "Oskar Dragon",
+    "email": "dragon.t.oskar@gmail.com"
+  },
+  "keywords": ["learning", "tutor", "education", "spaced-repetition", "courses"],
+  "repository": "https://github.com/oskar-dragon/claude-code"
+}
