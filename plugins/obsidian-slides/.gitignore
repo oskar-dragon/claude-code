@@ -1,4 +1,0 @@
-# Local settings and temporary files
-.claude/*.local.md
-*.local.md
-.DS_Store

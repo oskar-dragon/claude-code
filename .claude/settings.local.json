@@ -11,7 +11,8 @@
       "Bash(mkdir:*)",
       "Bash(cp:*)",
       "Bash(eza:*)",
-      "WebFetch(domain:markdown.new)"
+      "WebFetch(domain:markdown.new)",
+      "WebFetch(domain:www.chezmoi.io)"
     ],
     "deny": [],
     "ask": []

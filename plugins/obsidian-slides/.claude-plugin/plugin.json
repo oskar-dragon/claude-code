@@ -1,8 +1,0 @@
-{
-  "name": "obsidian-slides",
-  "version": "0.1.0",
-  "description": "Scaffold Obsidian presentations with generated content and talking points from provided resources",
-  "author": {
-    "name": "Oskar Dragon"
-  }
-}
