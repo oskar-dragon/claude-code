@@ -28,6 +28,7 @@ cc --plugin-dir /path/to/recipe-creator
 ## Prerequisites
 
 This plugin requires the `obsidian-skills` plugin to be installed and enabled, as it delegates to:
+
 - `obsidian:defuddle` - Clean webpage content extraction
 - `obsidian:obsidian-markdown` - Obsidian-flavored markdown formatting
 - `obsidian:obsidian-cli` - Obsidian vault interactions
@@ -43,11 +44,13 @@ This plugin requires the `obsidian-skills` plugin to be installed and enabled, a
 ### Examples
 
 **From URL:**
+
 ```bash
 /create-recipe https://cookieandkate.com/crispy-smashed-potatoes-recipe/
 ```
 
 **From Text:**
+
 ```bash
 /create-recipe Title: Pasta Carbonara
 Ingredients:
@@ -98,6 +101,7 @@ last: 2026-02-14
 image: https://example.com/image.jpg
 this_week:
 ---
+
 ## Ingredients
 
 - 450g chicken breast
@@ -120,12 +124,13 @@ this_week:
 - Carbs: 20g
 - Fat: 15g
 
-*Based on estimated ingredient values*
+_Based on estimated ingredient values_
 ```
 
 ## Supported Cuisines
 
 The plugin recognizes these cuisines:
+
 - Japanese, Mexican, Turkish, Polish, Thai
 - Greek, Middle Eastern, Mediterranean
 - Indian, American, Italian, British, French
@@ -143,15 +148,15 @@ The plugin recognizes these cuisines:
 ## Unit Conversion Reference
 
 | Imperial | Metric |
-|----------|--------|
-| 1 cup | 240ml |
-| 1/2 cup | 120ml |
-| 1/4 cup | 60ml |
-| 1 tbsp | 15ml |
-| 1 tsp | 5ml |
-| 1 fl oz | 30ml |
-| 1 lb | 454g |
-| 1 oz | 28g |
+| -------- | ------ |
+| 1 cup    | 240ml  |
+| 1/2 cup  | 120ml  |
+| 1/4 cup  | 60ml   |
+| 1 tbsp   | 15ml   |
+| 1 tsp    | 5ml    |
+| 1 fl oz  | 30ml   |
+| 1 lb     | 454g   |
+| 1 oz     | 28g    |
 
 All conversions round to sensible increments (5g, 10ml).
 
@@ -160,11 +165,13 @@ All conversions round to sensible increments (5g, 10ml).
 Macros are estimated using a lookup table for common ingredients:
 
 **Proteins (per 100g):**
+
 - Chicken breast: 165 cal, 31g protein, 3.6g fat
 - Ground beef: 250 cal, 26g protein, 15g fat
 - Eggs: 70 cal, 6g protein, 5g fat
 
 **Carbs (per 100g):**
+
 - Rice (cooked): 130 cal, 28g carbs
 - Pasta (cooked): 130 cal, 25g carbs
 - Bread: 265 cal, 49g carbs
@@ -174,13 +181,16 @@ The calculation is basic estimation only. If precise nutrition is needed, provid
 ## Error Handling
 
 **URL extraction fails:**
+
 - Plugin notifies you and asks if you want to provide recipe text manually
 
 **Incomplete recipe data:**
+
 - Creates note with available information
 - Leaves missing sections empty
 
 **Unclear cuisine/type:**
+
 - Only prompts if completely unable to classify
 - Otherwise makes best guess based on ingredients and methods
 
@@ -207,6 +217,7 @@ recipe-creator/
 ### Vault Path
 
 The plugin is configured to create notes at:
+
 ```
 /Users/oskardragon-work/Library/CloudStorage/GoogleDrive-dragon.t.oskar@gmail.com/My Drive/Obsidian/Vault V2/Notes/
 ```
@@ -220,17 +231,21 @@ The template at `templates/recipe-template.md` mirrors your vault's recipe templ
 ## Troubleshooting
 
 **Command not found:**
+
 - Verify plugin is enabled in Claude Code
 - Check plugin is in correct directory
 
 **Obsidian skills not working:**
+
 - Ensure obsidian-skills plugin is installed
 - Verify obsidian-skills plugin is enabled
 
 **Wrong vault path:**
+
 - Edit the vault path in `commands/create-recipe.md` line 232
 
 **Units not converting:**
+
 - Check that measurements use standard abbreviations (cup, tbsp, tsp, lb, oz)
 - Non-standard units may not convert
 

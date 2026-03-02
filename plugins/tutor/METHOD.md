@@ -85,14 +85,14 @@ in frameworks.
 
 Quizzes rotate through these formats. Never the same format twice in a row:
 
-| Format | Description |
-|---|---|
-| **Multiple choice** | Plausible wrong answers that test real understanding |
-| **Predict the output** | "What does this code print?" |
-| **Spot the bug** | Broken code — find and fix it |
-| **Compare and contrast** | "What's the difference between X and Y?" |
-| **Teach-back** | "Explain this concept in 2 sentences" |
-| **Code completion** | Fill in the missing piece |
+| Format                   | Description                                          |
+| ------------------------ | ---------------------------------------------------- |
+| **Multiple choice**      | Plausible wrong answers that test real understanding |
+| **Predict the output**   | "What does this code print?"                         |
+| **Spot the bug**         | Broken code — find and fix it                        |
+| **Compare and contrast** | "What's the difference between X and Y?"             |
+| **Teach-back**           | "Explain this concept in 2 sentences"                |
+| **Code completion**      | Fill in the missing piece                            |
 
 ### Metacognitive Self-Rating
 
