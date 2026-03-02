@@ -37,12 +37,8 @@
       "category": "development"
     },
     {
-      "name": "recipe-creator",
-      "source": "./plugins/recipe-creator"
-    },
-    {
-      "name": "vault-manager",
-      "source": "./plugins/vault-manager"
+      "name": "obsidian-vault",
+      "source": "./plugins/obsidian-vault"
     },
     {
       "name": "markdown-new",
@@ -51,10 +47,6 @@
     {
       "name": "notion-doc",
       "source": "./plugins/notion-doc"
-    },
-    {
-      "name": "superpowers",
-      "source": "./plugins/superpowers"
     },
     {
       "name": "chezmoi",
