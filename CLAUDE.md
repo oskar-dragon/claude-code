@@ -28,7 +28,7 @@ plugins/
 
 Each plugin follows the Claude Code plugin structure:
 
-- **`.claude-plugin/plugin.json`**: Plugin metadata (name, version, author, description)
+- **`.claude-plugin/plugin.json`**: Plugin metadata (name, author, description)
 - **`agents/`**: Autonomous agents with specialized prompts (`.md` files with YAML frontmatter)
 - **`commands/`**: Slash commands (`.md` files with YAML frontmatter)
 - **`skills/`**: Reusable capabilities with progressive disclosure
@@ -171,5 +171,5 @@ Requires configuration in `.claude-location-notes.local.md` for API keys and vau
 3. **Git workflow**: Use `/commit` or `/commit-push-pr` for changes
 4. **Documentation**: Each plugin has its own README.md
 5. **Examples**: Use `.example` suffix for template files requiring configuration
-6. **Version bumping**: ALWAYS bump the plugin's version in its `.claude-plugin/plugin.json` when making any changes to it
+6. **Version bumping**: ALWAYS bump the plugin's version in `.claude-plugin/marketplace.json` when making any changes to it
 7. **Marketplace registration**: ALWAYS add new plugins to `.claude-plugin/marketplace.json`
