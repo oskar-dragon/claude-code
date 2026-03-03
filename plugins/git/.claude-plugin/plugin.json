@@ -1,9 +1,3 @@
 {
-  "name": "git",
-  "version": "1.0.1",
-  "description": "All git operations",
-  "author": {
-    "name": "Oskar Dragon",
-    "email": "dragon.t.oskar@gmail.com"
-  }
+  "name": "git"
 }

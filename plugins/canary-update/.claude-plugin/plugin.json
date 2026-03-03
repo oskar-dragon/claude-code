@@ -1,8 +1,3 @@
 {
-  "name": "canary-update",
-  "version": "1.0.3",
-  "description": "Automates canary-types schema updates and propagates changes across the codebase",
-  "author": {
-    "name": "Qogita"
-  }
+  "name": "canary-update"
 }

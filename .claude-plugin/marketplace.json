@@ -23,7 +23,7 @@
     },
     {
       "name": "git",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "source": "./plugins/git",
       "description": "All git operations",
       "category": "development",
@@ -33,20 +33,48 @@
     },
     {
       "name": "canary-update",
+      "version": "1.0.3",
+      "description": "Automates canary-types schema updates and propagates changes across the codebase",
       "source": "./plugins/canary-update",
       "category": "development"
     },
     {
       "name": "obsidian-vault",
+      "version": "1.0.1",
+      "description": "My obsidian vault setup",
+
       "source": "./plugins/obsidian-vault"
     },
     {
       "name": "markdown-new",
-      "source": "./plugins/markdown-new"
+      "version": "0.1.0",
+      "description": "Teach Claude to use markdown.new for web content fetching, reducing token usage by ~80% compared to raw HTML",
+      "source": "./plugins/markdown-new",
+      "keywords": [
+        "markdown",
+        "web-fetching",
+        "token-optimization",
+        "web-scraping"
+      ]
+    },
+    {
+      "name": "obsidian-location-notes",
+      "version": "0.1.0",
+      "description": "Automated location research and note creation for Obsidian with geolocation and multi-source research",
+      "keywords": [
+        "obsidian",
+        "location",
+        "research",
+        "geolocation",
+        "travel",
+        "notes"
+      ]
     },
     {
       "name": "notion-doc",
-      "source": "./plugins/notion-doc"
+      "source": "./plugins/notion-doc",
+      "version": "0.1.0",
+      "description": "Generate Qogita project documents from design docs following the Notion PRD template"
     },
     {
       "name": "chezmoi",

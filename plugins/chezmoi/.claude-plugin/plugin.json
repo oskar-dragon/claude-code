@@ -1,8 +1,4 @@
 {
   "name": "chezmoi",
-  "version": "0.1.0",
-  "description": "Chezmoi dotfiles management — reference knowledge and dependency workflows",
-  "author": {
-    "name": "oskar-dragon"
-  }
+  "version": "0.1.0"
 }
