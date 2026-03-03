@@ -1,11 +1,7 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "name": "claude-code",
-  "source": {
-    "source": "github",
-    "repo": "oskar-dragon/claude-code"
-  },
   "description": "A marketplace with my Claude Code plugins",
-  "repository": "https://github.com/oskar-dragon/claude-code",
   "owner": {
     "name": "Oskar Dragon",
     "email": "dragon.t.oskar@gmail.com"
@@ -42,7 +38,6 @@
       "name": "obsidian-vault",
       "version": "1.0.1",
       "description": "My obsidian vault setup",
-
       "source": "./plugins/obsidian-vault"
     },
     {
@@ -61,6 +56,7 @@
       "name": "obsidian-location-notes",
       "version": "0.1.0",
       "description": "Automated location research and note creation for Obsidian with geolocation and multi-source research",
+      "source": "./plugins/obsidian-location-notes",
       "keywords": [
         "obsidian",
         "location",
@@ -95,7 +91,15 @@
       "author": {
         "name": "Oskar Dragon"
       }
+    },
+    {
+      "name": "vault-manager",
+      "version": "2.1.0",
+      "source": "./plugins/vault-manager",
+      "description": "Vault management system for Oskar's Obsidian knowledge base — daily planning, inbox processing, reviews, goals, projects, and meeting notes",
+      "author": {
+        "name": "Oskar Dragon"
+      }
     }
-  ],
-  "strict": false
+  ]
 }
