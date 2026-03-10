@@ -1,0 +1,17 @@
+{
+  "name": "travel-planner",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "preferences": "bun run scripts/preferences.ts",
+    "geocode": "bun run scripts/geocode.ts",
+    "budget": "bun run scripts/budget.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "yaml": "^2.8.2"
+  }
+}
