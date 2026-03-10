@@ -263,10 +263,10 @@ Any free-form notes about travel preferences.
 - Queries Nominatim API (OpenStreetMap)
 - Respects 1 request/second rate limit
 - Search strategies: exact name → name + country → alternative formats
-- Returns `[latitude, longitude]` or null with reason
+- Returns `{ lat, lon, display_name }` or null with reason
 
 ### `budget.ts`
-- Accepts total budget, currency, budget level, trip type
+- Accepts total budget, currency, budget level
 - Calculates category splits:
   - Budget: 40% accommodation, 25% food, 20% activities, 10% transport, 5% misc
   - Mid-range: 35/25/25/10/5
