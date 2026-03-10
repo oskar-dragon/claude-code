@@ -61,7 +61,7 @@ export async function geocode(
   if (country) {
     // Wait 1 second to respect Nominatim rate limit
     await Bun.sleep(1000);
-    results = await searchNominatim(`${locationName} ${country}`);
+    results = await searchNominatim(locationName, country);
     best = selectBestResult(results);
     if (best) {
       return { lat: best.lat, lon: best.lon, display_name: best.display_name };
