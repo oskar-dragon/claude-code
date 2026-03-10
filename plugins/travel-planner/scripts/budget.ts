@@ -58,7 +58,7 @@ if (import.meta.main) {
   const currency = process.argv[3];
   const tier = process.argv[4] ?? "mid-range";
 
-  if (!total || !currency) {
+  if (isNaN(total) || !currency) {
     console.error(JSON.stringify({ error: "missing_arguments", message: "Usage: bun run budget.ts <total> <currency> [tier]" }));
     process.exit(1);
   }
