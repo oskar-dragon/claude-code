@@ -46,16 +46,20 @@ describe("geocode", () => {
     ];
 
     globalThis.fetch = mock(() =>
-      Promise.resolve(new Response(JSON.stringify(mockResponse)))
+      Promise.resolve(new Response(JSON.stringify(mockResponse))),
     ) as typeof fetch;
 
     const result = await geocode("Paris");
-    expect(result).toEqual({ lat: "48.8566", lon: "2.3522", display_name: "Paris, Ile-de-France, France" });
+    expect(result).toEqual({
+      lat: "48.8566",
+      lon: "2.3522",
+      display_name: "Paris, Ile-de-France, France",
+    });
   });
 
   it("returns null when no results found", async () => {
     globalThis.fetch = mock(() =>
-      Promise.resolve(new Response(JSON.stringify([])))
+      Promise.resolve(new Response(JSON.stringify([]))),
     ) as typeof fetch;
 
     const result = await geocode("Nonexistent Place XYZ123");
@@ -79,8 +83,8 @@ describe("geocode", () => {
               importance: 0.6,
               type: "desert",
             },
-          ])
-        )
+          ]),
+        ),
       );
     }) as typeof fetch;
 
