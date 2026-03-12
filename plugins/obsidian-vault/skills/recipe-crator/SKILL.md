@@ -176,7 +176,7 @@ Ensure image URL is complete (starts with http:// or https://)
 
 Use the `obsidian:obsidian-markdown` skill to structure the note following this template:
 
-**Template structure** (see `templates/recipe-template.md`):
+**Template structure** (see `references/recipe-template.md`):
 
 ```markdown
 ---
@@ -230,7 +230,7 @@ this_week:
 
 Use the `obsidian:obsidian-cli` skill to create the note:
 
-**Note location (CONFIGURED FOR OSKAR'S VAULT):** `/Users/oskardragon-work/Library/CloudStorage/GoogleDrive-dragon.t.oskar@gmail.com/My Drive/Obsidian/Vault V2/Notes/`
+**Note location (CONFIGURED FOR OSKAR'S VAULT):** `/Users/oskardragon-work/workspaces/obsidian/References/`
 
 **Note filename:** `<Recipe Title>.md`
 
