@@ -45,14 +45,15 @@ export function parsePreferences(content: string): Preferences {
 // CLI entry point
 if (import.meta.main) {
   const configPath =
-    process.argv[2] ??
-    `${process.env.HOME}/.claude/travel-planner.local.md`;
+    process.argv[2] ?? `${process.env.HOME}/.claude/travel-planner.local.md`;
 
   const file = Bun.file(configPath);
   const exists = await file.exists();
 
   if (!exists) {
-    console.error(JSON.stringify({ error: "config_not_found", path: configPath }));
+    console.error(
+      JSON.stringify({ error: "config_not_found", path: configPath }),
+    );
     process.exit(1);
   }
 
@@ -61,7 +62,9 @@ if (import.meta.main) {
     const prefs = parsePreferences(content);
     console.log(JSON.stringify(prefs, null, 2));
   } catch (e) {
-    console.error(JSON.stringify({ error: "parse_error", message: (e as Error).message }));
+    console.error(
+      JSON.stringify({ error: "parse_error", message: (e as Error).message }),
+    );
     process.exit(1);
   }
 }

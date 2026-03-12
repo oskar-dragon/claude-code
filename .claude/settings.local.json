@@ -12,11 +12,21 @@
       "Bash(cp:*)",
       "Bash(eza:*)",
       "WebFetch(domain:markdown.new)",
-      "WebFetch(domain:www.chezmoi.io)"
+      "WebFetch(domain:www.chezmoi.io)",
+      "Bash(cd /Users/oskardragon-work/workspaces/oskar-dragon/claude-code/plugins/travel-planner && bun install && bun add yaml)",
+      "Bash(git checkout:*)",
+      "Bash(cd /Users/oskardragon-work/workspaces/oskar-dragon/claude-code/plugins/travel-planner && bun test scripts/__tests__/preferences.test.ts 2>&1)",
+      "Bash(cd /Users/oskardragon-work/workspaces/oskar-dragon/claude-code/plugins/travel-planner && bun test scripts/__tests__/geocode.test.ts 2>&1)",
+      "Bash(cd /Users/oskardragon-work/workspaces/oskar-dragon/claude-code/plugins/travel-planner && bun test scripts/__tests__/geocode.test.ts)",
+      "Bash(cd /Users/oskardragon-work/workspaces/oskar-dragon/claude-code/plugins/travel-planner && bun test scripts/__tests__/budget.test.ts 2>&1)",
+      "Bash(cd /Users/oskardragon-work/workspaces/oskar-dragon/claude-code/plugins/travel-planner && bun test 2>&1)",
+      "Bash(cd /Users/oskardragon-work/workspaces/oskar-dragon/claude-code/plugins/travel-planner && bun test)",
+      "Bash(git -C /Users/oskardragon-work/workspaces/oskar-dragon/claude-code branch --show-current)"
     ],
     "deny": [],
     "ask": []
   },
   "model": "opusplan",
-  "outputStyle": "default"
+  "outputStyle": "default",
+  "defaultMode": "bypassPermissions"
 }

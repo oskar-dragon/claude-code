@@ -18,17 +18,23 @@ const TIER_SPLITS: Record<BudgetTier, number[]> = {
   luxury: [0.45, 0.2, 0.2, 0.1, 0.05],
 };
 
-const CATEGORY_NAMES = ["accommodation", "food", "activities", "transport", "misc"] as const;
+const CATEGORY_NAMES = [
+  "accommodation",
+  "food",
+  "activities",
+  "transport",
+  "misc",
+] as const;
 
 export function calculateBudget(
   total: number,
   currency: string,
-  tier: string
+  tier: string,
 ): BudgetBreakdown {
   const splits = TIER_SPLITS[tier as BudgetTier] ?? TIER_SPLITS["mid-range"];
 
   const categories = Object.fromEntries(
-    CATEGORY_NAMES.map((name, i) => [name, Math.round(total * splits[i])])
+    CATEGORY_NAMES.map((name, i) => [name, Math.round(total * splits[i])]),
   ) as BudgetBreakdown["categories"];
 
   return { total, currency, categories };
@@ -36,10 +42,7 @@ export function calculateBudget(
 
 export function formatBudgetTable(breakdown: BudgetBreakdown): string {
   const { total, currency, categories } = breakdown;
-  const lines: string[] = [
-    "| Category | Amount | % |",
-    "|---|---|---|",
-  ];
+  const lines: string[] = ["| Category | Amount | % |", "|---|---|---|"];
 
   for (const name of CATEGORY_NAMES) {
     const amount = categories[name];
@@ -59,7 +62,12 @@ if (import.meta.main) {
   const tier = process.argv[4] ?? "mid-range";
 
   if (isNaN(total) || !currency) {
-    console.error(JSON.stringify({ error: "missing_arguments", message: "Usage: bun run budget.ts <total> <currency> [tier]" }));
+    console.error(
+      JSON.stringify({
+        error: "missing_arguments",
+        message: "Usage: bun run budget.ts <total> <currency> [tier]",
+      }),
+    );
     process.exit(1);
   }
 

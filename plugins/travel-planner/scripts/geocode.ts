@@ -17,7 +17,7 @@ const USER_AGENT = "travel-planner-claude-plugin/0.1.0";
 
 async function searchNominatim(
   query: string,
-  countryCode?: string
+  countryCode?: string,
 ): Promise<NominatimResult[]> {
   const params = new URLSearchParams({
     q: query,
@@ -40,7 +40,7 @@ async function searchNominatim(
 }
 
 export function selectBestResult(
-  results: NominatimResult[]
+  results: NominatimResult[],
 ): NominatimResult | null {
   if (results.length === 0) return null;
   return results.sort((a, b) => b.importance - a.importance)[0];
@@ -48,7 +48,7 @@ export function selectBestResult(
 
 export async function geocode(
   locationName: string,
-  country?: string
+  country?: string,
 ): Promise<GeocodedLocation | null> {
   // Strategy 1: exact name search
   let results = await searchNominatim(locationName);
@@ -93,7 +93,12 @@ if (import.meta.main) {
   const country = process.argv[3];
 
   if (!locationName) {
-    console.error(JSON.stringify({ error: "missing_argument", message: "Usage: bun run geocode.ts <location> [country]" }));
+    console.error(
+      JSON.stringify({
+        error: "missing_argument",
+        message: "Usage: bun run geocode.ts <location> [country]",
+      }),
+    );
     process.exit(1);
   }
 
@@ -101,6 +106,12 @@ if (import.meta.main) {
   if (result) {
     console.log(JSON.stringify(result));
   } else {
-    console.log(JSON.stringify({ coordinates: null, reason: "No results found", tried: [locationName, country].filter(Boolean) }));
+    console.log(
+      JSON.stringify({
+        coordinates: null,
+        reason: "No results found",
+        tried: [locationName, country].filter(Boolean),
+      }),
+    );
   }
 }
