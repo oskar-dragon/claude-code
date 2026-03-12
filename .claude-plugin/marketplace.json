@@ -53,20 +53,6 @@
       ]
     },
     {
-      "name": "obsidian-location-notes",
-      "version": "0.1.0",
-      "description": "Automated location research and note creation for Obsidian with geolocation and multi-source research",
-      "source": "./plugins/obsidian-location-notes",
-      "keywords": [
-        "obsidian",
-        "location",
-        "research",
-        "geolocation",
-        "travel",
-        "notes"
-      ]
-    },
-    {
       "name": "notion-doc",
       "source": "./plugins/notion-doc",
       "version": "0.1.0",
