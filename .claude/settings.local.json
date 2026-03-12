@@ -24,9 +24,9 @@
       "Bash(git -C /Users/oskardragon-work/workspaces/oskar-dragon/claude-code branch --show-current)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "defaultMode": "bypassPermissions"
   },
   "model": "opusplan",
-  "outputStyle": "default",
-  "defaultMode": "bypassPermissions"
+  "outputStyle": "default"
 }
