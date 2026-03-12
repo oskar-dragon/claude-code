@@ -93,10 +93,10 @@
       }
     },
     {
-      "name": "vault-manager",
-      "version": "2.1.0",
-      "source": "./plugins/vault-manager",
-      "description": "Vault management system for Oskar's Obsidian knowledge base — daily planning, inbox processing, reviews, goals, projects, and meeting notes",
+      "name": "obsidian-vault",
+      "version": "1.0.0",
+      "source": "./plugins/obsidian-vault",
+      "description": "Obsidian Vault stuff",
       "author": {
         "name": "Oskar Dragon"
       }
