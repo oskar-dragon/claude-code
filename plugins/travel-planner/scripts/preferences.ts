@@ -1,26 +1,8 @@
 import { parse as parseYaml } from "yaml";
 
 export interface Preferences {
-  travel_style: string;
-  budget_level: string;
-  accommodation_preference: string[];
-  interests: string[];
-  dietary_restrictions: string[];
-  pace_preference: string;
-  travel_companions: string;
-  preferred_sources: string[];
+  sources: string[];
 }
-
-const REQUIRED_FIELDS: (keyof Preferences)[] = [
-  "travel_style",
-  "budget_level",
-  "accommodation_preference",
-  "interests",
-  "dietary_restrictions",
-  "pace_preference",
-  "travel_companions",
-  "preferred_sources",
-];
 
 export function parsePreferences(content: string): Preferences {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
@@ -33,13 +15,16 @@ export function parsePreferences(content: string): Preferences {
     throw new Error("Invalid YAML frontmatter");
   }
 
-  for (const field of REQUIRED_FIELDS) {
-    if (!(field in parsed)) {
-      throw new Error(`Missing required field: ${field}`);
-    }
+  if (!("sources" in parsed)) {
+    throw new Error("Missing required field: sources");
   }
 
-  return parsed as Preferences;
+  const sources = (parsed as Record<string, unknown>).sources;
+  if (!Array.isArray(sources) || sources.length === 0) {
+    throw new Error("sources must be a non-empty array");
+  }
+
+  return { sources: sources as string[] };
 }
 
 // CLI entry point
@@ -60,7 +45,7 @@ if (import.meta.main) {
   const content = await file.text();
   try {
     const prefs = parsePreferences(content);
-    console.log(JSON.stringify(prefs, null, 2));
+    console.log(JSON.stringify(prefs));
   } catch (e) {
     console.error(
       JSON.stringify({ error: "parse_error", message: (e as Error).message }),

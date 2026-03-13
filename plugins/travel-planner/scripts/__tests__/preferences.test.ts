@@ -1,71 +1,66 @@
 import { describe, it, expect } from "bun:test";
-import { parsePreferences, type Preferences } from "../preferences";
+import { parsePreferences } from "../preferences";
 
-const SAMPLE_CONTENT = `---
+const SOURCES_ONLY_CONTENT = `---
+sources:
+  - Lonely Planet
+  - Atlas Obscura
+  - iOverlander
+---
+`;
+
+const OLD_FORMAT_CONTENT = `---
 travel_style: adventurous
 budget_level: mid-range
 accommodation_preference:
-  - boutique hotels
-  - Airbnb
+  - hotels
 interests:
-  - culture
   - food
-  - photography
 dietary_restrictions: []
 pace_preference: moderate
 travel_companions: couple
 preferred_sources:
-  - https://www.atlasobscura.com
-  - https://www.alltrails.com
----
-
-## Notes
-Some free-form notes here.
-`;
-
-const MINIMAL_CONTENT = `---
-travel_style: budget
-budget_level: budget
-accommodation_preference: []
-interests: []
-dietary_restrictions: []
-pace_preference: relaxed
-travel_companions: solo
-preferred_sources: []
+  - Lonely Planet
+sources:
+  - Lonely Planet
+  - Atlas Obscura
 ---
 `;
 
 describe("parsePreferences", () => {
-  it("parses full preferences with all fields", () => {
-    const result = parsePreferences(SAMPLE_CONTENT);
-    expect(result.travel_style).toBe("adventurous");
-    expect(result.budget_level).toBe("mid-range");
-    expect(result.accommodation_preference).toEqual(["boutique hotels", "Airbnb"]);
-    expect(result.interests).toEqual(["culture", "food", "photography"]);
-    expect(result.dietary_restrictions).toEqual([]);
-    expect(result.pace_preference).toBe("moderate");
-    expect(result.travel_companions).toBe("couple");
-    expect(result.preferred_sources).toEqual([
-      "https://www.atlasobscura.com",
-      "https://www.alltrails.com",
-    ]);
+  it("parses sources-only config", () => {
+    const result = parsePreferences(SOURCES_ONLY_CONTENT);
+    expect(result.sources).toEqual(["Lonely Planet", "Atlas Obscura", "iOverlander"]);
   });
 
-  it("parses minimal preferences", () => {
-    const result = parsePreferences(MINIMAL_CONTENT);
-    expect(result.travel_style).toBe("budget");
-    expect(result.preferred_sources).toEqual([]);
+  it("ignores old fields (travel_style, budget_level, etc.) silently", () => {
+    const result = parsePreferences(OLD_FORMAT_CONTENT);
+    expect(result.sources).toEqual(["Lonely Planet", "Atlas Obscura"]);
+    expect((result as any).travel_style).toBeUndefined();
+    expect((result as any).preferred_sources).toBeUndefined();
   });
 
   it("throws on missing frontmatter delimiters", () => {
-    expect(() => parsePreferences("no frontmatter here")).toThrow();
+    expect(() => parsePreferences("no frontmatter here")).toThrow("No YAML frontmatter found");
   });
 
-  it("throws on missing required field", () => {
+  it("throws when sources field is absent", () => {
     const content = `---
 travel_style: adventurous
 ---
 `;
-    expect(() => parsePreferences(content)).toThrow();
+    expect(() => parsePreferences(content)).toThrow("Missing required field: sources");
+  });
+
+  it("throws when sources is an empty array", () => {
+    const content = `---
+sources: []
+---
+`;
+    expect(() => parsePreferences(content)).toThrow("sources must be a non-empty array");
+  });
+
+  it("throws on invalid YAML", () => {
+    expect(() => parsePreferences("---\n:\n---")).toThrow();
   });
 });
