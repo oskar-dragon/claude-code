@@ -20,7 +20,7 @@ Reference files:
 |-------|------|-------|
 | Batch 1 | Research agents (8 parallel) | `sonnet` |
 | Batch 2 | Country/region note creators | `haiku` |
-| Step 5 | Trip note writer | `sonnet` |
+| Step 4 | Trip note writer | `sonnet` |
 | Batch 3 | Location note creators (chunked) | `haiku` |
 | Batch 4 | Budget/packing/countdown (sequential) | `haiku` |
 
@@ -123,7 +123,7 @@ bun run $CLAUDE_PLUGIN_ROOT/scripts/preferences.ts
 
 ---
 
-## Step 4 — Batch 2: Country & Region Notes
+## Step 3 — Batch 2: Country & Region Notes
 
 Run both in parallel:
 
@@ -143,7 +143,7 @@ Run both in parallel:
 
 ---
 
-## Step 5 — Write Trip Note
+## Step 4 — Write Trip Note
 
 1. Read `prompts/trip-note-writer.md`
 2. Fill in all placeholders:
@@ -158,7 +158,7 @@ Run both in parallel:
 
 ---
 
-## Step 5b — Extract Wikilinks
+## Step 4b — Extract Wikilinks
 
 This step is done by the orchestrator directly — no subagent needed.
 
@@ -184,7 +184,7 @@ This step is done by the orchestrator directly — no subagent needed.
 
 ---
 
-## Step 6 — Batch 3: Location Notes
+## Step 5 — Batch 3: Location Notes
 
 Process the authoritative location list in chunks of 10:
 
@@ -198,11 +198,11 @@ For each chunk:
 4. Handle statuses for each: record created/existing/blocked/concerns
 5. Repeat for the next chunk
 
-Run Batch 3 concurrently with Batch 4 (Step 7) — dispatch both before waiting.
+Run Batch 3 concurrently with Batch 4 (Step 6) — dispatch both before waiting.
 
 ---
 
-## Step 7 — Batch 4: Trip Extras
+## Step 6 — Batch 4: Trip Extras
 
 Dispatch Batch 4 concurrently with Batch 3. Within Batch 4, run sequentially:
 
@@ -223,7 +223,7 @@ Dispatch Batch 4 concurrently with Batch 3. Within Batch 4, run sequentially:
 
 ---
 
-## Step 8 — Expense Tracking
+## Step 7 — Expense Tracking
 
 After the trip note is fully written, check whether an expense tracking base already exists. Use the Glob tool to search for `Categories/Expenses.base` inside the vault.
 
@@ -251,7 +251,7 @@ Regardless of whether the base was created or already existed, add a link to it 
 
 ---
 
-## Step 9 — Post-Completion Verification
+## Step 8 — Post-Completion Verification
 
 For every location in the authoritative list:
 1. Glob for `Travel/Locations/<Name>.md`
@@ -263,7 +263,7 @@ Log silent failures prominently in the summary.
 
 ---
 
-## Step 10 — Summary
+## Step 9 — Summary
 
 Report:
 - **Trip note:** `<path>`
