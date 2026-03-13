@@ -61,6 +61,17 @@ sources: []
   });
 
   it("throws on invalid YAML", () => {
-    expect(() => parsePreferences("---\n:\n---")).toThrow();
+    const content = `---\n{\nbad yaml\n---`;
+    expect(() => parsePreferences(content)).toThrow("Flow map must end with a }");
+  });
+
+  it("throws when sources contains non-strings", () => {
+    const content = `---
+sources:
+  - 1
+  - true
+---
+`;
+    expect(() => parsePreferences(content)).toThrow("sources must be an array of strings");
   });
 });

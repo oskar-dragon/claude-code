@@ -5,7 +5,7 @@ export interface Preferences {
 }
 
 export function parsePreferences(content: string): Preferences {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!match) {
     throw new Error("No YAML frontmatter found");
   }
@@ -24,7 +24,11 @@ export function parsePreferences(content: string): Preferences {
     throw new Error("sources must be a non-empty array");
   }
 
-  return { sources: sources as string[] };
+  if (!sources.every((s) => typeof s === "string")) {
+    throw new Error("sources must be an array of strings");
+  }
+
+  return { sources };
 }
 
 // CLI entry point
