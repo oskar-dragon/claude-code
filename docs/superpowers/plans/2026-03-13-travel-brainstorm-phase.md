@@ -729,7 +729,15 @@ No file change needed for budget-generator.md — placeholder names are already 
 **Files:**
 - Modify: `plugins/travel-planner/skills/plan-trip/prompts/packing-generator.md`
 
-- [ ] **Step 1: Update the Input section**
+- [ ] **Step 1: Verify no `{{dietary_restrictions}}` placeholder exists**
+
+```bash
+grep -n "dietary" plugins/travel-planner/skills/plan-trip/prompts/packing-generator.md
+```
+
+Expected: no matches. The spec mentions removing it but it was never added to this template. If it IS present, add it to the replacement in Step 2.
+
+- [ ] **Step 2: Update the Input section**
 
 Replace:
 ```markdown
@@ -741,7 +749,7 @@ With:
 - **Traveller profile:** {{PROFILE}}
 ```
 
-- [ ] **Step 2: Commit**
+- [ ] **Step 3: Commit**
 
 ```bash
 git add plugins/travel-planner/skills/plan-trip/prompts/packing-generator.md
