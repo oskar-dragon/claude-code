@@ -81,7 +81,7 @@
 
     {
       "name": "travel-planner",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "source": "./plugins/travel-planner",
       "description": "Trip planning with Obsidian integration — brainstorm-trip for interactive planning interviews, plan-trip for research, itineraries, location/country/region notes, budgets, and packing lists",
       "author": {
