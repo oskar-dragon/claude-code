@@ -62,11 +62,11 @@ If your category involves specific named places (hotels, restaurants, viewpoints
 
 Format:
 
-````
+```
 ## Location Images
 - Place Name: https://example.com/image.jpg
 - Another Place: https://example.com/other.jpg
-````
+```
 
 ## Self-Review
 
