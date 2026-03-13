@@ -99,7 +99,7 @@ bun run $CLAUDE_PLUGIN_ROOT/scripts/preferences.ts
 
 ---
 
-## Step 3 — Batch 1: Research
+## Step 2 — Batch 1: Research
 
 1. Compute 8 clipping file paths using the pattern: `Clippings/<Trip Name> — <Category>.md`
    Categories: Visa & Entry Requirements, Weather & Best Time to Visit, Transport, Attractions & Activities, Food Scene & Restaurants, Neighbourhoods & Areas to Stay, Events During Travel Dates, Practical Tips
