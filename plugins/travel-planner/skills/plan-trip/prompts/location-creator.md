@@ -26,7 +26,7 @@ Not all clipping files will be relevant — search them for mentions of "{{LOCAT
 
 Search these files for mentions of "{{LOCATION_NAME}}" or related terms. Extract: description, address, opening hours, highlights, and any source URLs that mention this place.
 
-Also search each clipping file for a `## Location Images` section. Look for a line matching "{{LOCATION_NAME}}" using a case-insensitive exact match on the place name. If the same name appears in multiple files, use the first match found. If a match is found, note the image URL for use in the next step. If no match is found, no image URL will be passed.
+Also search each clipping file for a `## Location Images` section. In that section, look for a line in the format `- Place Name: <url>` where the place name matches "{{LOCATION_NAME}}" case-insensitively, and extract the URL from that line. If the same name appears in multiple files, use the first match found. If a match is found, note the image URL for use in the next step. If no match is found, no image URL will be passed.
 
 ## Output
 
