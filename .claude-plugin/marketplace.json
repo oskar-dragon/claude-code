@@ -81,9 +81,9 @@
 
     {
       "name": "travel-planner",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "source": "./plugins/travel-planner",
-      "description": "Trip planning with Obsidian integration — researches destinations, creates itineraries, location/country/region notes, budgets, and packing lists",
+      "description": "Trip planning with Obsidian integration — brainstorm-trip for interactive planning interviews, plan-trip for research, itineraries, location/country/region notes, budgets, and packing lists",
       "author": {
         "name": "Oskar Dragon"
       },
