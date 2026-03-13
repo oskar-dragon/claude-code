@@ -55,7 +55,7 @@ Use the returned latitude and longitude in the `coordinates` field. If geocoding
 
 ### 6. Assemble the Note
 
-Build the note using the template structure. Apply type-specific icon, color, tag, and sections from `references/location-types.md`.
+Build the note using the template structure. Apply type-specific icon and color from `references/location-types.md`. Do NOT add a `tags` field — it is not part of the frontmatter template.
 
 Field rules:
 
@@ -63,6 +63,7 @@ Field rules:
 - Leave `image` empty if no image URL is found; do not invent images
 - Set `created` to today's date in `YYYY-MM-DD` format
 - Set `visited: false`
+- Only include frontmatter fields listed in `references/location-types.md`. Do NOT add `tags`, `aliases`, or any other fields not in the template.
 
 ### 7. Apply Obsidian Formatting
 
@@ -78,10 +79,11 @@ Write the assembled note to the target path in the vault.
 
 ## Reference
 
-See `references/location-types.md` for the full mapping of location type → icon, color, tag, and optional sections.
+See `references/location-types.md` for the full mapping of location type → icon, color, and optional sections.
 
 ## Notes
 
 - Always use list format for `categories`, `type`, `location`, `coordinates`, and `source` fields (YAML arrays)
 - Wikilinks in frontmatter must be quoted: `'[[Country]]'` — use `obsidian:obsidian-markdown` skill for correct syntax
 - Leave `image` empty if no image URL is found; do not invent images
+- Only include frontmatter fields listed in `references/location-types.md` — do not add `tags`, `aliases`, or other fields

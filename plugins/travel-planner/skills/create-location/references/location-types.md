@@ -7,14 +7,14 @@
 
 ## Type Definitions
 
-| Type | Tag | Icon | Color | Extra Section |
-|---|---|---|---|---|
-| Photo Locations | `map/photo-location` | `camera` | green | Photography Tips |
-| Restaurants | `map/food` | `utensils-crossed` | green | — |
-| Hotel | `map/accommodation` | `hotel` | blue | — |
-| Campsite | `map/accommodation/campsite` | `tent-tree` | blue | — |
-| Trails | `map/trails` | `footprints` | green | — |
-| Other | `map/other` | `map-pin` | green | — |
+| Type | Icon | Color | Extra Section |
+|---|---|---|---|
+| Photo Locations | `camera` | green | Photography Tips |
+| Restaurants | `utensils-crossed` | green | — |
+| Hotel | `hotel` | blue | — |
+| Campsite | `tent-tree` | blue | — |
+| Trails | `footprints` | green | — |
+| Other | `map-pin` | green | — |
 
 Note: Attractions and general activities use the "Other" type.
 
