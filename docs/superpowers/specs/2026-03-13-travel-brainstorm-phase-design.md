@@ -91,7 +91,7 @@ Note: `plan-trip`'s description must NOT include these trigger phrases — it sh
 
 Run `bun run $CLAUDE_PLUGIN_ROOT/scripts/preferences.ts` silently.
 - Exit 0: load sources list
-- Exit 1: ask "Which travel resources do you typically find most useful? (e.g. Lonely Planet, Atlas Obscura, iOverlander)" and write `~/.claude/travel-planner.local.md` in the format defined in Section 1 before continuing
+- Exit 1: ask "Which travel resources do you typically find most useful? (e.g. Lonely Planet, Atlas Obscura, iOverlander)", write `~/.claude/travel-planner.local.md` in the format defined in Section 1, then re-run `preferences.ts` to confirm it parses correctly before continuing
 
 **Step 2 — Destination check**
 
@@ -259,7 +259,7 @@ Replace the current trigger-phrase-heavy description with: "Executes a trip plan
 | `{{interests}}` | Removed — now in `{{PROFILE}}` |
 | `{{dietary_restrictions}}` | Removed — now in `{{PROFILE}}` (renamed `dietary`) |
 | `{{companions}}` | Removed — now in `{{PROFILE}}` |
-| `{{must_sees}}` | Replaced by `{{ANCHORS}}` — compiled from `## Anchors` as a bullet list |
+| `{{must_sees}}` | Replaced by `{{ANCHORS}}` — comma-separated plain string compiled from `## Anchors` (see Section 3) |
 | `{{PROFILE}}` | New — compiled prose paragraph (see Section 3) |
 | `{{FOCUS}}` | New — matching `## Research Focus` line for this agent's category |
 | All others | Unchanged: `{{destination}}`, `{{dates}}`, `{{trip_type}}`, `{{preferred_sources}}`, `{{category_name}}`, `{{category_description}}`, `{{trip_type_adaptations}}`, `{{target_file_path}}`, `{{today}}`, `{{country}}` |
@@ -269,6 +269,8 @@ Replace the current trigger-phrase-heavy description with: "Executes a trip plan
 **`prompts/budget-generator.md`** — the prompt currently constructs the `budget.ts` call using `{{budget_level}}`, `{{budget_total}}`, and `{{budget_currency}}` placeholders. Replace all three with values extracted from the brief: `Budget Level`, and the total + currency parsed from the `Budget` field (e.g. "3000 GBP" → total=3000, currency=GBP). The script call itself is unchanged: `bun run $CLAUDE_PLUGIN_ROOT/scripts/budget.ts <total> <currency> <level>`.
 
 **`prompts/packing-generator.md`** — replace `{{interests}}` and `{{dietary_restrictions}}` with `{{PROFILE}}`. All other existing placeholders remain unchanged: trip type, clipping paths, weather, practical tips. Orchestrator calculates trip duration in nights from the `Dates` field in the brief (`end_date - start_date`).
+
+The Step 7 orchestrator instructions in `plan-trip` SKILL.md must also be updated: remove `interests` from the fill-in list; replace with `{{PROFILE}}` (compiled by orchestrator at Step 0 and reused throughout).
 
 ### Naming note
 
