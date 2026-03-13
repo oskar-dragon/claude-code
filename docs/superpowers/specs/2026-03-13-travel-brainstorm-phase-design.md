@@ -50,9 +50,19 @@ Old fields (`travel_style`, `budget_level`, etc.) in existing files are silently
 ### `preferences.ts` updated contract
 
 - Reads `~/.claude/travel-planner.local.md`
-- Returns `{ "sources": ["Lonely Planet", "Atlas Obscura"] }` to stdout on success (exit 0)
+- Returns `{ "sources": ["Lonely Planet", "Atlas Obscura"] }` to stdout on success (exit 0). The JSON key is `sources` (renamed from `preferred_sources` in the old script).
 - Returns exit code 1 if file is missing OR `sources` field is absent/empty
-- Old fields in the file are ignored — no migration required
+- Old fields in the file (`preferred_sources`, `travel_style`, `budget_level`, etc.) are silently ignored — no migration required
+
+The settings file written by either skill contains only a `sources:` frontmatter block and nothing else:
+```markdown
+---
+sources:
+  - Lonely Planet
+  - Atlas Obscura
+  - iOverlander
+---
+```
 
 Both `brainstorm-trip` and `plan-trip` write this same file format when onboarding. The behaviour on exit 1 differs by skill:
 - `brainstorm-trip`: asks "Which travel resources do you typically find most useful?" and writes the file before continuing
@@ -98,6 +108,8 @@ Run `bun run $CLAUDE_PLUGIN_ROOT/scripts/preferences.ts` silently.
 6. What are you most excited about, or what would make this trip feel like a success?
 7. Anything you want to avoid or are unsure about?
 
+The answers to Q6 and Q7 are written to `## Notes` as freeform prose (no bullet structure required). The orchestrator appends this section verbatim to `{{PROFILE}}`.
+
 **Step 4 — Anchor proposal**
 
 Based on destination + conversation, propose 3–5 anchor experiences. User can add, remove, or adjust. These become the spine of the itinerary and directly generate the `## Research Focus` section.
@@ -110,7 +122,7 @@ From budget amount and context, infer and confirm `budget_level`: `budget` / `mi
 
 **Step 6 — Derive trip name**
 
-Construct from destination + year (e.g. "Japan 2026") or destination + season (e.g. "Japan Spring 2026"). Confirm with user before writing.
+Default rule: destination + year (e.g. "Japan 2026"). Use destination + season only if the trip dates fall clearly within a single meteorological season AND the season is materially relevant to the trip (e.g. cherry blossoms, skiing, monsoon avoidance). If the trip spans two calendar years, use the year of the majority of travel days. Confirm with user before writing.
 
 **Step 7 — Write brief**
 
@@ -187,7 +199,9 @@ The orchestrator compiles `{{PROFILE}}` as a single prose paragraph from the bri
 Example output:
 > "Travelling as a couple. Relaxed style with some adventure. Moderate pace — anchor days with room to wander. Vegetarian. Interests: food, photography, nature. Occasion: first trip to Japan together. Excited about: food scene, spring light for photography. Wants to avoid: overly touristy experiences, rushed itinerary."
 
-`## Anchors` is NOT included in `{{PROFILE}}` — it is passed separately as `{{ANCHORS}}` (see researcher.md changes below).
+`## Anchors` is NOT included in `{{PROFILE}}` — it is passed to all 8 research agents as `{{ANCHORS}}`. The orchestrator compiles it by reading the `## Anchors` bullet list from the brief and joining items as a comma-separated list of plain strings (strip bullet markers, strip "(fixed point)" and similar annotations).
+
+Example: `Cherry blossom season in Kyoto, Day hike around Hakone, 2–3 days Tokyo`
 
 ### `{{FOCUS}}` category mapping
 
@@ -228,6 +242,14 @@ Run `preferences.ts` (sources only now). If exit 1: tell user to run `brainstorm
 
 The question-asking step is gone. All trip details come from the brief.
 
+**Updated Step 5 — trip note writer**
+
+The SKILL.md orchestrator instructions for Step 5 must be updated: remove the list of preference-derived placeholders it currently fills in (`travel style, budget level, pace, interests, dietary restrictions, companions`). Replace with a note that `{{PROFILE}}` is compiled by the orchestrator and passed to the prompt. All other Step 5 instructions (reading clippings, writing the trip note, wikilink extraction) are unchanged.
+
+**Updated `plan-trip` description frontmatter**
+
+Replace the current trigger-phrase-heavy description with: "Executes a trip plan from a brief file written by brainstorm-trip. Dispatches research agents, creates Obsidian notes, and builds a full itinerary. Invoke with a brief file path."
+
 ### Prompt template changes
 
 **`prompts/researcher.md`** — placeholder changes:
@@ -244,7 +266,7 @@ The question-asking step is gone. All trip details come from the brief.
 
 **`prompts/trip-note-writer.md`** — replace the six preference-derived placeholders (`{{travel_style}}`, `{{budget_level}}`, `{{pace}}`, `{{interests}}`, `{{dietary_restrictions}}`, `{{companions}}`) with single `{{PROFILE}}`. All other existing placeholders remain unchanged.
 
-**`prompts/budget-generator.md`** — replace `{{budget_level}}` with `Budget Level` from brief, and budget amount with `Budget` from brief. The `budget.ts` script call is unchanged: `bun run $CLAUDE_PLUGIN_ROOT/scripts/budget.ts <total> <currency> <level>` — orchestrator extracts these three values from the brief.
+**`prompts/budget-generator.md`** — the prompt currently constructs the `budget.ts` call using `{{budget_level}}`, `{{budget_total}}`, and `{{budget_currency}}` placeholders. Replace all three with values extracted from the brief: `Budget Level`, and the total + currency parsed from the `Budget` field (e.g. "3000 GBP" → total=3000, currency=GBP). The script call itself is unchanged: `bun run $CLAUDE_PLUGIN_ROOT/scripts/budget.ts <total> <currency> <level>`.
 
 **`prompts/packing-generator.md`** — replace `{{interests}}` and `{{dietary_restrictions}}` with `{{PROFILE}}`. All other existing placeholders remain unchanged: trip type, clipping paths, weather, practical tips. Orchestrator calculates trip duration in nights from the `Dates` field in the brief (`end_date - start_date`).
 
