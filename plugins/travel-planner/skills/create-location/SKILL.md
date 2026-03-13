@@ -33,7 +33,7 @@ Use the Glob tool to check whether a note already exists at the target path. If 
 
 ### 4. Research the Location
 
-**If invoked by `plan-trip`:** research data may already be provided in the prompt. Use that data and skip web search.
+**If invoked by `plan-trip`:** research data is provided in the prompt. Use that data and skip web search. If an `Image URL:` line is present in the research data, use that URL to populate the `image` frontmatter field. If absent, leave `image` empty.
 
 **If invoked standalone:** research the location via web search. Collect:
 

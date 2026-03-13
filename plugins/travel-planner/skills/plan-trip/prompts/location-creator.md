@@ -26,6 +26,8 @@ Not all clipping files will be relevant — search them for mentions of "{{LOCAT
 
 Search these files for mentions of "{{LOCATION_NAME}}" or related terms. Extract: description, address, opening hours, highlights, and any source URLs that mention this place.
 
+Also search each clipping file for a `## Location Images` section. Look for a line matching "{{LOCATION_NAME}}" using a case-insensitive exact match on the place name. If the same name appears in multiple files, use the first match found. If a match is found, note the image URL for use in the next step. If no match is found, no image URL will be passed.
+
 ## Output
 
 Invoke the `travel-planner:create-location` skill with:
@@ -34,6 +36,7 @@ Invoke the `travel-planner:create-location` skill with:
 - Country: {{COUNTRY}}
 - Region: {{REGION}}
 - Research data extracted from clippings (and brief web search if needed)
+- If an image URL was found: include `Image URL: <url>` in the research data block. If no image URL was found, omit this line.
 
 The skill handles geocoding, template reading, Obsidian formatting, and file writing.
 
@@ -46,6 +49,7 @@ Before reporting back, verify:
 - [ ] Location type matches what was provided (don't change it)
 - [ ] Data passed to the skill came from clipping files or targeted web search (not invented)
 - [ ] The note file exists at the expected path after skill invocation
+- [ ] If `## Location Images` section was found in clippings with a matching place name, `Image URL:` line included in data passed to skill
 
 ## Report Format
 
