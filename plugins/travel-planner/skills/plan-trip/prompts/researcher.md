@@ -13,9 +13,9 @@ You are one of 8 parallel research agents. Your job is to research a single cate
 - **Destination:** {{DESTINATION}}
 - **Dates:** {{START_DATE}} to {{END_DATE}}
 - **Trip type:** {{TRIP_TYPE}}
-- **Traveller interests:** {{INTERESTS}}
-- **Dietary restrictions:** {{DIETARY_RESTRICTIONS}}
-- **Must-sees:** {{MUST_SEES}}
+- **Traveller profile:** {{PROFILE}}
+- **Trip anchors:** {{ANCHORS}}
+- **Research focus for this category:** {{FOCUS}}
 - **Preferred sources:** {{PREFERRED_SOURCES}} — check these first before broader web search
 - **Category to research:** {{CATEGORY_NAME}}
 - **Category description:** {{CATEGORY_DESCRIPTION}}
