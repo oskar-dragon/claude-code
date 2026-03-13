@@ -15,7 +15,7 @@ You are the second of 3 sequential Batch 4 agents. The budget section has alread
 - **Practical tips clipping:** `{{PRACTICAL_TIPS_CLIPPING_PATH}}`
 - **Trip type:** {{TRIP_TYPE}}
 - **Trip duration:** {{TRIP_DURATION_NIGHTS}} nights
-- **User interests:** {{INTERESTS}}
+- **Traveller profile:** {{PROFILE}}
 
 ## Output
 
