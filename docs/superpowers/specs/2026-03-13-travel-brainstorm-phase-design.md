@@ -289,6 +289,12 @@ The Step 7 orchestrator instructions in `plan-trip` SKILL.md must also be update
 
 ---
 
+## Additional implementation notes
+
+- Create `plugins/travel-planner/skills/brainstorm-trip/references/brief-format.md` containing the brief template from Section 3 as a reference for the skill to use when writing briefs.
+
+---
+
 ## Out of scope (separate tasks)
 
 - Region notes currently skip existing notes rather than updating — should be fixed separately
