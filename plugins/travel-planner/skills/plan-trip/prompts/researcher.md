@@ -56,6 +56,18 @@ After the frontmatter, write the research content in this format:
 ### Sources
 - [Repeat source URLs from frontmatter for easy reading]
 
+### Location Images
+
+If your category involves specific named places (hotels, restaurants, viewpoints, trails, attractions) and you encountered image URLs on pages you visited during your research, record one representative image URL per place here. Only include images found on pages you already visited — do not fetch additional pages to find images. Omit this section entirely if no image URLs were encountered.
+
+Format:
+
+````
+## Location Images
+- Place Name: https://example.com/image.jpg
+- Another Place: https://example.com/other.jpg
+````
+
 ## Self-Review
 
 Before reporting back, verify:
@@ -66,6 +78,7 @@ Before reporting back, verify:
 - [ ] Content addresses the specific travel dates, not generic information
 - [ ] Trip type adaptations applied if relevant to this category
 - [ ] Preferred sources checked first
+- [ ] If image URLs were encountered on visited pages, `## Location Images` section written with correct format
 
 ## Report Format
 
