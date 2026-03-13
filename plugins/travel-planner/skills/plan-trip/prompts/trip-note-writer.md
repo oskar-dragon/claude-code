@@ -21,8 +21,9 @@ Read these 8 research clipping files:
 - `{{CLIPPING_PATH_PRACTICAL}}` — Practical Tips
 
 Also use:
-- **User preferences:** travel style: {{TRAVEL_STYLE}}, budget: {{BUDGET_LEVEL}}, pace: {{PACE_PREFERENCE}}, interests: {{INTERESTS}}, dietary: {{DIETARY_RESTRICTIONS}}, companions: {{TRAVEL_COMPANIONS}}
-- **Trip details:** budget: {{BUDGET_TOTAL}} {{BUDGET_CURRENCY}}, must-sees: {{MUST_SEES}}
+- **Traveller profile:** {{PROFILE}}
+- **Trip anchors:** {{ANCHORS}}
+- **Budget:** {{BUDGET_TOTAL}} {{BUDGET_CURRENCY}}
 - **Country note:** `{{COUNTRY_NOTE_PATH}}`
 - **Region note:** `{{REGION_NOTE_PATH}}`
 
@@ -55,7 +56,7 @@ type: {{TRIP_TYPE}}
    - Group activities geographically to minimise travel within a day
    - For campervan/road trips: include driving distances and times
    - For through-hikes: include daily mileage, elevation, camp spots
-   - Balance pace against user's preference ({{PACE_PREFERENCE}})
+   - Balance pace against the traveller profile — pace preference is included in {{PROFILE}}
 
 3. `## Accommodation` — list per night or block of nights
    - Format: `- **Nights 1-3:** [[Hotel Name]], [[Neighbourhood]] — [Book]`
@@ -84,7 +85,7 @@ Before reporting back, verify:
 - [ ] Day headings use the correct format: `### Day N (DD/MM)`
 - [ ] All 5 sections present in correct order (map embed, itinerary, accommodation, links, notes)
 - [ ] Trip type adaptations applied (driving distances for road trips, daily mileage for hikes, etc)
-- [ ] Pace matches user preference
+- [ ] Pace matches traveller profile
 
 ## Report Format
 
