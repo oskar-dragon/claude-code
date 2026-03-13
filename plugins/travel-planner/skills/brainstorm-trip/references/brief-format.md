@@ -2,7 +2,7 @@
 
 Reference for `brainstorm-trip` when writing a trip brief to the vault.
 
-**Location:** `Trips/Briefs/<Trip Name>.md` (relative to vault root `/Users/oskardragon-work/workspaces/obsidian/`)
+**Location:** `Travel/Briefs/<Trip Name>.md` (relative to vault root `/Users/oskardragon-work/workspaces/obsidian/`)
 
 ## Template
 

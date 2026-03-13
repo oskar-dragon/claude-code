@@ -129,7 +129,7 @@ Read `references/brief-format.md` for the exact format and conventions.
 
 Write the brief to:
 ```
-/Users/oskardragon-work/workspaces/obsidian/Trips/Briefs/<Trip Name>.md
+/Users/oskardragon-work/workspaces/obsidian/Travel/Briefs/<Trip Name>.md
 ```
 
 **`{{PROFILE}}` compilation (for reference — this is compiled by `plan-trip`, not written to the brief):**
@@ -148,4 +148,4 @@ Visa & Entry, Weather, Transport, Attractions, Food, Neighbourhoods, Events, Pra
 **After writing:**
 
 Confirm the path to the user and say:
-> "Brief written to `Trips/Briefs/<Trip Name>.md`. When you're ready, open a new session and run `/travel-planner:plan-trip` — it will ask for this path."
+> "Brief written to `Travel/Briefs/<Trip Name>.md`. When you're ready, open a new session and run `/travel-planner:plan-trip` — it will ask for this path."

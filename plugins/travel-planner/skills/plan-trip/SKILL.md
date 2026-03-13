@@ -42,7 +42,7 @@ All subagents return one of four statuses. Handle as follows:
 ## Step 0 — Load Brief
 
 Ask the user:
-> "What's the path to your trip brief? (e.g. `Trips/Briefs/Japan 2026.md`, relative to the vault root)"
+> "What's the path to your trip brief? (e.g. `Travel/Briefs/Japan 2026.md`, relative to the vault root)"
 
 Vault root: `/Users/oskardragon-work/workspaces/obsidian/`
 
@@ -51,7 +51,7 @@ Read the file at `<vault root>/<path>`. Parse all sections and hold in context.
 **Derive from the brief:**
 
 - **Trip name:** filename without `.md` extension (e.g. `Japan 2026`)
-- **Trip note path:** `Trips/<Trip Name>.md` (relative to vault root)
+- **Trip note path:** `Travel/Trips/<Trip Name>.md` (relative to vault root)
 - **`{{PROFILE}}`:** compile as a single prose paragraph in this order:
   1. `Companions` (from `## Trip`)
   2. `Style` (from `## Profile`)
@@ -168,7 +168,7 @@ This step is done by the orchestrator directly — no subagent needed.
    - Country name
    - Region name
    - Trip note name
-   - `Trips`, `Clippings`, `Claude`, `Map.base`
+   - `Travel/Trips`, `Clippings`, `Claude`, `Map.base`
    - All 8 clipping note names
    - Neighbourhood names (from the Neighbourhoods clipping path or Batch 2 region context)
 4. Remove excluded links from the wikilink list.
@@ -223,35 +223,7 @@ Dispatch Batch 4 concurrently with Batch 3. Within Batch 4, run sequentially:
 
 ---
 
-## Step 7 — Expense Tracking
-
-After the trip note is fully written, check whether an expense tracking base already exists. Use the Glob tool to search for `Categories/Expenses.base` inside the vault.
-
-If the file does not exist, invoke the `obsidian:obsidian-bases` skill to create it at:
-
-```
-/Users/oskardragon-work/workspaces/obsidian/Categories/Expenses.base
-```
-
-The base should have these fields:
-- **Trip** — link to trip note
-- **Date** — date field
-- **Category** — select field with options: accommodation, food, activities, transport, misc
-- **Description** — text field
-- **Amount** — number field
-- **Currency** — text field
-
-If the base already exists, skip creation.
-
-Regardless of whether the base was created or already existed, add a link to it in the trip note's `## Links` section:
-
-```markdown
-- Expense tracker: [[Categories/Expenses]]
-```
-
----
-
-## Step 8 — Post-Completion Verification
+## Step 7 — Post-Completion Verification
 
 For every location in the authoritative list:
 1. Glob for `Travel/Locations/<Name>.md`
@@ -263,7 +235,7 @@ Log silent failures prominently in the summary.
 
 ---
 
-## Step 9 — Summary
+## Step 8 — Summary
 
 Report:
 - **Trip note:** `<path>`
@@ -271,5 +243,4 @@ Report:
 - **Country note:** created | existing — `<path>`
 - **Region note:** created | existing — `<path>`
 - **Location notes:** X created, Y existing, Z concerns, W blocked, V silent failures
-- **Expense base:** created | existing
 - **Warnings:** list all concerns, blockers, and silent failures with location names
