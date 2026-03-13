@@ -1,7 +1,7 @@
 ---
 name: plan-trip
-description: This skill should be used when the user asks to "plan a trip", "create a trip itinerary", "help me plan travel to", "organise a holiday", "plan a vacation", "plan a campervan trip", "help me plan a hike", or mentions trip planning, travel planning, holiday planning, or itinerary creation to a specific destination. Orchestrates full trip planning — researches destinations via parallel subagents, generates itineraries, creates Obsidian location/country/region notes, budgets, packing lists, and pre-trip timelines.
-version: 0.2.0
+description: Executes a trip plan from a brief file written by brainstorm-trip. Dispatches research agents, creates Obsidian notes, and builds a full itinerary. Invoke with a brief file path.
+version: 0.3.0
 ---
 
 ## Overview
@@ -39,71 +39,63 @@ All subagents return one of four statuses. Handle as follows:
 
 ---
 
-## Step 1 — Load Preferences
+## Step 0 — Load Brief
 
-Before asking the user anything, load their travel preferences. Run:
+Ask the user:
+> "What's the path to your trip brief? (e.g. `Trips/Briefs/Japan 2026.md`, relative to the vault root)"
+
+Vault root: `/Users/oskardragon-work/workspaces/obsidian/`
+
+Read the file at `<vault root>/<path>`. Parse all sections and hold in context.
+
+**Derive from the brief:**
+
+- **Trip name:** filename without `.md` extension (e.g. `Japan 2026`)
+- **Trip note path:** `Trips/<Trip Name>.md` (relative to vault root)
+- **`{{PROFILE}}`:** compile as a single prose paragraph in this order:
+  1. `Companions` (from `## Trip`)
+  2. `Style` (from `## Profile`)
+  3. `Pace` (from `## Profile`)
+  4. `Dietary` (from `## Profile`)
+  5. `Interests` (from `## Profile`)
+  6. `Occasion` (from `## Trip`)
+  7. `## Notes` content (strip bullet markers, join as prose sentences)
+
+  Example: "Travelling as a couple. Relaxed style with some adventure. Moderate pace — anchor days with room to wander. Vegetarian. Interests: food, photography, nature. Occasion: first trip to Japan together. Excited about the food scene and spring light for photography. Wants to avoid overly touristy experiences and a rushed itinerary."
+
+- **`{{ANCHORS}}`:** comma-separated plain string from `## Anchors` bullets — strip bullet markers and strip parenthetical annotations like "(fixed point)".
+
+  Example: `Cherry blossom season in Kyoto, Day hike around Hakone, 2–3 days Tokyo`
+
+- **`{{FOCUS}}` mapping** (brief label → category):
+
+  | Brief label | Research category |
+  |---|---|
+  | Visa & Entry | Visa & Entry Requirements |
+  | Weather | Weather & Best Time to Visit |
+  | Transport | Transport |
+  | Attractions | Attractions & Activities |
+  | Food | Food Scene & Restaurants |
+  | Neighbourhoods | Neighbourhoods & Areas to Stay |
+  | Events | Events During Travel Dates |
+  | Practical Tips | Practical Tips |
+
+  Each research agent gets the focus line for its matching category.
+
+Hold `{{PROFILE}}`, `{{ANCHORS}}`, and all 8 `{{FOCUS}}` values in context for use throughout remaining steps.
+
+---
+
+## Step 1 — Load Settings
+
+Run:
 
 ```bash
 bun run $CLAUDE_PLUGIN_ROOT/scripts/preferences.ts
 ```
 
-The script prints preferences as JSON to stdout and exits 0 on success. If exit code is 1, the config file does not exist yet and you must onboard the user.
-
-**Onboarding flow (exit code 1 only):**
-
-Tell the user you need a few preferences before you can plan effectively. Ask the following in a single message grouped into two or three short sections — do not fire them one at a time:
-
-- **Travel style:** adventurous, relaxed, or balanced
-- **Budget level:** budget, mid-range, or luxury
-- **Accommodation preferences:** e.g. hotels, hostels, Airbnb, campervan, wild camping, huts
-- **Interests:** e.g. culture, food, photography, hiking, history, wildlife, nightlife, architecture
-- **Dietary restrictions:** e.g. vegetarian, vegan, gluten-free, halal, kosher, none
-- **Pace preference:** slow (fewer places, more depth), moderate, or fast (cover maximum ground)
-- **Travel companions:** solo, couple, family with children (ages help), group of friends
-- **Preferred research sources:** websites or communities they trust most for travel research (e.g. Lonely Planet, Atlas Obscura, The Dyrt, iOverlander, local blogs)
-
-Write their responses to `~/.claude/travel-planner.local.md` in YAML frontmatter format:
-
-```yaml
----
-travel_style: balanced
-budget_level: mid-range
-accommodation_preference:
-  - hotels
-  - airbnb
-interests:
-  - food
-  - photography
-  - hiking
-dietary_restrictions: []
-pace_preference: moderate
-travel_companions: couple
-preferred_sources:
-  - Lonely Planet
-  - Atlas Obscura
----
-```
-
-Re-run `bun run $CLAUDE_PLUGIN_ROOT/scripts/preferences.ts` after writing to confirm it parses correctly. If it exits 1 again, report the parse error to the user and ask them to correct their input.
-
----
-
-## Step 2 — Collect Trip Details
-
-Once preferences are loaded, collect the details for this specific trip. Ask everything in 1-2 focused messages — do not drip-feed questions one at a time. Group related questions together:
-
-**Message 1 — the basics:**
-- **Destination** — city, region, or country. Be as specific or as broad as they like; you will narrow it down during research.
-- **Dates** — start and end dates, including travel days. If they are flexible, ask for a rough window.
-- **Budget** — total budget for the trip and which currency.
-- **Trip type** — this significantly shapes research priorities and the itinerary structure. Present these options clearly: campervan, through-hike, city break, road trip, wild camping, beach holiday, cultural tour — or ask them to describe their own. Refer to `references/research-categories.md` for how each type adapts the research categories.
-
-**Message 2 (if anything is unclear or missing):**
-- **Travellers** — number and composition: solo, couple, family with children (note ages if children), group of friends.
-- **Purpose** — what does a successful trip feel like? Leisure and rest, adventure and challenge, cultural immersion, relaxation, celebration, etc.
-- **Must-sees** — anything they have already decided they must do or see. These become anchors in the itinerary and are handed to Batch 1 research agents as high-priority items.
-
-Hold all collected details in memory for use throughout the remaining steps.
+- **Exit 0:** load `sources` list from JSON output. Use as `{{PREFERRED_SOURCES}}` in researcher prompts.
+- **Exit 1:** tell the user: "Run `brainstorm-trip` first — it will set up your sources and write a trip brief." Do not proceed until a valid settings file exists.
 
 ---
 
@@ -114,7 +106,11 @@ Hold all collected details in memory for use throughout the remaining steps.
 
 2. For each of the 8 categories:
    - Read `prompts/researcher.md`
-   - Fill in all `{{PLACEHOLDER}}` variables (destination, dates, trip type, interests, dietary restrictions, must-sees, preferred sources, category name, category description from `references/research-categories.md`, trip type adaptations, target file path, today's date, country)
+   - Fill in all `{{PLACEHOLDER}}` variables:
+     - From brief: `{{DESTINATION}}`, `{{START_DATE}}`, `{{END_DATE}}`, `{{TRIP_TYPE}}`, `{{COUNTRY}}`
+     - Compiled from brief: `{{PROFILE}}`, `{{ANCHORS}}`, `{{FOCUS}}` (use the focus line for this agent's category)
+     - From settings: `{{PREFERRED_SOURCES}}`
+     - Computed: `{{CATEGORY_NAME}}`, `{{CATEGORY_DESCRIPTION}}` (from `references/research-categories.md`), `{{TRIP_TYPE_ADAPTATIONS}}`, `{{TARGET_FILE_PATH}}`, `{{TODAY}}`
    - Dispatch with `run_in_background: true`, `model: sonnet`
 
 3. Wait for all 8 to complete.
@@ -153,7 +149,9 @@ Run both in parallel:
 2. Fill in all placeholders:
    - All 8 clipping file paths (`{{CLIPPING_PATH_VISA}}`, `{{CLIPPING_PATH_WEATHER}}`, `{{CLIPPING_PATH_TRANSPORT}}`, `{{CLIPPING_PATH_ATTRACTIONS}}`, `{{CLIPPING_PATH_FOOD}}`, `{{CLIPPING_PATH_NEIGHBOURHOODS}}`, `{{CLIPPING_PATH_EVENTS}}`, `{{CLIPPING_PATH_PRACTICAL}}`)
    - Trip details: trip name, trip note path, destination, start/end dates, trip type, today's date, country
-   - User preferences: travel style, budget level, pace, interests, dietary restrictions, companions, budget total, budget currency, must-sees
+   - `{{PROFILE}}` — compiled prose paragraph from Step 0
+   - `{{BUDGET_TOTAL}}` and `{{BUDGET_CURRENCY}}` — parsed from `Budget` field in brief (e.g. "3000 GBP" → total=3000, currency=GBP)
+   - `{{ANCHORS}}` — compiled from Step 0
    - Country and region note paths
 3. Dispatch with `model: sonnet`, wait for completion.
 4. Handle status. Record the trip note file path.
@@ -210,12 +208,12 @@ Dispatch Batch 4 concurrently with Batch 3. Within Batch 4, run sequentially:
 
 1. **Budget:**
    - Read `prompts/budget-generator.md`
-   - Fill in: destination, trip note path, budget total, budget currency, budget level
+   - Fill in: destination, trip note path, and these values parsed from the brief: `{{BUDGET_TOTAL}}` (total number), `{{BUDGET_CURRENCY}}` (currency code), `{{BUDGET_LEVEL}}` (budget/mid-range/luxury from `Budget Level` field)
    - Dispatch with `model: haiku`, wait for completion before proceeding
 
 2. **Packing:**
    - Read `prompts/packing-generator.md`
-   - Fill in: destination, trip note path, weather clipping path, practical tips clipping path, trip type, trip duration in nights, interests
+   - Fill in: destination, trip note path, weather clipping path, practical tips clipping path, trip type, `{{PROFILE}}`, trip duration in nights (calculated from brief: `end_date - start_date`)
    - Dispatch with `model: haiku`, wait for completion before proceeding
 
 3. **Countdown:**
