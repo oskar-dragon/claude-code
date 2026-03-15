@@ -1,0 +1,38 @@
+{
+  "skill_name": "dev-setup",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just installed the development plugin from the claude-code marketplace. What do I need to do to finish setting it up?",
+      "expected_output": "Displays a clear checklist: add the official marketplace, then install superpowers",
+      "expectations": [
+        "Response includes a step to add the official marketplace using /plugin marketplace add",
+        "Response includes a step to install superpowers using /plugin install superpowers@claude-plugins-official",
+        "Response includes a step to verify installation using /plugin list",
+        "Response is structured as a numbered checklist, not prose"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "run dev setup",
+      "expected_output": "Shows the onboarding checklist with all required manual steps including /plugin marketplace add and /plugin install commands",
+      "expectations": [
+        "Response includes /plugin marketplace add command",
+        "Response includes /plugin install superpowers@claude-plugins-official command",
+        "Response includes /plugin list command",
+        "Response presents steps in numbered order"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I installed development@claude-code but the /git:commit skill doesn't seem to know about TDD or superpowers. How do I fix this?",
+      "expected_output": "Displays the setup checklist guiding the developer to install superpowers manually",
+      "expectations": [
+        "Response identifies missing superpowers as the root cause",
+        "Response includes /plugin install superpowers@claude-plugins-official as the fix",
+        "Response includes /plugin marketplace add step",
+        "Response does not attempt to automate the fix"
+      ]
+    }
+  ]
+}
