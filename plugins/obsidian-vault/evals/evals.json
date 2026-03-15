@@ -68,6 +68,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "review-weekly",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "weekly review",
+          "expected_output": "Creates a weekly review note via obsidian-cli, guides through inbox clearing, calendar review, project review, incomplete tasks, and reflection sections. All Todoist changes require approval. Reflection is user-written with AI prompting.",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "plan the week",
+          "expected_output": "Same as weekly review — creates note, collaborative review process, 2+8-style prioritisation approach for the week",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "weekly planning",
+          "expected_output": "Triggers review-weekly skill. Should create a note first, then walk through each review step, waiting for user input at each stage",
+          "files": []
+        }
+      ]
     }
   ]
 }
