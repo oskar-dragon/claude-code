@@ -22,6 +22,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "context",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "context",
+          "expected_output": "Loads full context: reads Areas of Focus, active Goals, active Projects, today's Todoist tasks and next 3 days, today's calendar, recent journal entries (5-7 days). Ends with 'Context loaded. What would you like to work on?'",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "catch me up",
+          "expected_output": "Same as above — complete picture of current state with priorities, projects, goals, tasks, and recent themes",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "what's going on",
+          "expected_output": "Triggers context skill. Synthesises vault data into current priorities and open questions rather than listing everything",
+          "files": []
+        }
+      ]
     }
   ]
 }
