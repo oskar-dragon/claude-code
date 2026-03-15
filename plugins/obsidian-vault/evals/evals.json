@@ -160,6 +160,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "review-yearly",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "yearly review",
+          "expected_output": "Creates yearly review note via obsidian-cli, reads all monthly reviews from the year and surfaces recurring themes, suggests goal-review, reviews Areas of Focus with evidence, guides forward-looking reflection on goals and projects. Collaborative, reflection is user-written.",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "year in review",
+          "expected_output": "Same as yearly review — creates note, reads monthly reviews, surfaces patterns, forward-looking direction setting",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "annual review",
+          "expected_output": "Triggers review-yearly skill. Creates note first, then works through phases: year synthesis, goal-review suggestion, areas check, and forward planning",
+          "files": []
+        }
+      ]
     }
   ]
 }
