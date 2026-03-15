@@ -183,6 +183,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "graduate",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "graduate",
+          "expected_output": "Reads past 14 days of journal entries, identifies graduation candidates by explicit and implicit signals, cross-references vault via qmd, presents ranked table, creates/enriches notes with approval, updates source journal entries with wikilinks",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "graduate last month",
+          "expected_output": "Uses argument to set date range to last month. Same process as above but with broader scope",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "what should I graduate",
+          "expected_output": "Triggers graduate skill with default 14-day range. Presents ranked table of candidates with recommendations (Create/Enrich/Skip) — stops before executing, waits for user selection",
+          "files": []
+        }
+      ]
     }
   ]
 }
