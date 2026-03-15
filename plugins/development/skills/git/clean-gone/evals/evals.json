@@ -1,0 +1,44 @@
+{
+  "skill_name": "git-clean-gone",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "clean up my stale branches",
+      "expected_output": "Fetches with prune, identifies [gone] branches, removes them with worktrees if present",
+      "assertions": [
+        "git fetch --prune is run before inspecting branches",
+        "git branch -v (or git branch -vv) is used to identify [gone] branches",
+        "The current branch is not deleted",
+        "main and master branches are not deleted",
+        "When no [gone] branches exist, user is told there is nothing to clean up",
+        "Each deleted branch is reported to the user"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I've merged a bunch of PRs and now I have loads of dead branches locally, can you tidy them up?",
+      "expected_output": "Runs git fetch --prune, finds [gone] branches, deletes them, reports what was removed",
+      "assertions": [
+        "git fetch --prune is run before inspecting branches",
+        "git branch -v (or git branch -vv) is used to identify [gone] branches",
+        "The current branch is not deleted",
+        "main and master branches are not deleted",
+        "When no [gone] branches exist, user is told there is nothing to clean up",
+        "Each deleted branch is reported to the user"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "remove branches deleted on remote",
+      "expected_output": "Identifies and removes all [gone] branches including worktree cleanup",
+      "assertions": [
+        "git fetch --prune is run before inspecting branches",
+        "git branch -v (or git branch -vv) is used to identify [gone] branches",
+        "The current branch is not deleted",
+        "main and master branches are not deleted",
+        "When no [gone] branches exist, user is told there is nothing to clean up",
+        "Each deleted branch is reported to the user"
+      ]
+    }
+  ]
+}
