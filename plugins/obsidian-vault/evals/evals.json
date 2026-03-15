@@ -229,6 +229,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "trace",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "trace focus",
+          "expected_output": "Discovers synonyms for 'focus', searches vault broadly, follows backlinks, builds chronological timeline, identifies arc pattern (linear/pivot/convergence/etc), surfaces open tensions. Presents as narrative with citations.",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "how has my thinking on productivity evolved",
+          "expected_output": "Triggers trace skill with topic 'productivity'. Builds timeline from first appearance to current state, identifies inflection points with triggers.",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "trace",
+          "expected_output": "No argument provided — skill asks 'What idea or topic would you like to trace?' before proceeding",
+          "files": []
+        }
+      ]
     }
   ]
 }
