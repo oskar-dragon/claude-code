@@ -1,0 +1,20 @@
+{
+  "skill_name": "git-commit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "commit my changes",
+      "expected_output": "Runs git status/diff, stages files, writes a conventional commit message, commits without pushing"
+    },
+    {
+      "id": 2,
+      "prompt": "I've updated the auth middleware and added some tests — can you commit this?",
+      "expected_output": "Reads diff, stages relevant files, writes a meaningful commit message describing the auth middleware change"
+    },
+    {
+      "id": 3,
+      "prompt": "save my work",
+      "expected_output": "Recognises this as a commit request, stages and commits without pushing"
+    }
+  ]
+}
