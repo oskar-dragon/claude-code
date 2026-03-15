@@ -206,6 +206,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "backlinks",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "backlinks",
+          "expected_output": "Scans vault for orphan notes and unresolved links, reports scope (N notes, M orphans, K unresolved), asks whether to proceed with full analysis or focus. Presents High/Medium/Low recommendations with specific edit locations. Applies approved connections in semantically appropriate locations.",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "backlinks career",
+          "expected_output": "Focuses analysis on the career cluster. Finds orphaned career-related notes and missing connections within that topic. Same recommendation format but scoped.",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "find missing connections",
+          "expected_output": "Triggers backlinks skill. Reports scope first, then discovers connections, presents prioritised recommendations before executing anything",
+          "files": []
+        }
+      ]
     }
   ]
 }
