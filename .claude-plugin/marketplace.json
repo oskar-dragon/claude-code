@@ -36,7 +36,7 @@
     },
     {
       "name": "obsidian-vault",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "description": "My obsidian vault setup",
       "source": "./plugins/obsidian-vault"
     },
