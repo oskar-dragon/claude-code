@@ -44,7 +44,7 @@ plugins/development/
 
 ### `dev-setup` behaviour
 
-`disable-model-invocation: true` prevents Claude from calling this automatically. The skill body instructs the user to run:
+`disable-model-invocation: true` prevents Claude from calling this automatically. This is a documented Claude Code skill frontmatter field (present in the official marketplace documentation). The skill body instructs the user to run:
 
 ```
 /plugin install superpowers@claude-plugins-official
@@ -67,7 +67,7 @@ Remove `git` and `utils` entries. Add:
 }
 ```
 
-Directories `plugins/git/` and `plugins/utils/` are deleted.
+Directories `plugins/git/` and `plugins/utils/` are deleted. Note: `CLAUDE.md` references `/prompt-generator` and `/slash-command` under `utils`, but those files do not exist on disk — the documentation is stale. Only `zed/task.md` exists and it is migrated.
 
 ## Implementation Plan
 
