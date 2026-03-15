@@ -254,6 +254,23 @@
       ]
     },
     {
+      "skill_name": "meeting-notes",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "process my meeting notes",
+          "expected_output": "Queries Superwhisper SQLite DB for Meeting-mode recordings, loads/creates processed tracking file, filters to unprocessed recordings, infers metadata (title, people, organisation, topics) from each transcript, presents inferences and asks user to confirm before saving, creates structured Obsidian notes in References/ with Meeting Template frontmatter, marks recordings as processed.",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "I recorded a few meetings in superwhisper, can you turn them into vault notes?",
+          "expected_output": "Same as eval 1 — skill triggered by descriptive phrasing. Queries DB, infers metadata, confirms with user, creates notes with correct frontmatter (categories, type, date, organisation, people, topics), marks processed.",
+          "files": []
+        }
+      ]
+    },
+    {
       "skill_name": "emerge",
       "tests": [
         {
