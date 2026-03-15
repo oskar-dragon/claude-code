@@ -1,0 +1,23 @@
+{
+  "skill_name": "create-project",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to create a project for building a home gym. I've been putting it off for months and I think having it as an actual project will help me get moving on it.",
+      "expected_output": "A filled-out project note draft with: clarifying sentence (outcome + deadline), goal linked (likely Health & Fitness area), ordered task breakdown including research/purchase/setup phases, and a first action identified. The conversation should ask one question at a time and push for a clear deadline.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I need to plan a project for onboarding new engineers onto our team at Qogita. We hire someone roughly every 2-3 months and each time I find myself doing the same things.",
+      "expected_output": "The skill should identify this as a PROCESS (repeatable, known steps), not a project, and switch to the process path. Output should be a process note with a checklist of onboarding steps, categorised as [[Processes]], plus a trigger task in Todoist inbox.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "hey I want to start a project — I'm thinking about writing a book. not sure exactly what it's about yet but it's been on my mind for a while",
+      "expected_output": "A filled-out project note draft. The skill should handle the vagueness gracefully — push for a clarifying sentence on what 'done' means and a rough deadline, then align to a goal (likely Personal Development), build a task breakdown for the visible early steps (pick topic, research, outline, etc.). Should flag if no goal aligns.",
+      "files": []
+    }
+  ]
+}
