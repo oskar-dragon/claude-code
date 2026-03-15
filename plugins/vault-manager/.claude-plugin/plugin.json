@@ -1,8 +1,0 @@
-{
-  "name": "vault-manager",
-  "version": "2.1.0",
-  "description": "Vault management system for Oskar's Obsidian knowledge base — daily planning, inbox processing, reviews, goals, projects, and meeting notes",
-  "author": {
-    "name": "Oskar Dragon"
-  }
-}
