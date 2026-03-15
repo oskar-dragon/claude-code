@@ -91,6 +91,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "goal-review",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "goal review",
+          "expected_output": "Reads all active goals, gathers evidence (projects, Todoist tasks, journal mentions), presents each with Progressing/Stalled/Drifting/New assessment, prompts user for 3 questions per goal. Offers to add next actions to Todoist with approval.",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "review my goals",
+          "expected_output": "Same as goal review — reads active goals and presents evidence-based assessment for each, collaborative not monologue",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "how are my goals going",
+          "expected_output": "Triggers goal-review skill. If many goals, asks whether to review all or focus on specific areas before diving in",
+          "files": []
+        }
+      ]
     }
   ]
 }
