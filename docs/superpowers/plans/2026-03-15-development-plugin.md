@@ -93,8 +93,9 @@ Complete these steps after installing the `development` plugin:
 
 **1. Add the official Anthropic marketplace** (skip if already added):
 ```
-/plugin marketplace add anthropics/claude-plugins-official
+/plugin marketplace add <anthropic-official-repo>
 ```
+> ⚠️ The exact GitHub repo path for `claude-plugins-official` needs to be verified before this skill is finalised. Check Claude Code documentation or run `/plugin marketplace list` to see if it's already registered.
 
 **2. Install superpowers:**
 ```
@@ -140,7 +141,8 @@ Save to `plugins/development/skills/dev-setup/evals/evals.json`:
 
 Follow the skill-creator process:
 - Spawn with-skill and without-skill runs in parallel for all 3 prompts
-- While runs are in progress, draft assertions (the skill should output the `/plugin install` command clearly)
+- **Note:** `disable-model-invocation: true` means Claude will not auto-invoke this skill. Eval prompts must explicitly simulate invocation — phrase them as if the user typed `/dev:setup` or "run dev setup". The without-skill baseline should show Claude responding without the checklist content; the with-skill run should show the checklist displayed.
+- While runs are in progress, draft assertions (the skill should output the marketplace add and plugin install commands clearly)
 - Generate eval viewer: `python <skill-creator-path>/eval-viewer/generate_review.py <workspace>/iteration-1 --skill-name "dev-setup" --benchmark <workspace>/iteration-1/benchmark.json`
 - Review outputs and iterate until approved
 
@@ -630,9 +632,23 @@ rm -rf plugins/utils
 - [ ] **Step 3: Commit**
 
 ```bash
-git add -A
+git status
+git add .claude-plugin/marketplace.json plugins/git plugins/utils
 git commit -m "chore: delete git and utils plugins (migrated to development)"
 ```
+
+- [ ] **Step 4: Clean up stale `enabledPlugins` in global settings**
+
+`~/.claude/settings.json` contains `"utils@claude-code": true` which will be a dead reference after deletion. Update it:
+- Remove `"utils@claude-code": true`
+- Add `"development@claude-code": true`
+
+```bash
+# Verify current state first
+grep -E '"(utils|git|development)@claude-code"' ~/.claude/settings.json
+```
+
+Then edit `~/.claude/settings.json` manually.
 
 ---
 
