@@ -1,0 +1,20 @@
+{
+  "skill_name": "zed-task",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "add a zed task to run my tests with bun",
+      "expected_output": "Creates .zed/tasks.json with a test runner task using bun test, correct terminal settings"
+    },
+    {
+      "id": 2,
+      "prompt": "I want to be able to start my Next.js dev server from Zed",
+      "expected_output": "Detects Next.js project, creates dev server task with use_new_terminal: true"
+    },
+    {
+      "id": 3,
+      "prompt": "set up a format task for the current file using prettier",
+      "expected_output": "Creates formatter task with $ZED_FILE, reveal: never, allow_concurrent_runs: true"
+    }
+  ]
+}

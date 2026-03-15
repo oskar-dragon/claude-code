@@ -1,0 +1,37 @@
+{
+  "skill_name": "git-commit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "commit my changes",
+      "expected_output": "Runs git status/diff, stages files, writes a conventional commit message, commits without pushing",
+      "expectations": [
+        "A git commit was created in the repository",
+        "No git push was performed",
+        "The commit message follows conventional commits format (starts with feat:, fix:, chore:, docs:, refactor:, test:, or similar)",
+        "git status or git diff was examined before staging files"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I've updated the auth middleware and added some tests — can you commit this?",
+      "expected_output": "Reads diff, stages relevant files, writes a meaningful commit message describing the auth middleware change",
+      "expectations": [
+        "A git commit was created in the repository",
+        "No git push was performed",
+        "The commit message references the auth middleware or tests",
+        "Both the middleware file (middleware.js) and the test file (middleware.test.js) were staged"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "save my work",
+      "expected_output": "Recognises this as a commit request, stages and commits without pushing",
+      "expectations": [
+        "A git commit was created in the repository",
+        "No git push was performed",
+        "The agent interpreted 'save my work' as a request to commit (not just save files to disk)"
+      ]
+    }
+  ]
+}
