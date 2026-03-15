@@ -8,20 +8,10 @@
   },
   "plugins": [
     {
-      "name": "utils",
+      "name": "development",
       "version": "1.0.0",
-      "source": "./plugins/utils",
-      "description": "Utilities for Claude",
-      "category": "development",
-      "author": {
-        "name": "Oskar Dragon"
-      }
-    },
-    {
-      "name": "git",
-      "version": "1.0.2",
-      "source": "./plugins/git",
-      "description": "All git operations",
+      "source": "./plugins/development",
+      "description": "Core development skills — git workflows, Zed tasks, and dev environment setup",
       "category": "development",
       "author": {
         "name": "Oskar Dragon"
