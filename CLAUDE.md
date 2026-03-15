@@ -10,18 +10,16 @@ This is a personal marketplace of reusable Claude Code plugins. The repository c
 
 ```
 plugins/
-├── documentation/          # Diataxis framework implementation
-│   ├── agents/            # 12 specialized documentation agents
-│   └── commands/          # /doc:tutorial, /doc:howto, etc.
-├── git/                   # Git workflow automation
-│   └── commands/          # /commit, /commit-push-pr, /clean_gone
-├── utils/                 # Development utilities
-│   └── commands/          # /prompt-generator, /slash-command, /zed:task
-└── obsidian-location-notes/ # Location research for Obsidian
-    ├── agents/            # Research agents
-    ├── commands/          # /create command
-    ├── skills/            # Coordinate lookup, formatting
-    └── templates/         # Note templates
+├── development/            # Core dev skills (git workflows, Zed tasks, setup)
+│   └── skills/            # /git:commit, /git:commit-push-pr, /git:clean-gone, /zed:task, /dev:setup
+├── canary-update/          # Canary schema update automation
+├── chezmoi/                # Chezmoi dotfiles management
+├── markdown-new/           # Token-efficient web fetching via markdown.new
+├── notion-doc/             # Qogita Notion PRD generation
+├── obsidian-vault/         # Obsidian vault skills (recipes, MCPs)
+├── travel-planner/         # Trip planning with Obsidian integration
+├── tutor/                  # Personalised learning system
+└── vault-manager/          # Obsidian daily/weekly/monthly note management
 ```
 
 ## Plugin Architecture
@@ -58,9 +56,12 @@ Each plugin follows the Claude Code plugin structure:
 /plugin marketplace list
 
 # Install specific plugin
-/plugin install documentation@claude-code
-/plugin install git@claude-code
-/plugin install utils@claude-code
+/plugin install development@claude-code
+/plugin install chezmoi@claude-code
+/plugin install travel-planner@claude-code
+
+# After installing development, run once to install superpowers
+/dev:setup
 ```
 
 ## Development Workflow
@@ -132,37 +133,15 @@ skills/
 
 ## Plugin-Specific Notes
 
-### Documentation Plugin
+### Development Plugin
 
-Implements the Diataxis framework with four documentation types:
+Core development skills, all skill-based (no commands):
 
-- **Tutorials**: Learning-oriented, step-by-step for beginners
-- **How-tos**: Task-oriented guides for practitioners
-- **Explanations**: Understanding-oriented conceptual content
-- **Reference**: Information-oriented technical specifications
-
-Agents include: tutorial-writer, technical-writer, concept-explainer, api-documenter, documentation-reviewer, plus analysis agents (code-archaeologist, business-analyst, system-designer, test-generator, optimization-engineer, ux-optimizer).
-
-### Git Plugin
-
-Focused on git workflow automation:
-
-- `/commit`: Stage and commit changes
-- `/commit-push-pr`: Full workflow (branch, commit, push, PR)
-- `/clean_gone`: Remove local branches deleted on remote
-
-Uses dynamic context injection to read git status, diffs, and templates.
-
-### Obsidian Location Notes Plugin
-
-Specialized for travel research and Obsidian note creation:
-
-- Research agents for accommodations, food, photos, general locations
-- Coordinate lookup via geolocation APIs
-- Obsidian-specific formatting (frontmatter, dataview syntax)
-- Template-based note generation
-
-Requires configuration in `.claude-location-notes.local.md` for API keys and vault paths.
+- `/dev:setup`: Run once after install — installs superpowers (`disable-model-invocation: true`)
+- `/git:commit`: Stage and commit changes
+- `/git:commit-push-pr`: Full workflow (branch, commit, push, PR)
+- `/git:clean-gone`: Remove local branches deleted on remote
+- `/zed:task`: Generate Zed task configuration
 
 ## Important Conventions
 

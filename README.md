@@ -4,9 +4,9 @@ A personal marketplace of reusable Claude Code plugins for systematic developmen
 
 ## Features
 
-- **Documentation Generation**: Diataxis framework implementation with specialized agents for creating tutorials, how-tos, references, and explanations
-- **Git Workflow Automation**: Streamlined commands for commits, PRs, and branch management
-- **Code Quality Tools**: Specialized review agents for comprehensive code analysis
+- **Development Skills**: Git workflow automation, Zed task generation, and dev environment setup via `/dev:setup`
+- **Travel Planning**: Trip research, itineraries, budgets, and Obsidian note generation
+- **Obsidian Integration**: Vault management, recipes, daily/weekly/monthly notes
 - **Extensible Architecture**: Modular plugin system with agents, commands, and skills
 
 ## Installation
@@ -26,37 +26,63 @@ Verify installation:
 Install plugins:
 
 ```shell
-/plugin install epcc-workflow@claude-code
-/plugin install git@claude-code
-/plugin install documentation@claude-code
-/plugin install pr-review@claude-code
+/plugin install development@claude-code
+/plugin install travel-planner@claude-code
+/plugin install chezmoi@claude-code
+/plugin install obsidian-vault@claude-code
+```
+
+After installing `development`, run once to set up superpowers:
+
+```shell
+/dev:setup
 ```
 
 ## Available Plugins
 
-### Documentation
+### Development
 
-Diataxis framework implementation with agents for tutorials, how-tos, references, and explanations.
+Core development skills — git workflows (`/git:commit`, `/git:commit-push-pr`, `/git:clean-gone`), Zed task generation (`/zed:task`), and superpowers setup (`/dev:setup`).
 
-**[View Documentation](plugins/documentation/README.md)**
+### Travel Planner
 
-### Git Operations
+Trip planning with Obsidian integration — brainstorming, itineraries, location/country/region notes, budgets, and packing lists.
 
-Streamlined git commands for committing, pushing, creating PRs, and branch cleanup.
+**[View Documentation](plugins/travel-planner/README.md)**
 
-**[View Documentation](plugins/git/README.md)**
+### Chezmoi
 
-### Obsidian Location Notes
+Dotfiles management reference knowledge and dependency workflows.
 
-[TODO]
+**[View Documentation](plugins/chezmoi/README.md)**
 
-**[View Documentation](plugins/obsidian-location-notes/README.md)**
+### Obsidian Vault
 
-### Utils
+Obsidian vault skills including recipe creation and MCP integrations (Todoist, Raindrop).
 
-Specialized review agents for comments, tests, error handling, type design, and code quality analysis.
+### Vault Manager
 
-**[View Documentation](plugins/pr-review/README.md)**
+Daily, weekly, monthly note management and Todoist workflow for Obsidian.
+
+### Canary Update
+
+Automates canary-types schema updates and propagates changes across the codebase.
+
+**[View Documentation](plugins/canary-update/README.md)**
+
+### Notion Doc
+
+Generate Qogita project documents from design docs following the Notion PRD template.
+
+### Tutor
+
+Personalised learning system with adaptive tutoring, course creation, and progress tracking.
+
+**[View Documentation](plugins/tutor/README.md)**
+
+### Markdown New
+
+Token-efficient web content fetching via markdown.new, reducing token usage by ~80% compared to raw HTML.
 
 ## Other plugins I use
 
@@ -64,4 +90,3 @@ Specialized review agents for comments, tests, error handling, type design, and 
 - [PR Review Toolkit](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/pr-review-toolkit)
 - [Feature Dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev)
 
-- DUPA JASIA
