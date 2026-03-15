@@ -83,10 +83,3 @@ Personalised learning system with adaptive tutoring, course creation, and progre
 ### Markdown New
 
 Token-efficient web content fetching via markdown.new, reducing token usage by ~80% compared to raw HTML.
-
-## Other plugins I use
-
-- [Plugin Dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/plugin-dev)
-- [PR Review Toolkit](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/pr-review-toolkit)
-- [Feature Dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev)
-
