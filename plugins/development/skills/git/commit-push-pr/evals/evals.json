@@ -1,0 +1,41 @@
+{
+  "skill_name": "git-commit-push-pr",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm done with this feature, create a PR",
+      "expected_output": "Commits, pushes, and creates a PR with a meaningful description",
+      "assertions": [
+        "A git commit is created with a meaningful commit message",
+        "The branch is pushed to origin",
+        "A pull request is created using gh pr create",
+        "If the current branch is main or master, a new branch is created before committing",
+        "The PR description uses bullet points and explains why, not just what"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "commit push and open a pull request",
+      "expected_output": "Full workflow: branch check, commit, push, PR creation",
+      "assertions": [
+        "A git commit is created with a meaningful commit message",
+        "The branch is pushed to origin",
+        "A pull request is created using gh pr create",
+        "If the current branch is main or master, a new branch is created before committing",
+        "The PR description uses bullet points and explains why, not just what"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "ship it",
+      "expected_output": "Recognises as a commit+push+PR request and runs the full workflow",
+      "assertions": [
+        "A git commit is created with a meaningful commit message",
+        "The branch is pushed to origin",
+        "A pull request is created using gh pr create",
+        "If the current branch is main or master, a new branch is created before committing",
+        "The PR description uses bullet points and explains why, not just what"
+      ]
+    }
+  ]
+}
