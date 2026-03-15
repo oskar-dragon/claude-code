@@ -26,7 +26,8 @@ If no argument provided, ask: "What idea or topic would you like to trace?"
 ### 1. Synonym Discovery
 
 Start by understanding the concept's vocabulary:
-- mcp__qmd__search for the topic to find related notes
+
+- mcp**qmd**search for the topic to find related notes
 - Read the 3-5 most relevant results
 - Extract 3-5 alternative terms, phrasings, and related concepts the user uses
 
@@ -35,7 +36,8 @@ Build a synonym set: `[original term, synonym1, synonym2, synonym3, ...]`
 ### 2. Broad Search
 
 Search the entire vault — notes, journal entries, references — with all synonyms:
-- mcp__qmd__deep_search for the original topic (multi-strategy comprehensive search)
+
+- mcp**qmd**deep_search for the original topic (multi-strategy comprehensive search)
 - Grep for each synonym across vault root and Journal/ (to catch mentions deep in note content)
 - Glob Journal/ for date-ordered entries, check each for topic mentions
 
@@ -44,6 +46,7 @@ Collect all mentions with: file path, date (from filename or properties), excerp
 ### 3. Follow the Graph
 
 For each note that meaningfully engages with the topic:
+
 - Read its backlinks: Grep for `[[note title]]` across the vault
 - Follow 2-3 hops to find:
   - Notes that influenced this thinking (cited or linked sources)
@@ -53,11 +56,13 @@ For each note that meaningfully engages with the topic:
 ### 4. Build the Timeline
 
 Organise all findings chronologically:
+
 - Journal entries: use filename date (YYYY-MM-DD HHmm)
 - Notes: use `created:` property if present, else modification time
 - References: use `created:` property
 
 For each point in the timeline, record:
+
 ```
 Date: [date]
 Context: [what was happening — other notes created around same time, project context]
@@ -77,6 +82,7 @@ Synthesise the timeline into an arc:
 **Current position**: Where does the vault leave things — resolved, open, evolved into something else?
 
 **Evolution pattern** (choose the closest match):
+
 - **Linear deepening**: same direction, progressively refined
 - **Pivot**: clear break — thinking reversed or significantly redirected
 - **Convergence**: separate threads that gradually merged into one position
@@ -87,6 +93,7 @@ Synthesise the timeline into an arc:
 ### 6. Surface Tensions
 
 Look for:
+
 - Contradictions between entries at different dates
 - Questions asked early that were never answered
 - Positions taken and then quietly abandoned

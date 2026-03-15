@@ -34,6 +34,7 @@ Work through each step. Wait for user responses before moving on.
 ### Step 1: Clear Todoist Inbox
 
 Find tasks with no project (inbox items):
+
 - find-tasks with filter "no project"
 
 Present inbox items and for each, ask: "What is it? What do you have to do? When are you going to do it?"

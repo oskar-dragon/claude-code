@@ -27,19 +27,23 @@ Review every active goal with evidence from the vault and Todoist. The AI presen
 ### 2. For Each Goal, Gather Evidence
 
 **Related projects:**
+
 - Grep for project notes with `topics:` containing the goal name (wikilink)
 - Read their status and Project Goal section
 
 **Todoist tasks:**
+
 - find-tasks with text search for the goal name (to find related tasks)
 - find-completed-tasks for past 30 days filtered to related tasks
 - Note: recurring tasks indicate habit establishment
 
 **Journal mentions:**
-- mcp__qmd__search for the goal name and related terms
+
+- mcp**qmd**search for the goal name and related terms
 - Look for: recency (when last mentioned), energy (enthusiasm vs dread), frequency (how often it comes up)
 
 **Vault activity:**
+
 - Note how much note-taking activity the goal has generated in the past 30 days
 
 ### 3. Assess and Present Each Goal
@@ -81,6 +85,7 @@ Wait for user responses before moving to the next goal.
 For goals assessed as Stalled:
 
 > "This goal hasn't had activity in [N] weeks. The Why was: [why from goal note]. Is the Why still strong enough? Would you like to:
+>
 > - Refocus: recommit and set a specific next action
 > - Adjust: change the goal's scope or approach
 > - Drop: archive it — it's OK if priorities change"

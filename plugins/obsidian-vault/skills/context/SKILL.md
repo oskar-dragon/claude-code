@@ -19,16 +19,19 @@ Build a comprehensive picture of the user's current state before beginning any w
 ### 1. Read Vault Structure (parallel)
 
 **Areas of Focus:**
+
 - Read `Categories/Areas.md` and any linked area notes
 - These are the high-level life categories: Family/Relationships, Career, Finances, Health & Fitness, Spirituality, Lifestyle, Personal Development
 
 **Active Goals:**
+
 - Grep vault root for notes where frontmatter contains `categories:` with `[[Goals]]`
 - Filter to `done: false` or empty `done:`
 - Read each goal's What/Why sections (skip How for brevity)
 - Note which Area of Focus each connects to via `topics` property
 
 **Active Projects:**
+
 - Grep vault root for notes where frontmatter contains `categories:` with `[[Projects]]`
 - Include: status empty, missing, or `[[Active]]`
 - Exclude: `[[Completed]]`, `[[On Hold]]`, Archived
@@ -37,13 +40,16 @@ Build a comprehensive picture of the user's current state before beginning any w
 ### 2. Read Current State (parallel)
 
 **Todoist tasks:**
+
 - find-tasks-by-date with startDate "today", daysCount 3 (today + next 2 days)
 - Also find-tasks with filter "overdue"
 
 **Calendar:**
+
 - gcal_list_events for today + next 3 days
 
 **Recent journal entries:**
+
 - Glob Journal/ files from past 5-7 days
 - Read each entry
 - Extract: themes, current focus, recent decisions, open questions
@@ -67,10 +73,12 @@ Present a structured summary:
 End with: "Context loaded. What would you like to work on?"
 
 ## Output Rules
+
 - Terminal only. No vault changes.
 - Keep synthesis concise — this is orientation, not a report.
 - Lead with priorities, not exhaustive lists.
 - If a section has nothing noteworthy, skip it rather than saying "nothing here".
 
 ## Reference
+
 Vault structure, property system, and naming conventions are in the vault's CLAUDE.md (already loaded as project instructions).

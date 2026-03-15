@@ -23,22 +23,27 @@ Guide the user through a 10-15 minute end-of-day review and planning session. Th
 ## Phase 1: Process Today
 
 ### 1. Read Today's Journal Entries
-- Glob Journal/ files matching today's date pattern (YYYY-MM-DD*.md)
+
+- Glob Journal/ files matching today's date pattern (YYYY-MM-DD\*.md)
 - Read all entries from today
 
 ### 2. Extract Action Items
+
 From the journal entries, find:
+
 - **Tasks mentioned or implied**: "I need to...", "TODO", "follow up on...", "should...", "must..."
 - **Commitments made**: "I told X I'd...", "promised to...", "said I would..."
 - **Ideas worth capturing**: new frameworks, insights, original thoughts worth a standalone note
 - **Open questions**: unresolved questions, things still unclear
 
 ### 3. Check Email Inbox
+
 - Use gmail_search_messages with query "is:unread newer_than:1d" to find action-required emails from the last 24 hours
 - Scan subject lines and senders for anything that needs a response or action
 - Note action items from emails
 
 ### 4. Present Findings
+
 Present what you found:
 
 ```
@@ -58,6 +63,7 @@ Wait for user confirmation before proceeding.
 ## Phase 2: File Extracted Items (with approval)
 
 ### 5. Process Tasks
+
 Present the task list and ask:
 
 ```
@@ -70,6 +76,7 @@ Want me to add them to Todoist? (You can exclude any or adjust the wording)
 Wait for approval. Only add tasks that are explicitly approved. When approved, add to Todoist with appropriate project/label if inferable from context.
 
 ### 6. Flag Graduate Candidates
+
 If any ideas look like they could become standalone notes, flag them — but don't create them now:
 
 ```
@@ -78,6 +85,7 @@ These ideas might be worth graduating to standalone notes (we can do that separa
 ```
 
 ### 7. Suggest Backlinks
+
 For today's journal entries, identify terms that could link to existing vault notes. Present suggestions and offer to apply:
 
 ```
@@ -93,11 +101,13 @@ Apply only approved links using Edit.
 ## Phase 3: Plan Tomorrow (2+8 Method)
 
 ### 8. Read Tomorrow's State
+
 - gcal_list_events for tomorrow
 - find-tasks-by-date with startDate: tomorrow's date
 - find-tasks with filter "overdue"
 
 ### 9. Present Tomorrow's Plate
+
 Show what's on tomorrow:
 
 ```
@@ -116,10 +126,12 @@ Tomorrow — [day, date]:
 ### 10. Recommend 2+8
 
 Apply the 2+8 method:
+
 - **2 Must-Complete**: tasks that, if not done, block others / have hard deadlines / compound negatively if delayed
 - **8 Should-Do**: important but can reschedule if needed
 
 Selection criteria:
+
 - Does missing this block someone else?
 - Is there a hard external deadline?
 - Does delaying make it harder/worse?
@@ -143,13 +155,16 @@ Does this prioritisation look right? Want to adjust anything?
 Wait for approval/adjustments.
 
 ### 11. Execute Approved Changes
+
 After approval, offer to:
+
 - Reschedule/move tasks in Todoist as agreed (with explicit confirmation per change)
 - Note any tasks being deprioritised
 
 ## Phase 4: Carry Forward
 
 ### 12. Summary
+
 Close with:
 
 ```

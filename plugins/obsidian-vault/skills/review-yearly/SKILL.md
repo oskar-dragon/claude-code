@@ -17,6 +17,7 @@ Guide the user through a yearly review. If monthly reviews have been consistent,
 ## Phase 1: Create the Review Note
 
 Use the `obsidian:obsidian-cli` skill to create the yearly review note:
+
 - Name: `YYYY Yearly Review.md` (e.g., `2026 Yearly Review.md`)
 - Template: Yearly Review Template
 - The template embeds `![[Reviews.base#Yearly]]` which pulls in that year's monthly reviews
@@ -95,6 +96,7 @@ Work through these questions collaboratively, one at a time. Wait for responses.
 ### Projects
 
 "Any projects to start, stop, or continue?
+
 - **Start**: new projects you're committing to
 - **Stop**: projects to drop or archive
 - **Continue**: projects carrying over"

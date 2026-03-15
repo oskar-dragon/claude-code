@@ -55,7 +55,7 @@ Wait for user's response via AskUserQuestion before proceeding.
 For each orphan note that contains actual content (skip stubs, skeletons, empty notes):
 
 1. Read the note's title and first 2-3 sections
-2. mcp__qmd__vector_search for semantically similar content
+2. mcp**qmd**vector_search for semantically similar content
 3. Identify nearest content cluster (what area of the vault this note belongs to)
 4. Find the best 2-3 link candidates (existing notes that should reference this orphan)
 
@@ -68,7 +68,7 @@ For unresolved links appearing 3+ times across the vault:
 
 ### Thematic Overlaps
 
-- mcp__qmd__search for themes shared across disconnected clusters
+- mcp**qmd**search for themes shared across disconnected clusters
 - Look for notes in different areas that develop the same idea without linking
 
 ## Phase 3: Score and Recommend
@@ -105,18 +105,22 @@ Collect the user's decision before proceeding.
 For each approved connection:
 
 **Adding links to existing notes:**
+
 - Read the target note
 - Find the semantically appropriate location (not just appended at the bottom — find the relevant section or paragraph)
 - Use Edit to add the `[[wikilink]]` in context
 
 **Creating stub notes:**
+
 - Create a minimal file with just:
+
   ```
   # [Term]
 
   ## Related
   [links to notes that reference this stub]
   ```
+
 - Place in vault root (or appropriate category folder if obvious)
 
 ### Report

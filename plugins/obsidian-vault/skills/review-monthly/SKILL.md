@@ -33,6 +33,7 @@ Work through each step collaboratively. These are the same steps as review-weekl
 ### Step 1: Clear Todoist Inbox
 
 Find tasks with no project (inbox items):
+
 - find-tasks with filter "no project"
 
 Present inbox items and for each, ask: "What is it? What do you have to do? When are you going to do it?"
@@ -91,6 +92,7 @@ Collect all decisions before applying.
 ### Step 7: Areas of Focus Check (conditional)
 
 Check when the last yearly review was:
+
 - Glob for `*Yearly Review.md` files in vault root
 - Find the most recent one
 - If more than 3 months ago (or none found), prompt:
@@ -98,6 +100,7 @@ Check when the last yearly review was:
 > "It's been a while since you reviewed your Areas of Focus. Want to check if they're still balanced and getting attention? (This is a quick reflection, not a full yearly review.)"
 
 If user says yes:
+
 - Read `Categories/Areas.md` and any linked notes
 - For each area, ask: "Is this area getting the attention it deserves?"
 
@@ -131,6 +134,7 @@ For each section, prompt with relevant data:
 Wait for user input, append to note.
 
 **What went well this month:**
+
 - Glob Journal/ files from this past month (past 30 days)
 - Scan for positive patterns, completed goals, things that clicked
 - Prompt: "Looking at what you completed this month and your journal entries, what stands out as going well?"
@@ -144,6 +148,7 @@ Present the incomplete tasks from Step 3:
 Wait for user input, append to note.
 
 **Patterns and Observations:**
+
 - Glob `*Weekly Review.md` files from this month in vault root
 - Read "Observations" sections from each weekly review
 - Extract recurring themes
@@ -156,6 +161,7 @@ For each reflection, suggest linking to relevant Goals or Areas with `[[Name]]` 
 ## Phase 5: Propose and Execute Changes
 
 1. Collect all pending Todoist changes from Steps 1, 3, and 4:
+
    ```
    Proposed changes:
    - Move [task] to next month (due: [date])
@@ -172,6 +178,7 @@ For each reflection, suggest linking to relevant Goals or Areas with `[[Name]]` 
 
 1. Confirm review note is saved with all sections complete
 2. Summary:
+
    ```
    Month reviewed. Note saved: [note name].
 
