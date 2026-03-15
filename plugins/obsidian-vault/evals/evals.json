@@ -45,6 +45,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "close-day",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "close day",
+          "expected_output": "Runs full end-of-day ritual: reads today's journal entries, extracts tasks/commitments, checks email, presents findings for approval, files items to Todoist only with approval, then plans tomorrow with 2+8 method",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "plan tomorrow",
+          "expected_output": "Triggers the close-day skill. Reads tomorrow's calendar and Todoist tasks, recommends 2 must-dos and 8 should-dos with reasoning, waits for user approval before making any changes",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "end of day",
+          "expected_output": "Same as 'close day' — triggers full ritual. Should be collaborative not monologue, approval-gated at each step",
+          "files": []
+        }
+      ]
     }
   ]
 }
