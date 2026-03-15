@@ -252,6 +252,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "emerge",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "emerge",
+          "expected_output": "Runs all 4 detection methods (structural, thematic, behavioral, convergence) on past 90 days of journals + evergreen notes. Applies fabrication check on each finding. Presents emergences with confidence levels, evidence, and what-to-do suggestions. Ends with meta-emergence synthesis if applicable.",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "what am I not seeing",
+          "expected_output": "Triggers emerge skill. Focuses on surfacing implicit patterns rather than stated ideas. Should pass fabrication check on all findings.",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "emerge career",
+          "expected_output": "Focuses detection on career domain. Finds emerging patterns in career-related notes, journal entries, and goals that haven't been explicitly stated.",
+          "files": []
+        }
+      ]
     }
   ]
 }
