@@ -79,25 +79,34 @@ git commit -m "feat(development): scaffold plugin structure"
 
 Use the `@superpowers:skill-creator` skill. Provide this context:
 
-> I want to create a skill called `dev-setup`. It should be invoked manually by the user (never by Claude automatically — it must have `disable-model-invocation: true`). When invoked as `/dev:setup`, it instructs the user to run `/plugin install superpowers@claude-plugins-official`. This is a one-time setup step after installing the `development` plugin. The skill body should be short and direct — just tell the user what to run and why (superpowers is a dependency that can't be auto-installed by the plugin system).
+> I want to create a skill called `dev-setup`. It must have `disable-model-invocation: true` — it is only ever invoked manually by the developer, never by Claude. When invoked as `/dev:setup`, it displays a human-readable onboarding checklist of manual steps the developer needs to complete after installing the `development` plugin. The primary step is installing superpowers, which cannot be auto-installed. The skill should be short, clear, and checklist-style — no automation, just instructions.
 
 - [ ] **Step 2: Confirm draft SKILL.md with this initial structure**
 
 ```markdown
 ---
-description: One-time setup after installing the development plugin — installs superpowers
+description: One-time developer setup after installing the development plugin. Shows manual steps required to complete the installation.
 disable-model-invocation: true
 ---
 
-The `development` plugin depends on [superpowers](https://github.com/anthropics/claude-plugins-official), which must be installed separately.
+Complete these steps after installing the `development` plugin:
 
-Run this now:
+**1. Add the official Anthropic marketplace** (skip if already added):
+```
+/plugin marketplace add anthropics/claude-plugins-official
+```
 
+**2. Install superpowers:**
 ```
 /plugin install superpowers@claude-plugins-official
 ```
 
-Once installed, all development skills will have access to the full superpowers workflow (brainstorming, TDD, debugging, etc.).
+**3. Verify everything is installed:**
+```
+/plugin list
+```
+
+Once superpowers is installed, all development skills have access to the full superpowers workflow (TDD, brainstorming, debugging, etc.).
 ```
 
 - [ ] **Step 3: Write evals.json**
@@ -111,17 +120,17 @@ Save to `plugins/development/skills/dev-setup/evals/evals.json`:
     {
       "id": 1,
       "prompt": "I just installed the development plugin from the claude-code marketplace. What do I need to do to finish setting it up?",
-      "expected_output": "Instructs the user to run /plugin install superpowers@claude-plugins-official"
+      "expected_output": "Displays a clear checklist: add anthropics/claude-plugins-official marketplace, then install superpowers"
     },
     {
       "id": 2,
       "prompt": "run dev setup",
-      "expected_output": "Displays the /plugin install superpowers@claude-plugins-official command clearly"
+      "expected_output": "Shows the onboarding checklist with all required manual steps including /plugin marketplace add and /plugin install commands"
     },
     {
       "id": 3,
       "prompt": "I installed development@claude-code but the /git:commit skill doesn't seem to know about TDD or superpowers. How do I fix this?",
-      "expected_output": "Guides the user to install superpowers as a separate step"
+      "expected_output": "Displays the setup checklist guiding the developer to install superpowers manually"
     }
   ]
 }
