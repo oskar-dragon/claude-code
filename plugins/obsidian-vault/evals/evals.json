@@ -137,6 +137,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "review-monthly",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "monthly review",
+          "expected_output": "Creates monthly review note via obsidian-cli, runs weekly review steps scoped to the month (inbox, month calendar, incomplete tasks, upcoming tasks), suggests goal-review, audits ALL projects including on-hold, optionally checks Areas of Focus, appends reflection sections. All Todoist changes approval-gated.",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "monthly planning",
+          "expected_output": "Same as monthly review — creates note, full review process, goal-review suggestion, project audit",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "review the month",
+          "expected_output": "Triggers review-monthly skill. Should create the note first, then work through each step collaboratively waiting for user input",
+          "files": []
+        }
+      ]
     }
   ]
 }
