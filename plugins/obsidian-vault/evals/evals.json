@@ -1,0 +1,27 @@
+{
+  "evals": [
+    {
+      "skill_name": "today",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "what's on today?",
+          "expected_output": "Shows calendar events and Todoist tasks for today in a concise format, checks yesterday's journal for carry-forward items",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "morning briefing",
+          "expected_output": "Same as above — concise daily orientation with calendar, tasks, and any carry-forward",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "today",
+          "expected_output": "Triggers the skill and shows today's overview. Should be short and scannable, not a lengthy report",
+          "files": []
+        }
+      ]
+    }
+  ]
+}
