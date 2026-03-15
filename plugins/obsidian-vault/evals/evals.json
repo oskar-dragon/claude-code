@@ -114,6 +114,29 @@
           "files": []
         }
       ]
+    },
+    {
+      "skill_name": "drift",
+      "tests": [
+        {
+          "id": 1,
+          "prompt": "drift",
+          "expected_output": "Reads active goals/projects/areas, gathers actual behaviour from Todoist completed tasks, calendar, and journal, presents alignment table with 1-10 scores, avoidance patterns with evidence, and one recommendation per drift item",
+          "files": []
+        },
+        {
+          "id": 2,
+          "prompt": "am I on track",
+          "expected_output": "Triggers drift skill. Focuses on alignment between stated goals and actual actions over past 30 days",
+          "files": []
+        },
+        {
+          "id": 3,
+          "prompt": "what am I avoiding",
+          "expected_output": "Triggers drift skill. Should surface avoidance patterns with evidence (task recurrence, journal mentions, low completion rates) and classify as active vs passive avoidance",
+          "files": []
+        }
+      ]
     }
   ]
 }
