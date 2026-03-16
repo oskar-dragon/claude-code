@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "development",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "source": "./plugins/development",
       "description": "Core development skills — git workflows, Zed tasks, and dev environment setup",
       "category": "development",
